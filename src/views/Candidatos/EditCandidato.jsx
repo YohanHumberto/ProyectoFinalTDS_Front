@@ -1,13 +1,12 @@
 import { Button, Col, FormGroup, Input, Modal, Row, } from "reactstrap";
 import { DataContext } from "../../context/GlobalContext.js";
 import { useContext, useEffect, useState } from "react";
-import { Navigate, useNavigation } from "react-router-dom";
 
-const initialValuePartido = { nombre: "", apellido: "", apodo: "", cedula: "", idCargoElectoral: "", idPartido: "", fotoUrl: "" };
+const initialValuePartido = { nombre: "", apellido: "", apodo: "sassfa", cedula: "", idCargoElectoral: "", idPartido: "", fotoUrl: "" };
 
 const EditCandidato = ({ stateprop, id, setEditModal }) => {
 
-    const { agregarCandidato, partidos, candidatos, cargarPartidos, cargosElectorales, cargarCargosElectorales } = useContext(DataContext);
+    const { editarCandidato, partidos, candidatos, cargarPartidos, cargosElectorales, cargarCargosElectorales } = useContext(DataContext);
     const [state, setState] = useState({ exampleModal: stateprop });
     const [candidato, setCandidato] = useState(initialValuePartido);
 
@@ -19,8 +18,17 @@ const EditCandidato = ({ stateprop, id, setEditModal }) => {
     useEffect(() => {
         setState({ exampleModal: stateprop })
         let candidatoFinded = candidatos.find(item => item.id == id);
-        console.log(candidatoFinded)
-        if (candidatoFinded) setCandidato(candidatoFinded);
+        if (candidatoFinded)
+            setCandidato({
+                id: candidatoFinded.id,
+                nombre: candidatoFinded.nombre,
+                apellido: candidatoFinded.apellido,
+                apodo: candidatoFinded.apodo,
+                cedula: candidatoFinded.cedula,
+                idCargoElectoral: candidatoFinded.cargoElectoral.id,
+                idPartido: candidatoFinded.partido.id,
+                fotoUrl: candidatoFinded.fotoUrl
+            });
     }, [stateprop]);
 
     const toggleModal = (param) => {
@@ -30,8 +38,8 @@ const EditCandidato = ({ stateprop, id, setEditModal }) => {
 
     const HandleSumbit = (e) => {
         e.preventDefault();
-        if (candidato.nombre != "" && candidato.apellido == "" && candidato.apodo == "" && candidato.cedula == "" && candidato.idCargoElectoral == "" && candidato.idPartido == "" && candidato.fotoUrl == "") {
-            agregarCandidato(candidato);
+        if (candidato.nombre != "" && candidato.apellido != "" && candidato.cedula != "" && candidato.idCargoElectoral != "" && candidato.idPartido != "" && candidato.fotoUrl != "") {
+            editarCandidato(candidato);
             setCandidato(initialValuePartido)
             setState(false);
         }
@@ -39,14 +47,6 @@ const EditCandidato = ({ stateprop, id, setEditModal }) => {
 
     return (
         <>
-            <Button
-                color="info"
-                type="button"
-                onClick={() => toggleModal("exampleModal")}
-            >
-                AGREGAR
-            </Button>
-
             <Modal
                 className="modal-dialog-centered"
                 isOpen={state.exampleModal}
@@ -97,7 +97,7 @@ const EditCandidato = ({ stateprop, id, setEditModal }) => {
                             <select className={"form-control " + (candidato.idCargoElectoral == "" ? "is-invalid" : "is-valid")}
                                 onChange={(e) => setCandidato({ ...candidato, idCargoElectoral: e.target.value })} value={candidato.idCargoElectoral} >
                                 <option value="">Seleccione un cargo electoral</option>
-                                {cargosElectorales.map(cargo => <option key={cargo.id} value={cargo.id}>{cargo.nombre}</option>)}
+                                {cargosElectorales.map(cargo => <option key={cargo.id} defaultValue={candidato.idCargoElectoral} value={cargo.id}>{cargo.nombre}</option>)}
                             </select>
                         </FormGroup>
                         <FormGroup className="">
@@ -105,7 +105,7 @@ const EditCandidato = ({ stateprop, id, setEditModal }) => {
                             <select className={"form-control " + (candidato.idPartido == "" ? "is-invalid" : "is-valid")}
                                 onChange={(e) => setCandidato({ ...candidato, idPartido: e.target.value })} value={candidato.idPartido} >
                                 <option value="">Seleccione un partido</option>
-                                {partidos.map(partido => <option key={partido.id} value={partido.id}>{partido.nombre}</option>)}
+                                {partidos.map(partido => <option key={partido.id} defaultValue={candidato.idPartido} value={partido.id}>{partido.nombre}</option>)}
                             </select>
                         </FormGroup>
                         <FormGroup className="">

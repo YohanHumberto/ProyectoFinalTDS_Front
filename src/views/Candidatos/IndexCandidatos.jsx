@@ -78,8 +78,8 @@ const IndexCandidatos = () => {
                             </Media>
                           </th>
                           <td>{item.nombre}{item.apellido}</td>
-                          <td>{item.cargoElectoral}</td>
-                          <td>{item.partido}</td>
+                          <td>{item.cargoElectoral.nombre}</td>
+                          <td>{item.partido.nombre}</td>
                           <td>{item.cedula}</td>
                           <td className="text-right">
                             <UncontrolledDropdown>
