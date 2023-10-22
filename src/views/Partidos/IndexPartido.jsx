@@ -11,11 +11,9 @@ import {
   Pagination,
   PaginationItem,
   PaginationLink,
-  Progress,
   Table,
   Container,
   Row,
-  UncontrolledTooltip,
 } from "reactstrap";
 // core components
 import Header from "../../components/Headers/Header.js";
@@ -23,6 +21,7 @@ import { DataContext } from "../../context/GlobalContext.js";
 import { useContext, useEffect, useState } from "react";
 import Create from "./Create.jsx";
 import Edit from "./Edit.jsx";
+import Loader from '../../components/Loaders/Loader.jsx';
 
 const IndexPartido = () => {
 
@@ -34,11 +33,12 @@ const IndexPartido = () => {
   }
 
   useEffect(() => {
-    cargarPartidos();
+      cargarPartidos();
   }, []);
 
   return (
     <>
+      {partidos.length < 1 && <Loader />}
       <Header />
       <Container className="mt--7" fluid>
         <Row>

@@ -23,6 +23,7 @@ import { DataContext } from "../../context/GlobalContext.js";
 import { useContext, useEffect, useState } from "react";
 import CreateCandidato from "./CreateCandidato.jsx";
 import EditCandidato from "./EditCandidato.jsx";
+import Loader from "../../components/Loaders/Loader.jsx";
 
 const IndexCandidatos = () => {
 
@@ -39,6 +40,7 @@ const IndexCandidatos = () => {
 
   return (
     <>
+      {candidatos.length < 1 && <Loader />}
       <Header />
       <Container className="mt--7" fluid>
         <Row>

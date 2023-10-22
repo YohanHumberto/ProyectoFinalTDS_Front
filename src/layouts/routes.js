@@ -6,16 +6,6 @@ import IndexElecciones from "../views/Elecciones/IndexElecciones.jsx";
 
 var routes = [
   {
-    path: "/login",
-    name: "Login votante",
-    icon: "ni ni-tv-2 text-primary",
-  },
-  {
-    path: "/loginadmin",
-    name: "Login admin",
-    icon: "ni ni-tv-2 text-primary",
-  },
-  {
     path: "/index",
     name: "Dashboard",
     icon: "ni ni-tv-2 text-primary",

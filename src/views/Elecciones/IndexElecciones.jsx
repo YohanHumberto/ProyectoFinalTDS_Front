@@ -18,6 +18,7 @@ import Header from "../../components/Headers/Header.js";
 import { DataContext } from "../../context/GlobalContext.js";
 import { useContext, useEffect } from "react";
 import CreateEleccion from "./CreateElecciones.jsx";
+import Loader from "../../components/Loaders/Loader.jsx";
 
 const IndexElecciones = () => {
 
@@ -29,6 +30,7 @@ const IndexElecciones = () => {
 
     return (
         <>
+              {elecciones.length < 1 && <Loader />}
             <Header />
             <Container className="mt--7" fluid>
                 <Row>

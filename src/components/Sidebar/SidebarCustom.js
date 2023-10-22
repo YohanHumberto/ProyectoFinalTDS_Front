@@ -162,7 +162,7 @@ const Sidebar = (props) => {
           </UncontrolledDropdown>
         </Nav>
         {/* Collapse */}
-        <Collapse navbar isOpen={collapseOpen}>       
+        <Collapse navbar isOpen={collapseOpen}>
           {/* Collapse header */}
           <div className="navbar-collapse-header d-md-none">
             <Row>
@@ -208,7 +208,21 @@ const Sidebar = (props) => {
             </InputGroup>
           </Form>
           {/* Navigation */}
-          <Nav navbar>{createLinks(routes)}</Nav>
+          <Nav navbar>
+            <NavItem>
+              <NavLink to="/login" tag={NavLinkRRD}>
+                <i className="ni ni-tv-2 text-primary" />
+                Login votante
+              </NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink to="/loginadmin" tag={NavLinkRRD}>
+                <i className="ni ni-tv-2 text-primary" />
+                Login admin
+              </NavLink>
+            </NavItem>
+            {createLinks(routes)}
+          </Nav>
           {/* Divider */}
           <hr className="my-3" />
           {/* Heading */}

@@ -20,6 +20,7 @@ import { DataContext } from "../../context/GlobalContext.js";
 import { useContext, useEffect, useState } from "react";
 import CreateCandidatura from "./CreateCandidatura.jsx";
 import EditCandidatura from "./EditCandidatura.jsx";
+import Loader from "../../components/Loaders/Loader.jsx";
 
 const IndexCandidatura = () => {
 
@@ -36,6 +37,7 @@ const IndexCandidatura = () => {
 
     return (
         <>
+              {candidaturas.length < 1 && <Loader />}
             <Header />
             <Container className="mt--7" fluid>
                 <Row>
@@ -67,7 +69,7 @@ const IndexCandidatura = () => {
                                                         {item.id}
                                                     </th>
                                                     <th scope="row">
-                                                        {item.nivelElectoral}
+                                                        {item.nivelElectoral.nombre}
                                                     </th>
                                                     <td>{item.candidato?.nombre + item.candidato?.apellido}</td>
                                                     <td>{item.viceCandidato?.nombre + item.viceCandidato?.apellido}</td>
