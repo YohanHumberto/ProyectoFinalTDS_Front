@@ -3,8 +3,8 @@ class PartidoService {
         this.baseUrl = "https://www.automatizacionelectoral.somee.com/api/Partidos";
     }
 
-    async obtener() {
-        const res = await fetch(this.baseUrl);
+    async obtener(searchString = '') {
+        const res = await fetch(this.baseUrl + `?search=${searchString}`);
         return res.json();
     }
 

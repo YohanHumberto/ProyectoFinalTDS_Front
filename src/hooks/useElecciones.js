@@ -4,7 +4,7 @@ import { DataContextAlerts } from '../context/AlertContext';
 import useHookBase from './useHookBase';
 import useHandleStatusCode from '../helpers/HandleStatusCode';
 
-function useElecciones() {
+function useElecciones(setLoading) {
 
     const dataContextAlerts = useContext(DataContextAlerts);
     const { Danger } = dataContextAlerts;
@@ -25,7 +25,7 @@ function useElecciones() {
         }
     }
 
-    const { cargarDatos, agregar } = useHookBase(dataContextAlerts, service, setElecciones);
+    const { cargarDatos, agregar } = useHookBase(dataContextAlerts, service, setElecciones,setLoading);
 
     return (
         {

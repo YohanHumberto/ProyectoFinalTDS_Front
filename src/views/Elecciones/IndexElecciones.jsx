@@ -22,7 +22,7 @@ import Loader from "../../components/Loaders/Loader.jsx";
 
 const IndexElecciones = () => {
 
-    const { elecciones, cargarElecciones, agregarEleccion, asignarCandidatura } = useContext(DataContext);
+    const { loading, elecciones, cargarElecciones, agregarEleccion, asignarCandidatura } = useContext(DataContext);
 
     useEffect(() => {
         cargarElecciones();
@@ -30,7 +30,7 @@ const IndexElecciones = () => {
 
     return (
         <>
-              {elecciones.length < 1 && <Loader />}
+            {loading == true && <Loader />}
             <Header />
             <Container className="mt--7" fluid>
                 <Row>

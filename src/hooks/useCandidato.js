@@ -3,14 +3,14 @@ import CandidatoService from '../services/CandidatoService';
 import { DataContextAlerts } from '../context/AlertContext';
 import useHookBase from './useHookBase';
 
-function useCandidato() {
+function useCandidato(setLoading) {
 
     const dataContextAlerts = useContext(DataContextAlerts);
 
     let service = new CandidatoService();
     const [candidatos, setCandidatos] = useState([]);
 
-    const { cargarDatos, agregar, editar, eliminar } = useHookBase(dataContextAlerts, service, setCandidatos);
+    const { cargarDatos, agregar, editar, eliminar } = useHookBase(dataContextAlerts, service, setCandidatos, setLoading);
 
     return (
         {

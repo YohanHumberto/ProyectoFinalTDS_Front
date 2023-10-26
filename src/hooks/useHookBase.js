@@ -1,14 +1,16 @@
 import useHandleStatusCode from '../helpers/HandleStatusCode';
 
-function useHookBase({ Warning, Danger, Info, Success }, service, setData) {
+function useHookBase({ Warning, Danger, Info, Success }, service, setData, setLoading) {
 
     const { OnHandleStatusCode } = useHandleStatusCode();
 
-    const cargarDatos = async () => {
+    const cargarDatos = async (searchString = '') => {
         try {
-            var res = await service.obtener();
+            setLoading(true);
+            var res = await service.obtener(searchString);
             OnHandleStatusCode(res);
             setData(res.data);
+            setLoading(false);
         } catch (error) {
             console.log(error);
             Danger("Se ha presentado un error inesperado al cargar los datos, intentelo mas tarde.");
@@ -34,7 +36,7 @@ function useHookBase({ Warning, Danger, Info, Success }, service, setData) {
         } catch (error) {
             console.log(error);
             Danger("Se ha presentado un error inesperado al intentar procesar su solicitud.");
-        } 
+        }
     }
 
     const editar = async (entity) => {
@@ -45,7 +47,7 @@ function useHookBase({ Warning, Danger, Info, Success }, service, setData) {
             cargarDatos();
         } catch (error) {
             Danger("Se ha presentado un error inesperado al intentar procesar su solicitud.");
-        } 
+        }
     }
 
     const eliminar = async (id) => {
@@ -58,7 +60,7 @@ function useHookBase({ Warning, Danger, Info, Success }, service, setData) {
         } catch (error) {
             console.log(error);
             Danger("Se ha presentado un error inesperado al intentar procesar su solicitud.");
-        } 
+        }
     }
 
     return (

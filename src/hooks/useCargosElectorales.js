@@ -3,14 +3,14 @@ import { DataContextAlerts } from '../context/AlertContext';
 import useHookBase from './useHookBase';
 import CargosElectoralesService from '../services/CargosElectoralesService';
 
-function useCargosElectorales() {
+function useCargosElectorales(setLoading) {
 
     const dataContextAlerts = useContext(DataContextAlerts);
 
     let service = new CargosElectoralesService();
     const [cargosElectorales, setCargosElectorales] = useState([]);
 
-    const { cargarDatos, obtenerPorId } = useHookBase(dataContextAlerts, service, setCargosElectorales);
+    const { cargarDatos, obtenerPorId } = useHookBase(dataContextAlerts, service, setCargosElectorales,setLoading);
 
     return (
         {

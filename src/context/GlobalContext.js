@@ -1,4 +1,4 @@
-import React, { createContext } from 'react';
+import React, { createContext, useState } from 'react';
 import usePartido from '../hooks/usePartido';
 import useCandidatura from '../hooks/useCandidatura';
 import useCandidato from '../hooks/useCandidato';
@@ -10,13 +10,16 @@ const DataContext = createContext();
 
 function GlobalContext({ children }) {
 
-    const { partidos, cargarPartidos, agregarPartido, editarPartido, eliminarPartido } = usePartido();
-    const { candidaturas, cargarCandidaturas, agregarCandidatura, editarCandidatura, eliminarCandidatura } = useCandidatura();
-    const { candidatos, cargarCandidatos, agregarCandidato, editarCandidato, eliminarCandidato } = useCandidato();
-    const { elecciones, cargarElecciones, agregarEleccion, asignarCandidatura } = useElecciones();
-    const { cargosElectorales, cargarCargosElectorales, obtenerCargosElectoralesPorId } = useCargosElectorales();
+    const [loading, setLoading] = useState(false);
+
+    const { partidos, cargarPartidos, agregarPartido, editarPartido, eliminarPartido } = usePartido(setLoading);
+    const { candidaturas, cargarCandidaturas, agregarCandidatura, editarCandidatura, eliminarCandidatura } = useCandidatura(setLoading);
+    const { candidatos, cargarCandidatos, agregarCandidato, editarCandidato, eliminarCandidato } = useCandidato(setLoading);
+    const { elecciones, cargarElecciones, agregarEleccion, asignarCandidatura } = useElecciones(setLoading);
+    const { cargosElectorales, cargarCargosElectorales, obtenerCargosElectoralesPorId } = useCargosElectorales(setLoading);
 
     const data = {
+        loading,
         partidos, cargarPartidos, agregarPartido, editarPartido, eliminarPartido,
         candidaturas, cargarCandidaturas, agregarCandidatura, editarCandidatura, eliminarCandidatura,
         candidatos, cargarCandidatos, agregarCandidato, editarCandidato, eliminarCandidato,

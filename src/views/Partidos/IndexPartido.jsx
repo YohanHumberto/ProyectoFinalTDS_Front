@@ -25,20 +25,24 @@ import Loader from '../../components/Loaders/Loader.jsx';
 
 const IndexPartido = () => {
 
-  const { partidos, cargarPartidos, eliminarPartido } = useContext(DataContext);
+  const { loading, partidos, cargarPartidos, eliminarPartido } = useContext(DataContext);
   const [editModal, setEditModal] = useState({ state: false, id: 0 });
 
   const HandleClickDelete = (id) => {
     eliminarPartido(id);
   }
 
+  const Search = (searchString) => {
+    cargarPartidos(searchString);
+  }
+
   useEffect(() => {
-      cargarPartidos();
+    cargarPartidos();
   }, []);
 
   return (
     <>
-      {partidos.length < 1 && <Loader />}
+      {loading == true && <Loader />}
       <Header />
       <Container className="mt--7" fluid>
         <Row>
@@ -46,7 +50,12 @@ const IndexPartido = () => {
             <Card className="shadow">
               <CardHeader className="border-0 d-flex justify-content-between">
                 <h2 className="mb-0">Lista de partidos</h2>
-                <Create />
+                <div class="d-flex">
+                  <input class="form-control me-2 mr-2" type="search"
+                    onChange={(e) => Search(e.target.value)} placeholder="Search" aria-label="Search" />
+                  {/* <input className="form-control" placeholder="search"  /> */}
+                  <Create />
+                </div>
                 <Edit stateprop={editModal.state} id={editModal.id} setEditModal={setEditModal} />
               </CardHeader>
               <Table className="align-items-center table-flush" responsive>

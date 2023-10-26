@@ -27,7 +27,7 @@ import Loader from "../../components/Loaders/Loader.jsx";
 
 const IndexCandidatos = () => {
 
-  const { candidatos, cargarCandidatos, agregarCandidato, editarCandidato, eliminarCandidato } = useContext(DataContext);
+  const { loading, candidatos, cargarCandidatos, agregarCandidato, editarCandidato, eliminarCandidato } = useContext(DataContext);
   const [editModal, setEditModal] = useState({ state: false, id: 0 });
 
   const HandleClickDelete = (id) => {
@@ -40,7 +40,7 @@ const IndexCandidatos = () => {
 
   return (
     <>
-      {candidatos.length < 1 && <Loader />}
+      {loading && <Loader />}
       <Header />
       <Container className="mt--7" fluid>
         <Row>
