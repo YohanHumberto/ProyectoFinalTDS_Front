@@ -38,6 +38,10 @@ const IndexCandidatos = () => {
     cargarCandidatos();
   }, []);
 
+  const Search = (searchString) => {
+    cargarCandidatos(searchString);
+  }
+
   return (
     <>
       {loading && <Loader />}
@@ -48,7 +52,11 @@ const IndexCandidatos = () => {
             <Card className="shadow">
               <CardHeader className="border-0 d-flex justify-content-between">
                 <h2 className="mb-0">Candidatos</h2>
-                <CreateCandidato />
+                <div className="d-flex">
+                  <input className="form-control me-2 mr-2" type="search"
+                    onChange={(e) => Search(e.target.value)} placeholder="Search" aria-label="Search" />
+                  <CreateCandidato />
+                </div>
                 <EditCandidato stateprop={editModal.state} id={editModal.id} setEditModal={setEditModal} />
               </CardHeader>
               <Table className="align-items-center table-flush" responsive>

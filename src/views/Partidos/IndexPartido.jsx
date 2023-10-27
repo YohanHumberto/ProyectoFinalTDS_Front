@@ -50,10 +50,9 @@ const IndexPartido = () => {
             <Card className="shadow">
               <CardHeader className="border-0 d-flex justify-content-between">
                 <h2 className="mb-0">Lista de partidos</h2>
-                <div class="d-flex">
-                  <input class="form-control me-2 mr-2" type="search"
+                <div className="d-flex">
+                  <input className="form-control me-2 mr-2" type="search"
                     onChange={(e) => Search(e.target.value)} placeholder="Search" aria-label="Search" />
-                  {/* <input className="form-control" placeholder="search"  /> */}
                   <Create />
                 </div>
                 <Edit stateprop={editModal.state} id={editModal.id} setEditModal={setEditModal} />

@@ -22,7 +22,7 @@ const CustomAlert = () => {
                 : */}
                 <Alert key={index} color={alert.type}>
                   <strong>{alert.title}</strong>  {alert.mesaje}
-                  <button  onClick={()=>RemoveAlertById(alert.id)} type="button" class="close" aria-label="Close"><span aria-hidden="true">×</span></button>
+                  <button  onClick={()=>RemoveAlertById(alert.id)} type="button" className="close" aria-label="Close"><span aria-hidden="true">×</span></button>
                 </Alert>
               {/* } */}
             </Fragment>

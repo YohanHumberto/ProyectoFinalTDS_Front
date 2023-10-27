@@ -1,48 +1,16 @@
-class CandidatoService {
-    constructor() {
-        this.baseUrl = "https://www.automatizacionelectoral.somee.com/api/Candidatos";
-    }
+import BaseService from "./BaseService";
 
-    async obtener() {
-        const res = await fetch(this.baseUrl);
-        return res.json();
+class CandidatoService extends BaseService {
+
+    constructor() {
+        let _baseUrl = "https://www.automatizacionelectoral.somee.com/api/Candidatos";
+        super(_baseUrl);
+        this.baseUrl = _baseUrl;
     }
 
     async obtenerPorSiglas(siglas) {
         const res = await fetch(this.baseUrl + "/" + siglas);
         return res.json();
-    }
-
-    async agregar(entity) {
-        const res = await fetch(this.baseUrl, {
-            method: "POST",
-            body: JSON.stringify(entity),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
-        return res.json();
-    }
-
-    async editar(entity) {
-        const res = await fetch(`${this.baseUrl}/${entity.id}`, {
-            method: "PUT",
-            body: JSON.stringify(entity),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
-        return res.json();
-    }
-
-    async eliminar(id) {
-        const res = await fetch(`${this.baseUrl}/${id}`, {
-            method: "DELETE",
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
-        return res;
     }
 
 }

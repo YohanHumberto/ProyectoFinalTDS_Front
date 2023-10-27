@@ -1,27 +1,15 @@
-class EleccionesService {
+import BaseService from "./BaseService";
+
+class EleccionesService extends BaseService {
 
     constructor() {
-        this.baseUrl = "https://www.automatizacionelectoral.somee.com/api/Elecciones";
-    }
-
-    async obtener() {
-        const res = await fetch(this.baseUrl);
-        return res.json();
+        let _baseUrl = "https://www.automatizacionelectoral.somee.com/api/Elecciones";
+        super(_baseUrl);
+        this.baseUrl = _baseUrl;
     }
 
     async obtenerPorFecha(fecha) {
         const res = await fetch(this.baseUrl + "/" + fecha);
-        return res.json();
-    }
-
-    async agregar(eleccion) {
-        const res = await fetch(this.baseUrl, {
-            method: "POST",
-            body: JSON.stringify(eleccion),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
         return res.json();
     }
 

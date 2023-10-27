@@ -28,6 +28,10 @@ const IndexElecciones = () => {
         cargarElecciones();
     }, []);
 
+    const Search = (searchString) => {
+        cargarElecciones(searchString);
+    }
+
     return (
         <>
             {loading == true && <Loader />}
@@ -38,7 +42,11 @@ const IndexElecciones = () => {
                         <Card className="shadow">
                             <CardHeader className="border-0 d-flex justify-content-between">
                                 <h2 className="mb-0">Lista de elecciones</h2>
-                                <CreateEleccion />
+                                <div className="d-flex">
+                                    <input className="form-control me-2 mr-2" type="search"
+                                        onChange={(e) => Search(e.target.value)} placeholder="Search" aria-label="Search" />
+                                    <CreateEleccion />
+                                </div>
                             </CardHeader>
                             <Table className="align-items-center table-flush" responsive>
                                 <thead className="thead-light">
