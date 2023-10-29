@@ -1,133 +1,161 @@
 import {
-    Card,
-    CardHeader,
-    CardFooter,
-    DropdownMenu,
-    DropdownItem,
-    UncontrolledDropdown,
-    DropdownToggle,
-    Pagination,
-    PaginationItem,
-    PaginationLink,
-    Table,
-    Container,
-    Row,
-} from "reactstrap";
+  Card,
+  CardHeader,
+  CardFooter,
+  DropdownMenu,
+  DropdownItem,
+  UncontrolledDropdown,
+  DropdownToggle,
+  Pagination,
+  PaginationItem,
+  PaginationLink,
+  Table,
+  Container,
+  Row,
+} from 'reactstrap';
 // core components
-import Header from "../../components/Headers/Header.js";
-import { DataContext } from "../../context/GlobalContext.js";
-import { useContext, useEffect } from "react";
-import CreateEleccion from "./CreateElecciones.jsx";
-import Loader from "../../components/Loaders/Loader.jsx";
+import Header from '../../components/Headers/Header.js';
+import { DataContext } from '../../context/GlobalContext.js';
+import { useContext, useEffect } from 'react';
+import CreateEleccion from './CreateElecciones.jsx';
+import Loader from '../../components/Loaders/Loader.jsx';
+import '../../assets/img/brand/error-icon.png';
 
 const IndexElecciones = () => {
+  const dateFormater = new Date();
 
-    const { loading, elecciones, cargarElecciones, agregarEleccion, asignarCandidatura } = useContext(DataContext);
+  const {
+    loading,
+    elecciones,
+    cargarElecciones,
+    agregarEleccion,
+    asignarCandidatura,
+  } = useContext(DataContext);
 
-    useEffect(() => {
-        cargarElecciones();
-    }, []);
+  useEffect(() => {
+    cargarElecciones();
+  }, []);
 
-    const Search = (searchString) => {
-        cargarElecciones(searchString);
-    }
+  const Search = (searchString) => {
+    cargarElecciones(searchString);
+  };
 
-    return (
-        <>
-            {loading == true && <Loader />}
-            <Header />
-            <Container className="mt--7" fluid>
-                <Row>
-                    <div className="col mb-2">
-                        <Card className="shadow">
-                            <CardHeader className="border-0 d-flex justify-content-between">
-                                <h2 className="mb-0">Lista de elecciones</h2>
-                                <div className="d-flex">
-                                    <input className="form-control me-2 mr-2" type="search"
-                                        onChange={(e) => Search(e.target.value)} placeholder="Search" aria-label="Search" />
-                                    <CreateEleccion />
-                                </div>
-                            </CardHeader>
-                            <Table className="align-items-center table-flush" responsive>
-                                <thead className="thead-light">
-                                    <tr>
-                                        <th scope="col">Id</th>
-                                        <th scope="col">Fecha</th>
-                                        <th scope="col">Acciones</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {
-                                        elecciones.map(item => {
-                                            return (
-                                                <tr key={item.id}>
-                                                    <th>
-                                                        {item.id}
-                                                    </th>
-                                                    <th scope="row">
-                                                        {item.fecha}
-                                                    </th>
-                                                    <td className="text-right">
-                                                        <UncontrolledDropdown>
-                                                            <DropdownToggle className="btn-icon-only text-light" href="#pablo"
-                                                                role="button" size="sm" color="" onClick={(e) => e.preventDefault()}   >
-                                                                <i className="fas fa-ellipsis-v" />
-                                                            </DropdownToggle>
-                                                            <DropdownMenu className="dropdown-menu-arrow" right>
-                                                                <DropdownItem className="text-info" href="#pablo" onClick={(e) => e.preventDefault()}  >
-                                                                    Detalle
-                                                                </DropdownItem>
-                                                            </DropdownMenu>
-                                                        </UncontrolledDropdown>
-                                                    </td>
-                                                </tr>
-                                            );
-                                        })
-                                    }
-                                </tbody>
-                            </Table>
-                            <CardFooter className="py-4">
-                                <nav aria-label="...">
-                                    <Pagination
-                                        className="pagination justify-content-end mb-0"
-                                        listClassName="justify-content-end mb-0"
-                                    >
-                                        <PaginationItem className="disabled">
-                                            <PaginationLink
-                                                href="#pablo"
-                                                onClick={(e) => e.preventDefault()}
-                                                tabIndex="-1"
-                                            >
-                                                <i className="fas fa-angle-left" />
-                                                <span className="sr-only">Previous</span>
-                                            </PaginationLink>
-                                        </PaginationItem>
-                                        <PaginationItem className="active">
-                                            <PaginationLink
-                                                href="#pablo"
-                                                onClick={(e) => e.preventDefault()}
-                                            >
-                                                1
-                                            </PaginationLink>
-                                        </PaginationItem>
-                                        <PaginationItem>
-                                            <PaginationLink
-                                                href="#pablo"
-                                                onClick={(e) => e.preventDefault()}
-                                            >
-                                                <i className="fas fa-angle-right" />
-                                                <span className="sr-only">Next</span>
-                                            </PaginationLink>
-                                        </PaginationItem>
-                                    </Pagination>
-                                </nav>
-                            </CardFooter>
-                        </Card>
-                    </div>
-                </Row>
-            </Container>
-        </>
-    );
+  return (
+    <>
+      {loading == true && <Loader />}
+      <Header />
+      <Container className="mt--7" fluid>
+        <Row>
+          <div className="col mb-2">
+            <Card className="shadow">
+              <CardHeader className="border-0 d-flex justify-content-between">
+                <h2 className="mb-0">Lista de elecciones</h2>
+                <div className="d-flex">
+                  <input
+                    className="form-control me-2 mr-2"
+                    type="search"
+                    onChange={(e) => Search(e.target.value)}
+                    placeholder="Search"
+                    aria-label="Search"
+                  />
+                  <CreateEleccion />
+                </div>
+              </CardHeader>
+              <Table className="align-items-center table-flush" responsive>
+                <thead className="thead-light">
+                  <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Fecha</th>
+                    <th scope="col">Acciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {elecciones.map((item) => {
+                    return (
+                      <tr key={item.id}>
+                        <th>{item.id}</th>
+                        <th scope="row">
+                          {new Date(item.fecha).getFullYear() +
+                            '-' +
+                            (new Date(item.fecha).getMonth() + 1)
+                              .toString()
+                              .padStart(2, '0') +
+                            '-' +
+                            new Date(item.fecha)
+                              .getDate()
+                              .toString()
+                              .padStart(2, '0')}
+                        </th>
+                        <td className="text-right">
+                          <UncontrolledDropdown>
+                            <DropdownToggle
+                              className="btn-icon-only text-light"
+                              href="#pablo"
+                              role="button"
+                              size="sm"
+                              color=""
+                              onClick={(e) => e.preventDefault()}
+                            >
+                              <i className="fas fa-ellipsis-v" />
+                            </DropdownToggle>
+                            <DropdownMenu className="dropdown-menu-arrow" right>
+                              <DropdownItem
+                                className="text-info"
+                                href="#pablo"
+                                onClick={(e) => e.preventDefault()}
+                              >
+                                Detalle
+                              </DropdownItem>
+                            </DropdownMenu>
+                          </UncontrolledDropdown>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </Table>
+              <CardFooter className="py-4">
+                <nav aria-label="...">
+                  <Pagination
+                    className="pagination justify-content-end mb-0"
+                    listClassName="justify-content-end mb-0"
+                  >
+                    <PaginationItem className="disabled">
+                      <PaginationLink
+                        href="#pablo"
+                        onClick={(e) => e.preventDefault()}
+                        tabIndex="-1"
+                      >
+                        <i className="fas fa-angle-left" />
+                        <span className="sr-only">Previous</span>
+                      </PaginationLink>
+                    </PaginationItem>
+                    <PaginationItem className="active">
+                      <PaginationLink
+                        href="#pablo"
+                        onClick={(e) => e.preventDefault()}
+                      >
+                        1
+                      </PaginationLink>
+                    </PaginationItem>
+                    <PaginationItem>
+                      <PaginationLink
+                        href="#pablo"
+                        onClick={(e) => e.preventDefault()}
+                      >
+                        <i className="fas fa-angle-right" />
+                        <span className="sr-only">Next</span>
+                      </PaginationLink>
+                    </PaginationItem>
+                  </Pagination>
+                </nav>
+              </CardFooter>
+            </Card>
+          </div>
+        </Row>
+      </Container>
+    </>
+  );
 };
 
 export default IndexElecciones;
