@@ -69,7 +69,7 @@ const CreateEleccion = () => {
               <Input
                 type="date"
                 className={
-                  eleccion.fecha == '' ||
+                  eleccion.fecha === '' ||
                   new Date(eleccion.fecha).getTime() < Date.now()
                     ? 'is-invalid'
                     : 'is-valid'
