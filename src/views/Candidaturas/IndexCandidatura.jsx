@@ -30,6 +30,8 @@ const IndexCandidatura = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
 
+  const nullFieldContent = '--';
+
   const handlePageChange = (pageNumber) => {
     if (pageNumber >= 1) {
       setCurrentPage(pageNumber);
@@ -86,8 +88,9 @@ const IndexCandidatura = () => {
                     <th scope="col">NivelElectoral</th>
                     <th scope="col">Candidato</th>
                     <th scope="col">Vice candidato</th>
-                    {/* <th scope="col">Users</th> */}
-                    {/* <th scope="col">Completion</th>  */}
+                    <th scope="col">Provincia</th>
+                    <th scope="col">Municipio</th>
+                    <th scope="col">circunscripcion</th>
                     <th scope="col">Acciones</th>
                   </tr>
                 </thead>
@@ -103,11 +106,34 @@ const IndexCandidatura = () => {
                           <th>{item.id}</th>
                           <th scope="row">{item.nivelElectoral.nombre}</th>
                           <td>
-                            {item.candidato?.nombre + item.candidato?.apellido}
+                            {item.candidato?.nombre +
+                              ' ' +
+                              item.candidato?.apellido}
                           </td>
                           <td>
-                            {item.viceCandidato?.nombre +
-                              item.viceCandidato?.apellido}
+                            {item.viceCandidato?.nombre !== undefined
+                              ? item.viceCandidato?.nombre +
+                                ' ' +
+                                item.viceCandidato?.apellido
+                              : nullFieldContent}
+                          </td>
+
+                          <td>
+                            {item.provincia !== undefined
+                              ? item.provincia
+                              : nullFieldContent}
+                          </td>
+
+                          <td>
+                            {item.municipio !== undefined
+                              ? item.municipio
+                              : nullFieldContent}
+                          </td>
+
+                          <td>
+                            {item.circunscripcion !== undefined
+                              ? item.circunscripcion
+                              : nullFieldContent}
                           </td>
                           <td className="text-right">
                             <UncontrolledDropdown>
