@@ -12,7 +12,7 @@ import {
 import { DataContext } from "../../context/GlobalContext.js";
 import { useContext, useEffect, useState } from "react";
 
-const initialValuePartido = { nombre: "", apellido: "", apodo: "", cedula: "", idCargoElectoral: "", idPartido: "", fotoUrl: "" };
+const initialValuePartido = { nombre: "", apellido: "", apodo: "apodo", cedula: "", idCargoElectoral: "", idPartido: "", fotoUrl: "" };
 
 const CreateCandidato = () => {
 
@@ -31,7 +31,9 @@ const CreateCandidato = () => {
 
     const HandleSumbit = (e) => {
         e.preventDefault();
-        if (candidato.nombre != "" && candidato.apellido == "" && candidato.apodo == "" && candidato.cedula == "" && candidato.idCargoElectoral == "" && candidato.idPartido == "" && candidato.fotoUrl == "") {
+        console.log(candidato);
+        if (candidato.nombre != "" && candidato.apellido !== ""  && candidato.cedula !== "" && candidato.idCargoElectoral !== "" && candidato.idPartido !== "" && candidato.fotoUrl !== "") {
+            console.log("submit")
             agregarCandidato(candidato);
             setCandidato(initialValuePartido)
             setState(false);

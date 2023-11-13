@@ -3,8 +3,16 @@ import IndexPartido from "../views/Partidos/IndexPartido.jsx";
 import IndexCandidatura from "../views/Candidaturas/IndexCandidatura.jsx";
 import IndexCandidatos from "../views/Candidatos/IndexCandidatos.jsx";
 import IndexElecciones from "../views/Elecciones/IndexElecciones.jsx";
+import IndexVotacion from "../views/Votacion/IndexVotacion.jsx";
 
 var routes = [
+  // {
+  //   path: "/votaciones",
+  //   name: "Dashboard",
+  //   icon: "ni ni-tv-2 text-primary",
+  //   component: <IndexVotacion />,
+  //   layout: "/votacion",
+  // },
   {
     path: "/index",
     name: "Dashboard",

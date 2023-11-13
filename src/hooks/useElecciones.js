@@ -25,14 +25,26 @@ function useElecciones(setLoading) {
         }
     }
 
-    const { cargarDatos, agregar } = useHookBase(dataContextAlerts, service, setElecciones,setLoading);
+    const obtenerPorFecha = async (fecha) => {
+        try {
+            var res = await service.obtenerPorFecha(fecha);
+            OnHandleStatusCode(res);
+            return res.data;
+        } catch (error) {
+            console.log(error);
+            Danger("Se ha presentado un error inesperado al cargar los datos, intentelo mas tarde.");
+        }
+    }
+
+    const { cargarDatos, agregar } = useHookBase(dataContextAlerts, service, setElecciones, setLoading);
 
     return (
         {
             elecciones,
             cargarElecciones: cargarDatos,
             agregarEleccion: agregar,
-            asignarCandidatura
+            asignarCandidatura,
+            obtenerEleccionesPorFecha: obtenerPorFecha
         }
     )
 }

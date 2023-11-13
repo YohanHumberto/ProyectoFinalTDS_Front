@@ -12,6 +12,7 @@ import LoginAdmin from "./views/Auth/LoginAdmin";
 import Login from "./views/Auth/Login";
 import GlobalContext from "./context/GlobalContext";
 import AlertContext from "./context/AlertContext";
+import Votacion from "./layouts/Votacion.js";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -22,6 +23,7 @@ root.render(
         <Routes>
           <Route path="/admin/*" element={<AdminLayout />} />
           <Route path="/auth/*" element={<AuthLayout />} />
+          <Route path="/votacion/*" element={<Votacion />} />
           <Route path="/loginadmin" element={<LoginAdmin />} />
           <Route path="/login" element={<Login />} />
           <Route path="*" element={<Navigate to="/admin/index" replace />} />

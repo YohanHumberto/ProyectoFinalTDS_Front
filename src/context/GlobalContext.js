@@ -24,6 +24,7 @@ function GlobalContext({ children }) {
   const {
     candidaturas,
     cargarCandidaturas,
+    obtenerCandidaturaPorNivelElectoral,
     agregarCandidatura,
     editarCandidatura,
     eliminarCandidatura,
@@ -35,7 +36,7 @@ function GlobalContext({ children }) {
     editarCandidato,
     eliminarCandidato,
   } = useCandidato(setLoading);
-  const { elecciones, cargarElecciones, agregarEleccion, asignarCandidatura } =
+  const { elecciones, cargarElecciones, agregarEleccion, asignarCandidatura, obtenerEleccionesPorFecha } =
     useElecciones(setLoading);
   const {
     cargosElectorales,
@@ -59,6 +60,7 @@ function GlobalContext({ children }) {
     eliminarPartido,
     candidaturas,
     cargarCandidaturas,
+    obtenerCandidaturaPorNivelElectoral,
     agregarCandidatura,
     editarCandidatura,
     eliminarCandidatura,
@@ -70,6 +72,7 @@ function GlobalContext({ children }) {
     elecciones,
     cargarElecciones,
     agregarEleccion,
+    obtenerEleccionesPorFecha,
     asignarCandidatura,
     cargosElectorales,
     cargarCargosElectorales,

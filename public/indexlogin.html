@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="globals.css" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="login-votante">
+      <div class="div">
+        <div class="overlap-group"><img class="logo-jce" src="../src/assets/img//JceConNombre.png" /></div>
+        <div class="login">
+          <button class="btn"><div class="text-wrapper">Acceder</div></button>
+          <div class="field">
+            <div class="frame"><div class="name">000-0000000-0</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+<style>
+    .login-votante {
+  background-color: #c7c8ca;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+}
+
+.login-votante .div {
+  background-color: #c7c8ca;
+  width: 1366px;
+  height: 800px;
+  position: relative;
+}
+
+.login-votante .overlap-group {
+  position: absolute;
+  width: 350px;
+  height: 350px;
+  top: 22px;
+  left: 508px;
+  background-image: url(./img/image.png);
+  background-size: cover;
+  background-position: 50% 50%;
+}
+
+.login-votante .logo-jce {
+  position: absolute;
+  width: 350px;
+  height: 350px;
+  top: 0;
+  left: 0;
+  object-fit: cover;
+}
+
+.login-votante .login {
+  position: absolute;
+  width: 300px;
+  height: 73px;
+  top: 372px;
+  left: 533px;
+}
+
+.login-votante .btn {
+  position: absolute;
+  width: 160px;
+  height: 30px;
+  top: 43px;
+  left: 70px;
+  background-color: #c18e3f;
+  border-radius: 50px;
+  all: unset;
+  box-sizing: border-box;
+}
+
+.login-votante .text-wrapper {
+  position: absolute;
+  height: 17px;
+  top: 5px;
+  left: 51px;
+  font-family: "Inter-Medium", Helvetica;
+  font-weight: 500;
+  color: #493833;
+  font-size: 14px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.login-votante .field {
+  position: absolute;
+  width: 300px;
+  height: 40px;
+  top: 0;
+  left: 0;
+}
+
+.login-votante .frame {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 15px 4px;
+  position: relative;
+  background-color: #e0e0e0;
+  border-radius: 15px;
+  overflow: hidden;
+  border: 1px solid;
+  border-color: #6f6e70;
+}
+
+.login-votante .name {
+  position: relative;
+  width: fit-content;
+  margin-top: -2px;
+  font-family: "Inter-Regular", Helvetica;
+  font-weight: 400;
+  color: #c7c8ca;
+  font-size: 18px;
+  letter-spacing: 0;
+  line-height: 28px;
+  white-space: nowrap;
+}
+
+</style>

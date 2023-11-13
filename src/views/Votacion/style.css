@@ -1,0 +1,159 @@
+.niveles-electorales {
+    background-color: #c7c8ca;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+  }
+  
+  .niveles-electorales .div-2 {
+    background-color: #c7c8ca;
+    height: 800px;
+    overflow: hidden;
+    position: relative;
+    width: 1366px;
+  }
+  
+  .niveles-electorales .niveles-instance {
+    left: 133px !important;
+    position: absolute !important;
+    top: 252px !important;
+  }
+  
+  .niveles-electorales .election-header {
+    border-bottom-style: solid;
+    border-bottom-width: 2px;
+    border-color: #63646640;
+    height: 154px;
+    left: -2px;
+    position: absolute;
+    top: -2px;
+    width: 1370px;
+  }
+  
+  .niveles-electorales .description {
+    height: 77px;
+    left: 25px;
+    position: absolute;
+    top: 36px;
+    width: 350px;
+  }
+  
+  .niveles-electorales .FECHA {
+    color: #493833;
+    font-family: "Inter-Bold", Helvetica;
+    font-size: 20px;
+    font-weight: 700;
+    height: 32px;
+    left: 0;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    top: 68px;
+    width: 243px;
+  }
+  
+  .niveles-electorales .PERIODO {
+    color: #c18e3f;
+    font-family: "Inter-Bold", Helvetica;
+    font-size: 20px;
+    font-weight: 700;
+    height: 24px;
+    left: 0;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    top: 34px;
+    white-space: nowrap;
+  }
+  
+  .niveles-electorales .NIVEL {
+    color: #c18e3f;
+    font-family: "Inter-Bold", Helvetica;
+    font-size: 30px;
+    font-weight: 700;
+    height: 36px;
+    left: 0;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    top: -12px;
+    white-space: nowrap;
+  }
+  
+  .niveles-electorales .identificadores {
+    height: 142px;
+    left: 432px;
+    position: absolute;
+    top: 4px;
+    width: 501px;
+  }
+  
+  .niveles-electorales .overlap {
+    height: 141px;
+    position: relative;
+    width: 374px;
+  }
+  
+  .niveles-electorales .rd-escudo {
+    height: 100px;
+    left: 95px;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    width: 100px;
+  }
+  
+  .niveles-electorales .overlap-group-2 {
+    height: 133px;
+    left: 0;
+    position: absolute;
+    top: 8px;
+    width: 374px;
+  }
+  
+  .niveles-electorales .flexcontainer {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    height: 37px;
+    left: 0;
+    position: absolute;
+    top: 96px;
+    width: 290px;
+  }
+  
+  .niveles-electorales .text {
+    align-self: stretch;
+    color: #493833;
+    font-family: "Inter-Bold", Helvetica;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0;
+    line-height: normal;
+    position: relative;
+    text-align: center;
+  }
+  
+  .niveles-electorales .span {
+    color: #493833;
+    font-family: "Inter-Bold", Helvetica;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0;
+  }
+  
+  .niveles-electorales .text-wrapper-6 {
+    font-size: 20px;
+  }
+  
+  .niveles-electorales .jce-logo {
+    height: 125px;
+    left: 250px;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    width: 124px;
+  }
+  

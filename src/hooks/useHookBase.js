@@ -21,7 +21,7 @@ function useHookBase({ Warning, Danger, Info, Success }, service, setData, setLo
         try {
             var res = await service.obtenerPorId();
             OnHandleStatusCode(res);
-            return res.datas;
+            return res.data;
         } catch (error) {
             console.log(error);
             Danger("Se ha presentado un error inesperado al cargar los datos, intentelo mas tarde.");

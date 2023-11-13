@@ -8,6 +8,10 @@ class CandidaturaService extends BaseService {
         this.baseUrl = _baseUrl;
     }
 
+    async obtenerPorNivelElectoral(nivelElectoral) {
+        const res = await fetch(this.baseUrl + `/nivel-electoral/${nivelElectoral}`);
+        return res.json();
+    }
 }
 
 export default CandidaturaService;
