@@ -26,7 +26,7 @@ root.render(
           <Route path="/votacion/*" element={<Votacion />} />
           <Route path="/loginadmin" element={<LoginAdmin />} />
           <Route path="/login" element={<Login />} />
-          <Route path="*" element={<Navigate to="/admin/index" replace />} />
+          <Route path="*" element={<Navigate to="/login" replace />} />
         </Routes>
       </BrowserRouter>
     </GlobalContext>

@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import { Container } from "reactstrap";
 import IndexVotacion from "../views/Votacion/IndexVotacion.jsx";
 import VotacionNavbar from "../components/Navbars/VotacionNavbar.js";
@@ -15,6 +15,7 @@ const Votacion = (props) => {
           <Route path="/NivelSenatorial" element={<NivelesElectorales nivel="Senatorial" />} exact />
           <Route path="/NivelDiputacion" element={<NivelesElectorales nivel="Diputación" />} exact />
           <Route path="/NivelMunicipal" element={<NivelesElectorales nivel="Municipal" />} exact />
+          <Route path="*" element={<Navigate to="/login" replace />} />
         </Routes>
         <Container fluid>
         </Container>

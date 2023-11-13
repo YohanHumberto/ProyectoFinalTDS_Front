@@ -7,12 +7,15 @@ import useCargosElectorales from '../hooks/useCargosElectorales';
 import useNivelElectoral from '../hooks/useNivelElectoral';
 import useProvincia from '../hooks/useProvincia';
 import useMunicipio from '../hooks/useMunicipio';
+import useAuth from '../hooks/useAuth';
 // import useAlert from '../hooks/useAlert';
 
 const DataContext = createContext();
 
 function GlobalContext({ children }) {
   const [loading, setLoading] = useState(false);
+
+  const { loginElector, loginAdmin } = useAuth(setLoading);
 
   const {
     partidos,
@@ -53,6 +56,8 @@ function GlobalContext({ children }) {
 
   const data = {
     loading,
+    loginElector,
+    loginAdmin,
     partidos,
     cargarPartidos,
     agregarPartido,

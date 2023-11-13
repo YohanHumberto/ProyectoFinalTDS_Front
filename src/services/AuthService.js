@@ -15,7 +15,19 @@ class AuthService {
         return res.json();
     }
 
-    async login(changepasswork) {
+    async loginElector(credentencials) {
+        const res = await fetch(this.baseUrl + `/authenticate-citizen/${credentencials}`, {
+            method: "POST",
+            body: JSON.stringify(credentencials),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        return await res.json();
+    }
+
+
+    async changepasswork(changepasswork) {
         const res = await fetch(this.baseUrl + "/change-password", {
             method: "PUT",
             body: JSON.stringify(changepasswork),
@@ -26,3 +38,5 @@ class AuthService {
         return res.json();
     }
 }
+
+export default AuthService;

@@ -1,84 +1,56 @@
 
-import { Button, Card, CardHeader, CardBody, FormGroup, Form, Input, InputGroupAddon, InputGroupText, InputGroup, Row, Col, Container, } from "reactstrap";
-import "../../assets/css/custom.css";
+import "./Login.css";
+import jceLogo from "../../assets/img/imgLogin/common/jce login.png";
+import { useContext, useState } from "react";
+import { DataContext } from "../../context/GlobalContext";
+import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
+
+  const [cedula, setcedula] = useState("");
+  const [error, setError] = useState(false)
+  const { loginElector } = useContext(DataContext);
+  const navigation = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (cedula !== "") {
+      let res = await loginElector(cedula);
+
+      if (res?.status?.toString().substring(0, 1) == 2) {
+        console.log("correct")
+        window.localStorage.setItem("token", res.data);
+        navigation("/votacion/votaciones")
+      } else {
+        alert("Cedula no valida");
+      }
+    }
+  }
+
   return (
     <>
-      <div className="main-content">
-        <div className="header bg-gradient-info py-7 py-lg-8">
-          <div className="separator separator-bottom separator-skew zindex-100">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              preserveAspectRatio="none"
-              version="1.1"
-              viewBox="0 0 2560 100"
-              x="0"
-              y="0"
-            >
-              <polygon
-                className="fill-default"
-                points="2560 0 2560 100 0 100"
-              />
-            </svg>
+      <form className="login-votante" onSubmit={handleSubmit}>
+        <div className="div">
+          <div className="overlap">
+            <img className="logo-jce" alt="Logo jce 2" src={jceLogo} />
+          </div>
+          <div className="overlap-group">
+            <div className="login">
+              <div className="field">
+                <input type="text" className="cedula" id="cedula" value={cedula} style={{textAlign: "center"}}
+                  onChange={(e) => setcedula(e.target.value)} placeholder="000-0000000-0" minLength={10} />
+              </div>
+              <button className="btn" type="submit" value="Enviar">
+                Acceder
+              </button>
+              <div className="text-center">
+                <Link to="/LoginAdmin">Ingresar como Administrador</Link></div>
+
+              {error && <p>Todos los campos son obligatorios</p>}
+            </div>
           </div>
         </div>
-        <Container className="mt--8 pb-3">
-          <Row className="justify-content-center">
-            <Col lg="5" md="7">
-              <Card className="bg-secondary shadow border-0">
-                <CardHeader className="bg-transparent pb-5">
-                  <div className="text-muted text-center mt-2 mb-3">
-                    <small>Sign in with</small>
-                  </div>
-                  <div className="btn-wrapper text-center">
-                    <Button
-                      className="btn-neutral btn-icon"
-                      color="default"
-                      href="#pablo"
-                      onClick={(e) => e.preventDefault()}
-                    >
-                      <span className="btn-inner--icon">
-                        <img
-                          alt="..."
-                          src={
-                            require("../../assets/img/icons/common/github.svg")
-                              .default
-                          }
-                        />
-                      </span>
-                      <span className="btn-inner--text">Github</span>
-                    </Button>
-                  </div>
-                </CardHeader>
-                <CardBody className="px-lg-5 py-lg-5">
-                  <Form role="form">
-                    <FormGroup className="mb-3">
-                      <InputGroup className="input-group-alternative">
-                        <InputGroupAddon addonType="prepend">
-                          <InputGroupText>
-                            <i className="ni ni-email-83" />
-                          </InputGroupText>
-                        </InputGroupAddon>
-                        <Input
-                          placeholder="Document Numbert"
-                          type="email"
-                          autoComplete="new-email"
-                        />
-                      </InputGroup>
-                    </FormGroup>
-                    <div className="text-center">
-                      <Button className="my-4" color="primary" type="button">
-                        Sign in
-                      </Button>
-                    </div>
-                  </Form>
-                </CardBody>
-              </Card>
-              </Col>
-          </Row>
-        </Container>
-      </div>
+      </form>
     </>
   );
 };

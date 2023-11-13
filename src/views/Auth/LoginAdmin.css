@@ -1,0 +1,107 @@
+.login-admin {
+  background-color: #c7c8ca;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+}
+
+.login-admin .div {
+  background-color: #c7c8ca;
+  height: 100vh;
+  position: relative;
+  /* width: 99vw; */
+}
+
+.login-admin .logo-jce {
+  height: 350px;
+  /* left: 508px; */
+  object-fit: cover;
+  /* position: absolute; */
+  /* top: 22px; */
+  width: 350px;
+}
+
+.login-admin .login {
+  height: 73px;
+  /* left: 533px; */
+  /* position: absolute; */
+  /* top: 372px; */
+  width: 300px;
+  margin: auto;
+}
+
+.login-admin .field {
+  text-align: center;
+  /* height: 40px; */
+  /* left: 0; */
+  /* position: absolute; */
+  /* top: 45px; */
+  width: 300px;
+}
+
+.login-admin .frame {
+  text-align: center;
+  align-items: center;
+  background-color: #e0e0e0;
+  border: 1px solid;
+  border-color: #6f6e70;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  height: 40px;
+  justify-content: center;
+  overflow: hidden;
+  padding: 10px 15px 4px;
+  /* position: relative; */
+  width: 300px;
+}
+
+.login-admin .name {
+  color: #c7c8ca;
+  font-family: "Inter-Regular", Helvetica;
+  font-size: 18px;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 28px;
+  margin-top: -2px;
+  position: relative;
+  white-space: nowrap;
+  width: fit-content;
+}
+
+.login-admin .frame-wrapper {
+  height: 40px;
+  /* left: 0; */
+  /* position: absolute; */
+  /* top: 0; */
+  width: 300px;
+}
+
+.login-admin .btn {
+  /* all: unset; */
+  background-color: #c18e3f;
+  border-radius: 50px;
+  box-sizing: border-box;
+  height: 30px;
+  /* left: 603px; */
+  /* position: absolute; */
+  /* top: 462px; */
+  width: 160px;
+  margin: auto;
+  margin-top: 10px;
+}
+
+.login-admin .text-wrapper {
+  color: #493833;
+  font-family: "Inter-Medium", Helvetica;
+  font-size: 14px;
+  font-weight: 500;
+  height: 17px;
+  /* left: 51px; */
+  letter-spacing: 0;
+  line-height: normal;
+  /* position: absolute; */
+  text-align: center;
+  /* top: 5px; */
+}
