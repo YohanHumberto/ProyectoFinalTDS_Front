@@ -121,8 +121,7 @@ const IndexCandidatos = () => {
                             </Media>
                           </th>
                           <td>
-                            {item.nombre}
-                            {item.apellido}
+                            {item.nombre+' '+item.apellido}
                           </td>
                           <td>{item.cargoElectoral.nombre}</td>
                           <td>{item.partido.nombre}</td>

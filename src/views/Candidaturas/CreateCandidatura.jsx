@@ -1,11 +1,4 @@
-import {
-  Button,
-  FormGroup,
-  Input,
-  Modal,
-  Dropdown,
-  DropdownItem,
-} from 'reactstrap';
+import { Button, FormGroup, Modal } from 'reactstrap';
 // core components
 import { DataContext } from '../../context/GlobalContext.js';
 import { useContext, useEffect, useState } from 'react';
@@ -16,7 +9,7 @@ const initialValue = {
   idViceCandidato: 0,
   idProvincia: 0,
   idMunicipio: 0,
-  circunscripcion: '',
+  circunscripcion: 0,
 };
 
 const CreateCandidatura = () => {
@@ -24,44 +17,223 @@ const CreateCandidatura = () => {
     agregarCandidatura,
     nivelElectoral,
     cargarNivelElectoral,
-    obtenerNivelElectoral,
     candidatos,
     cargarCandidatos,
     provincias,
     cargarProvincias,
-    obetenerProvincias,
     municipios,
     cargarMunicipios,
-    obtenerMunicipio,
   } = useContext(DataContext);
   const [state, setState] = useState({ exampleModal: false });
   const [candidatura, setCandidatura] = useState(initialValue);
-  const [selectedProvincia, setSeletedProvincia] = useState('');
+  const [candidato, setCandidato] = useState(candidatos);
+  const [viceCandidato, setViceCandidato] = useState(candidatos);
+
+  /* Campos requeridos */
+  const [rProvincia, setRProvincia] = useState(false);
+  const [rMunicipio, setRMunicipio] = useState(false);
+  const [rViceCandidato, setRViceCandidato] = useState(false);
+  const [rRegidor, setRegidor] = useState(false);
+  const [rCircunscripcion, setRCircunscripcion] = useState(false);
+
+  const [fProvincia, setFProvincia] = useState(0);
+  const [fMunicipio, setFMunicipio] = useState(0);
+  const [fViceCandidato, setFViceCandidato] = useState(0);
+  const [fRegidor, setFRegidor] = useState(0);
+  const [fCircunscripcion, setFCircunscripcion] = useState(0);
+  const [fCandidato, setFCandidato] = useState(0);
+
+  const setRequisitpNivelElectoral = (nivelElectoral) => {
+    switch (nivelElectoral) {
+      case 'Diputación':
+        setRMunicipio(false);
+        setRProvincia(true);
+        setRViceCandidato(false);
+        setRegidor(false);
+        setRCircunscripcion(true);
+        break;
+      case 'Municipal':
+        setRMunicipio(true);
+        setRProvincia(true);
+        setRViceCandidato(true);
+        setRegidor(true);
+        setRCircunscripcion(false);
+        break;
+      case 'Presidencial':
+        setRMunicipio(false);
+        setRProvincia(false);
+        setRViceCandidato(true);
+        setRegidor(false);
+        setRCircunscripcion(false);
+        break;
+      case 'Senatorial':
+        setRMunicipio(false);
+        setRProvincia(false);
+        setRViceCandidato(false);
+        setRegidor(false);
+        setRCircunscripcion(true);
+        break;
+
+      default:
+        setRMunicipio(false);
+        setRProvincia(false);
+        setRViceCandidato(false);
+        setRegidor(false);
+        setRCircunscripcion(false);
+        break;
+    }
+  };
+
+  const cambiarCandidatos = (nvel) => {
+    if (nvel === 'Diputación') {
+      return ['Diputado'];
+    } else if (nvel === 'Senatorial') {
+      return ['Senador'];
+    } else if (nvel === 'Presidencial') {
+      return ['Presidente', 'Vice Presidente'];
+    } else if (nvel === 'Municipal') {
+      return ['Alcalde', 'Vice Alcalde'];
+    }
+
+    return '';
+  };
+
+  const filterCandidatos = (cargoElectoral) => {
+    if (cargoElectoral.length === 1) {
+      const candi = candidatos.filter(
+        (candidato) => candidato.cargoElectoral.nombre === cargoElectoral[0]
+      );
+      setCandidato(candi);
+    } else if (cargoElectoral.length > 1) {
+      const candi = candidatos.filter(
+        (candidato) => candidato.cargoElectoral.nombre === cargoElectoral[0]
+      );
+      const vice = candidatos.filter(
+        (candidato) => candidato.cargoElectoral.nombre === cargoElectoral[1]
+      );
+      setCandidato(candi);
+      setViceCandidato(vice);
+    }
+  };
+
+  const setAllField = (status = false) => {
+    setRMunicipio(status);
+    setRProvincia(status);
+    setRViceCandidato(status);
+    setRegidor(status);
+    setRCircunscripcion(status);
+  };
+
+  const nivelElectoralOnChange = (e) => {
+    const value = parseInt(e.target.value, 10);
+    setFCandidato(0);
+    setFCircunscripcion(0);
+    setFMunicipio(0);
+    setFRegidor(0);
+    setFProvincia(0);
+    setFViceCandidato(0);
+
+    const nivelElectoral = e.target.options[e.target.selectedIndex].text;
+    setRequisitpNivelElectoral(nivelElectoral);
+    filterCandidatos(cambiarCandidatos(nivelElectoral));
+    setCandidatura((prevCandidatura) => initialValue);
+    setCandidatura((prevCandidatura) => ({
+      ...prevCandidatura,
+      idNivelElectoral: value,
+    }));
+  };
 
   useEffect(() => {
     cargarNivelElectoral();
-    cargarCandidatos();
     cargarProvincias();
     cargarMunicipios();
+    cargarCandidatos();
   }, []);
 
   const toggleModal = (param) => {
     setState({ [param]: !state[param] });
+    setCandidatura((prevCandidatura) => initialValue);
   };
 
   /* TODO: cambiar la condicion para cada nivel electoral */
   const HandleSumbit = (e) => {
     e.preventDefault();
-    if (
-      candidatura.idCandidato === 0 &&
-      candidatura.idNivelElectoral === 0 &&
-      candidatura.idViceCandidato === 0 &&
-      candidatura.idProvincia === 0 &&
-      candidatura.idMunicipio === 0
-    ) {
-      agregarCandidatura(candidatura);
-      setCandidatura(initialValue);
-      setState(false);
+    for (let key in candidatura) {
+      if (candidatura[key] === 0) {
+        candidatura[key] = null;
+      }
+    }
+
+    if (candidatura.idNivelElectoral === 3) {
+      if (
+        candidatura.idCandidato !== 0 &&
+        candidatura.idCandidato !== null &&
+        candidatura.idNivelElectoral !== 0 &&
+        candidatura.idNivelElectoral !== null &&
+        candidatura.idProvincia !== null &&
+        candidatura.idProvincia !== 0 &&
+        candidatura.circunscripcion !== 0 &&
+        candidatura.circunscripcion !== null
+      ) {
+        agregarCandidatura(candidatura);
+        setCandidatura((prevCandidatura) => initialValue);
+        setAllField();
+        setState(false);
+      } else {
+        console.error('Faltan campos en diputacion');
+      }
+    } else if (candidatura.idNivelElectoral === 4) {
+      if (
+        candidatura.idCandidato !== 0 &&
+        candidatura.idCandidato !== null &&
+        candidatura.idNivelElectoral !== 0 &&
+        candidatura.idNivelElectoral !== null &&
+        candidatura.idProvincia !== null &&
+        candidatura.idProvincia !== 0 &&
+        candidatura.idViceCandidato !== 0 &&
+        candidatura.idViceCandidato !== null &&
+        candidatura.idMunicipio !== 0 &&
+        candidatura.idMunicipio !== null
+      ) {
+        agregarCandidatura(candidatura);
+        setCandidatura((prevCandidatura) => initialValue);
+        setAllField();
+        setState(false);
+      } else {
+        console.error('Faltan campos en municipio');
+      }
+    } else if (candidatura.idNivelElectoral === 1) {
+      if (
+        candidatura.idCandidato !== 0 &&
+        candidatura.idCandidato !== null &&
+        candidatura.idNivelElectoral !== 0 &&
+        candidatura.idNivelElectoral !== null &&
+        candidatura.idViceCandidato !== 0 &&
+        candidatura.idViceCandidato !== null
+      ) {
+        agregarCandidatura(candidatura);
+        setCandidatura((prevCandidatura) => initialValue);
+        setAllField();
+        setState(false);
+      } else {
+        console.error('Faltan campos en presidente');
+      }
+    } else if (candidatura.idNivelElectoral === 2) {
+      if (
+        candidatura.idCandidato !== 0 &&
+        candidatura.idCandidato !== null &&
+        candidatura.idNivelElectoral !== 0 &&
+        candidatura.idNivelElectoral !== null &&
+        candidatura.circunscripcion !== 0 &&
+        candidatura.circunscripcion !== null
+      ) {
+        agregarCandidatura(candidatura);
+        setCandidatura((prevCandidatura) => initialValue);
+        setAllField();
+        setState(false);
+      } else {
+        console.error('Faltan campos en senatorial');
+      }
     }
   };
 
@@ -101,19 +273,14 @@ const CreateCandidatura = () => {
               <select
                 className={
                   'form-control ' +
-                  (candidatura.idNivelElectoral === ''
+                  (candidatura.idNivelElectoral === 0
                     ? 'is-invalid'
                     : 'is-valid')
                 }
-                onChange={(e) =>
-                  setCandidatura({
-                    ...candidatura,
-                    idNivelElectoral: e.target.value,
-                  })
-                }
+                onChange={nivelElectoralOnChange}
                 value={candidatura.idNivelElectoral}
               >
-                <option value="">Seleccione un nivel electoral</option>
+                <option value="0">Seleccione un nivel electoral</option>
                 {nivelElectoral.map((nivel) => (
                   <option key={nivel.id} value={nivel.id}>
                     {nivel.nombre}
@@ -121,95 +288,147 @@ const CreateCandidatura = () => {
                 ))}
               </select>
             </FormGroup>
-            <FormGroup className="">
-              <label className="control-label">Candidato</label>
-              <select
-                className={
-                  'form-control ' +
-                  (candidatura.idCandidato === '' ? 'is-invalid' : 'is-valid')
-                }
-                onChange={(e) =>
-                  setCandidatura({
-                    ...candidatura,
-                    idCandidato: e.target.value,
-                  })
-                }
-                value={candidatura.idCandidato}
-              >
-                <option value="">Seleccione un candidato</option>
-                {candidatos.map((candidato) => (
-                  <option key={candidato.id} value={candidato.id}>
-                    {candidato.nombre + ' ' + candidato.apellido}
-                  </option>
-                ))}
-              </select>
-            </FormGroup>
-            <FormGroup className="">
-              <label className="control-label">Provincia</label>
-              <select
-                className={
-                  'form-control ' +
-                  (candidatura.idProvincia === '' ? 'is-invalid' : 'is-valid')
-                }
-                onChange={(e) => {
-                  setCandidatura({
-                    ...candidatura,
-                    idProvincia: e.target.value,
-                  });
-                }}
-                value={candidatura.idProvincia}
-              >
-                <option value="">Seleccione una provincia</option>
-                {provincias.map((provincia) => (
-                  <option key={provincia.id} value={provincia.id}>
-                    {provincia.nombre}
-                    {/* setSeletedProvincia(provincia.nombre) */}
-                  </option>
-                ))}
-              </select>
-            </FormGroup>
-            <FormGroup className="">
-              <label className="control-label">Municipio</label>
-              <select
-                className={
-                  'form-control ' +
-                  (candidatura.idMunicipio === '' ? 'is-invalid' : 'is-valid')
-                }
-                onChange={(e) =>
-                  setCandidatura({
-                    ...candidatura,
-                    idMunicipio: e.target.value,
-                  })
-                }
-                value={candidatura.idMunicipio}
-              >
-                <option value="">Seleccione un municipio</option>
-                {municipios.map((municipio) => (
-                  <option key={municipio.id} value={municipio.id}>
-                    {municipio.nombre}
-                  </option>
-                ))}
-              </select>
-            </FormGroup>
-            <FormGroup className="">
-              <label className="control-label">Circunscripcion</label>
-              <input
-                type="text"
-                className={
-                  'form-control ' +
-                  (candidatura.circunscripcion === ''
-                    ? 'is-invalid'
-                    : 'is-valid')
-                }
-                onChange={(e) =>
-                  setCandidatura({
-                    ...candidatura,
-                    circunscripcion: e.target.value,
-                  })
-                }
-                value={candidatura.circunscripcion}
-              ></input>
-            </FormGroup>
+
+            {candidatura.idNivelElectoral !== 0 && (
+              <FormGroup className="">
+                <label className="control-label">Candidato</label>
+                <select
+                  className={
+                    'form-control ' +
+                    (fCandidato == 0 ? 'is-invalid' : 'is-valid')
+                  }
+                  id="candidato"
+                  onChange={(e) => {
+                    const value = parseInt(e.target.value, 10);
+                    setCandidatura({
+                      ...candidatura,
+                      idCandidato: value,
+                    });
+                    setFCandidato(value);
+                  }}
+                  value={fCandidato}
+                >
+                  <option value="0">Seleccione un candidato</option>
+                  {candidato.map((candidato) => (
+                    <option key={candidato.id} value={candidato.id}>
+                      {candidato.nombre + ' ' + candidato.apellido}
+                    </option>
+                  ))}
+                </select>
+              </FormGroup>
+            )}
+
+            {rViceCandidato && (
+              <FormGroup className="">
+                <label className="control-label">Vice Candidato</label>
+                <select
+                  className={
+                    'form-control ' +
+                    (fViceCandidato === 0 ? 'is-invalid' : 'is-valid')
+                  }
+                  onChange={(e) => {
+                    const value = parseInt(e.target.value, 10);
+                    setCandidatura({
+                      ...candidatura,
+                      idViceCandidato: value,
+                    });
+                    setFViceCandidato(value);
+                  }}
+                  value={fViceCandidato}
+                >
+                  <option value="0">Seleccione un vice candidato</option>
+                  {viceCandidato.map((candidato) => (
+                    <option key={candidato.id} value={candidato.id}>
+                      {candidato.nombre + ' ' + candidato.apellido}
+                    </option>
+                  ))}
+                </select>
+              </FormGroup>
+            )}
+
+            {rProvincia && (
+              <FormGroup className="">
+                <label className="control-label">Provincia</label>
+                <select
+                  className={
+                    'form-control ' +
+                    (fProvincia === 0 ? 'is-invalid' : 'is-valid')
+                  }
+                  onChange={(e) => {
+                    const value = parseInt(e.target.value, 10);
+                    setCandidatura({
+                      ...candidatura,
+                      idProvincia: value,
+                    });
+                    cargarMunicipios(
+                      e.target.options[e.target.selectedIndex].text
+                    );
+                    setFProvincia(value);
+                  }}
+                  value={fProvincia}
+                >
+                  <option value="0">Seleccione una provincia</option>
+                  {provincias.map((provincia) => (
+                    <option key={provincia.id} value={provincia.id}>
+                      {provincia.nombre}
+                      {/* setSeletedProvincia(provincia.nombre) */}
+                    </option>
+                  ))}
+                </select>
+              </FormGroup>
+            )}
+
+            {rMunicipio && (
+              <FormGroup className="">
+                <label className="control-label">Municipio</label>
+                <select
+                  className={
+                    'form-control ' +
+                    (fMunicipio === 0 ? 'is-invalid' : 'is-valid')
+                  }
+                  onChange={(e) => {
+                    const value = parseInt(e.target.value, 10);
+                    setCandidatura({
+                      ...candidatura,
+                      idMunicipio: value,
+                    });
+                    setFMunicipio(value);
+                  }}
+                  value={fMunicipio}
+                >
+                  <option value="0">Seleccione un municipio</option>
+                  {municipios.map((municipio) => (
+                    <option key={municipio.id} value={municipio.id}>
+                      {municipio.nombre}
+                    </option>
+                  ))}
+                </select>
+              </FormGroup>
+            )}
+
+            {rCircunscripcion && (
+              <FormGroup className="">
+                <label className="control-label">Circunscripcion</label>
+                <input
+                  type="number"
+                  className={
+                    'form-control ' +
+                    (fCircunscripcion === 0 ? 'is-invalid' : 'is-valid')
+                  }
+                  onChange={(e) => {
+                    const value = parseInt(e.target.value, 10);
+                    setCandidatura({
+                      ...candidatura,
+                      circunscripcion: value,
+                    });
+                    setFCircunscripcion(value);
+                  }}
+                  value={fCircunscripcion}
+                  defaultValue={0}
+                  min={0}
+                ></input>
+              </FormGroup>
+            )}
           </div>
           <div className="modal-footer">
             <Button
