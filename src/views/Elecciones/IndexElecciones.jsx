@@ -79,6 +79,7 @@ const IndexElecciones = () => {
                   <tr>
                     <th scope="col">Id</th>
                     <th scope="col">Fecha</th>
+                    <th scope="col">Periodo</th>
                     <th scope="col">Acciones</th>
                   </tr>
                 </thead>
@@ -96,14 +97,15 @@ const IndexElecciones = () => {
                             {new Date(item.fecha).getFullYear() +
                               '-' +
                               (new Date(item.fecha).getMonth() + 1)
-                                .toString()
-                                .padStart(2, '0') +
+                              .toString()
+                              .padStart(2, '0') +
                               '-' +
                               new Date(item.fecha)
-                                .getDate()
-                                .toString()
-                                .padStart(2, '0')}
+                              .getDate()
+                              .toString()
+                              .padStart(2, '0')}
                           </th>
+                              <th>{item.periodo}</th>
                           <td className="text-right">
                             <UncontrolledDropdown>
                               <DropdownToggle

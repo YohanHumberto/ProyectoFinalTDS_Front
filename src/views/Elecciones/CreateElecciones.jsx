@@ -5,6 +5,7 @@ import { useContext, useEffect, useState } from 'react';
 
 const initialValue = {
   fecha: '',
+  periodo: ''
 };
 
 const CreateEleccion = () => {
@@ -21,10 +22,7 @@ const CreateEleccion = () => {
 
   const HandleSumbit = (e) => {
     e.preventDefault();
-    if (
-      eleccion.fecha != '' &&
-      new Date(eleccion.fecha).getTime() > Date.now()
-    ) {
+    if (eleccion.fecha != '' && new Date(eleccion.fecha).getTime() > Date.now() && eleccion.periodo != "" ) {
       agregarEleccion(eleccion);
       setEleccion(initialValue);
       setState(false);
@@ -70,15 +68,21 @@ const CreateEleccion = () => {
                 type="date"
                 className={
                   eleccion.fecha === '' ||
-                  new Date(eleccion.fecha).getTime() < Date.now()
+                    new Date(eleccion.fecha).getTime() < Date.now()
                     ? 'is-invalid'
                     : 'is-valid'
                 }
-                onChange={(e) =>
-                  setEleccion({ ...eleccion, fecha: e.target.value })
-                }
+                onChange={(e) => setEleccion({ ...eleccion, fecha: e.target.value })}
                 value={eleccion.nombre}
               />
+            </FormGroup>
+            <FormGroup className="">
+              <label className="control-label">Periodo</label>
+              <Input
+                type="text" className={eleccion.periodo === '' ? 'is-invalid' : 'is-valid'}
+                onChange={(e) => setEleccion({ ...eleccion, periodo: e.target.value })}
+                value={eleccion.nombre}
+              />  
             </FormGroup>
           </div>
           <div className="modal-footer">
