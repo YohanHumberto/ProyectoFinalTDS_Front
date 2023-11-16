@@ -23,6 +23,8 @@ const CreateCandidatura = () => {
     cargarProvincias,
     municipios,
     cargarMunicipios,
+    candidaturas,
+    cargarCandidaturas,
   } = useContext(DataContext);
   const [state, setState] = useState({ exampleModal: false });
   const [candidatura, setCandidatura] = useState(initialValue);
@@ -99,17 +101,24 @@ const CreateCandidatura = () => {
   };
 
   const filterCandidatos = (cargoElectoral) => {
+    console.log(candidaturas);
     if (cargoElectoral.length === 1) {
       const candi = candidatos.filter(
-        (candidato) => candidato.cargoElectoral.nombre === cargoElectoral[0]
+        (candidato) =>
+          candidato.cargoElectoral.nombre === cargoElectoral[0] &&
+          !candidaturas.some((c) => c.candidato?.id === candidato.id)
       );
       setCandidato(candi);
     } else if (cargoElectoral.length > 1) {
       const candi = candidatos.filter(
-        (candidato) => candidato.cargoElectoral.nombre === cargoElectoral[0]
+        (candidato) =>
+          candidato.cargoElectoral.nombre === cargoElectoral[0] &&
+          !candidaturas.some((c) => c.candidato?.id === candidato.id)
       );
       const vice = candidatos.filter(
-        (candidato) => candidato.cargoElectoral.nombre === cargoElectoral[1]
+        (candidato) =>
+          candidato.cargoElectoral.nombre === cargoElectoral[1] &&
+          !candidaturas.some((c) => c.viceCandidato?.id === candidato.id)
       );
       setCandidato(candi);
       setViceCandidato(vice);
@@ -144,6 +153,7 @@ const CreateCandidatura = () => {
   };
 
   useEffect(() => {
+    cargarCandidaturas();
     cargarNivelElectoral();
     cargarProvincias();
     cargarMunicipios();
@@ -153,6 +163,7 @@ const CreateCandidatura = () => {
   const toggleModal = (param) => {
     setState({ [param]: !state[param] });
     setCandidatura((prevCandidatura) => initialValue);
+    setAllField();
   };
 
   /* TODO: cambiar la condicion para cada nivel electoral */
