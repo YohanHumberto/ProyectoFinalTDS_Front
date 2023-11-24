@@ -33,24 +33,29 @@ const NivelPresidencialCard = ({ item }) => {
 
     return (
         <>
-            <div style={carStyle} className="card my-3">
-                <div className="card-header row m-0 p-2">
-                    <div className='col-3 w-100 h-100' style={{ ...logoimg, backgroundImage: `url('${item?.candidato.partido?.logoUrl}')`, }}></div>
-                    <div className='col-9 pr-2'>
-                        <h5>{item?.candidato.partido?.nombre?.toUpperCase()}</h5>
-                        <h5>{item?.candidato.partido?.siglas?.toUpperCase()}</h5>
+            <label htmlFor={`check${item.id}`}>
+                <div style={carStyle} className="card my-3">
+                    <div className="card-header row m-0 p-2">
+                        <div className='col-3 w-100 h-100' style={{ ...logoimg, backgroundImage: `url('${item?.candidato.partido?.logoUrl}')`, }}></div>
+                        <div className='col-8 pr-2'>
+                            <h5>{item?.candidato.partido?.nombre?.toUpperCase()}</h5>
+                            <h5>{item?.candidato.partido?.siglas?.toUpperCase()}</h5>
+                        </div>
+                        <div className="col-1 p-0">
+                            <input id={`check${item.id}`} type="radio"  value={item.id} name="votoPresidencial" style={{ width: "30px", height: "30px" }} />
+                        </div>
+                    </div>
+                    <div className="card-body row m-0 p-2">
+                        <div className='col-5 w-100 h-100' style={{ ...candidatoImg, backgroundImage: `url('${item?.candidato.fotoUrl}')` }}></div>
+                        <div className='col-7 pr-2'>
+                            <p style={pStyle}>PARA PRESIDENTE:</p>
+                            <h5>{item?.candidato.nombre?.toUpperCase()}</h5>
+                            <p style={pStyle}>PARA VICEPRESIDENTE:</p>
+                            <h5>R{item?.candidato.nombre?.toUpperCase()}</h5>
+                        </div>
                     </div>
                 </div>
-                <div className="card-body row m-0 p-2">
-                    <div className='col-5 w-100 h-100' style={{ ...candidatoImg, backgroundImage: `url('${item?.candidato.fotoUrl}')` }}></div>
-                    <div className='col-7 pr-2'>
-                        <p style={pStyle}>PARA PRESIDENTE:</p>
-                        <h5>{item?.candidato.nombre?.toUpperCase()}</h5>
-                        <p style={pStyle}>PARA VICEPRESIDENTE:</p>
-                        <h5>R{item?.candidato.nombre?.toUpperCase()}</h5>
-                    </div>
-                </div>
-            </div>
+            </label >
         </>
     );
 };

@@ -41,76 +41,81 @@ const NivelMunicipalCard = ({ item }) => {
 
     return (
         <>
-            <div style={carStyle} className="card my-3" key={item?.id}>
-                <div className="card-header row m-0 p-2">
-                    <div className='col-3 w-100 h-100' style={{ ...logoimg, backgroundImage: `url('${item?.candidato.partido?.logoUrl}')`, }}></div>
-                    <div className='col-9 pr-2'>
-                        <h5><b>{item?.candidato.partido?.nombre?.toUpperCase()}</b></h5>
-                        <h5 ><b>{item?.candidato.partido?.siglas?.toUpperCase()}</b></h5>
+            <label htmlFor={`check${item.id}`}>
+                <div style={carStyle} className="card my-3" key={item?.id}>
+                    <div className="card-header row m-0 p-2">
+                        <div className='col-3 w-100 h-100' style={{ ...logoimg, backgroundImage: `url('${item?.candidato.partido?.logoUrl}')`, }}></div>
+                        <div className='col-8 pr-2'>
+                            <h5><b>{item?.candidato.partido?.nombre?.toUpperCase()}</b></h5>
+                            <h5 ><b>{item?.candidato.partido?.siglas?.toUpperCase()}</b></h5>
+                        </div>
+                        <div className="col-1 p-0">
+                            <input id={`check${item.id}`} type="radio"  value={item.id} name="votoMunicipal" style={{ width: "30px", height: "30px" }} />
+                        </div>
+                    </div>
+                    <div className="card-body row m-0 p-2">
+                        <div className="col-4 pt-5">
+                            <div className="mb-2">
+                                <p style={pStyle}>PARA ALCALDE/SA:</p>
+                            </div>
+                            <img style={{ ...candidatoImg, width: "120px", height: "120px !important", }} src={item?.candidato.fotoUrl} />
+
+                            <div className="mt-2">
+                                <h6><b>{item?.candidato.nombre?.toUpperCase()} {item?.candidato.apellido?.toUpperCase()}</b></h6>
+                            </div>
+
+                            <div className="mt-4">
+                                <p style={pStyle}>PARA VICE ALCALDE/SA:</p>
+                            </div>
+
+                            <div className="mt-2">
+                                <h6><b>{item?.viceCandidato.nombre?.toUpperCase()} {item?.viceCandidato.apellido?.toUpperCase()}</b></h6>
+                            </div>
+                        </div>
+                        <div className="col-8 row m-0 p-2">
+                            <div className="col-12" style={center}>
+                                <p style={pStyle}>PARA REGIDOR/A:</p>
+                            </div>
+                            <div className="col-4 p-2">
+                                <img style={{ ...candidatoImg }} src={item?.fotoUrl} />
+                                <h6><b>{item?.nombre?.toUpperCase()} </b></h6>
+                            </div>
+                            <div className="col-4 p-2">
+                                <img style={{ ...candidatoImg }} src={item?.fotoUrl} />
+                                <h6><b>{item?.nombre?.toUpperCase()} </b></h6>
+                            </div>
+                            <div className="col-4 p-2">
+                                <img style={{ ...candidatoImg }} src={item?.fotoUrl} />
+                                <h6><b>{item?.nombre?.toUpperCase()} </b></h6>
+                            </div>
+                            <div className="col-4 p-2">
+                                <img style={{ ...candidatoImg }} src={item?.fotoUrl} />
+                                <h6><b>{item?.nombre?.toUpperCase()} </b></h6>
+                            </div>
+                            <div className="col-4 p-2">
+                                <img style={{ ...candidatoImg }} src={item?.fotoUrl} />
+                                <h6><b>{item?.nombre?.toUpperCase()} </b></h6>
+                            </div>
+                            <div className="col-4 p-2">
+                                <img style={{ ...candidatoImg }} src={item?.fotoUrl} />
+                                <h6><b>{item?.nombre?.toUpperCase()} </b></h6>
+                            </div>
+                            <div className="col-4 p-2">
+                                <img style={{ ...candidatoImg }} src={item?.fotoUrl} />
+                                <h6><b>{item?.nombre?.toUpperCase()} </b></h6>
+                            </div>
+                            <div className="col-4 p-2">
+                                <img style={{ ...candidatoImg }} src={item?.fotoUrl} />
+                                <h6><b>{item?.nombre?.toUpperCase()} </b></h6>
+                            </div>
+                            <div className="col-4 p-2">
+                                <img style={{ ...candidatoImg }} src={item?.fotoUrl} />
+                                <h6><b>{item?.nombre?.toUpperCase()} </b></h6>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div className="card-body row m-0 p-2">
-                    <div className="col-4 pt-5">
-                        <div className="mb-2">
-                            <p style={pStyle}>PARA ALCALDE/SA:</p>
-                        </div>
-                        <img style={{ ...candidatoImg, width: "120px", height: "120px !important", }} src={item?.candidato.fotoUrl} />
-
-                        <div className="mt-2">
-                            <h6><b>{item?.candidato.nombre?.toUpperCase()} {item?.candidato.apellido?.toUpperCase()}</b></h6>
-                        </div>
-
-                        <div className="mt-4">
-                            <p style={pStyle}>PARA VICE ALCALDE/SA:</p>
-                        </div>
-
-                        <div className="mt-2">
-                            <h6><b>{item?.viceCandidato.nombre?.toUpperCase()} {item?.viceCandidato.apellido?.toUpperCase()}</b></h6>
-                        </div>
-                    </div>
-                    <div className="col-8 row m-0 p-2">
-                        <div className="col-12" style={center}>
-                            <p style={pStyle}>PARA REGIDOR/A:</p>
-                        </div>
-                        <div className="col-4 p-2">
-                            <img style={{ ...candidatoImg }} src={item?.fotoUrl} />
-                            <h6><b>{item?.nombre?.toUpperCase()} </b></h6>
-                        </div>
-                        <div className="col-4 p-2">
-                            <img style={{ ...candidatoImg }} src={item?.fotoUrl} />
-                            <h6><b>{item?.nombre?.toUpperCase()} </b></h6>
-                        </div>
-                        <div className="col-4 p-2">
-                            <img style={{ ...candidatoImg }} src={item?.fotoUrl} />
-                            <h6><b>{item?.nombre?.toUpperCase()} </b></h6>
-                        </div>
-                        <div className="col-4 p-2">
-                            <img style={{ ...candidatoImg }} src={item?.fotoUrl} />
-                            <h6><b>{item?.nombre?.toUpperCase()} </b></h6>
-                        </div>
-                        <div className="col-4 p-2">
-                            <img style={{ ...candidatoImg }} src={item?.fotoUrl} />
-                            <h6><b>{item?.nombre?.toUpperCase()} </b></h6>
-                        </div>
-                        <div className="col-4 p-2">
-                            <img style={{ ...candidatoImg }} src={item?.fotoUrl} />
-                            <h6><b>{item?.nombre?.toUpperCase()} </b></h6>
-                        </div>
-                        <div className="col-4 p-2">
-                            <img style={{ ...candidatoImg }} src={item?.fotoUrl} />
-                            <h6><b>{item?.nombre?.toUpperCase()} </b></h6>
-                        </div>
-                        <div className="col-4 p-2">
-                            <img style={{ ...candidatoImg }} src={item?.fotoUrl} />
-                            <h6><b>{item?.nombre?.toUpperCase()} </b></h6>
-                        </div>
-                        <div className="col-4 p-2">
-                            <img style={{ ...candidatoImg }} src={item?.fotoUrl} />
-                            <h6><b>{item?.nombre?.toUpperCase()} </b></h6>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            </label>
         </>
     );
 };

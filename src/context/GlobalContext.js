@@ -13,8 +13,8 @@ import useAuth from '../hooks/useAuth';
 const DataContext = createContext();
 
 function GlobalContext({ children }) {
-  const [loading, setLoading] = useState(false);
 
+  const [loading, setLoading] = useState(false);
   const { loginElector, loginAdmin } = useAuth(setLoading);
 
   const {

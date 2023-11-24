@@ -22,6 +22,7 @@ const Login = () => {
 
     if (res?.status?.toString().substring(0, 1) == 2) {
       window.localStorage.setItem("token", res.data);
+      window.localStorage.setItem("cedula", cedula);
       navigation("/votacion/votaciones")
     } else {
       Warning("Cedula Invalida");

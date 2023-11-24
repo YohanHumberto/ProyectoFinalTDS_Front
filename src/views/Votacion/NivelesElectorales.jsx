@@ -9,19 +9,49 @@ import M from '../../assets/img/M.svg'
 import D from '../../assets/img/D.svg'
 import S from '../../assets/img/S.svg'
 import P from '../../assets/img/P.svg'
+import { useNavigate } from 'react-router-dom';
+
+
+
+let nivelObj = {
+    "Presidencial": {
+        title: "NIVEL PRESIDENCIAL",
+        icon: P
+    },
+    "Senatorial": {
+        title: "NIVEL SENATORIAL",
+        icon: S
+    },
+    "Diputación": {
+        title: "NIVEL DE DIPUTACION",
+        icon: D
+    },
+    "Municipal": {
+        title: "NIVEL MUNICIPAL",
+        icon: M
+    },
+}
+
+let row = {
+    justifyContent: "space-evenly"
+}
 
 const NivelesElectorales = ({ nivel }) => {
-
-    let row = {
-        justifyContent: "space-evenly"
-    }
 
     const { obtenerCandidaturaPorNivelElectoral, obtenerEleccionesPorFecha } = useContext(DataContext);
     const [candidaturas, setCandidaturas] = useState([]);
     const [eleccion, setEleccion] = useState([]);
+    const navigation = useNavigate();
+
+    let render = {
+        NivelPresidencialCard: candidaturas.length > 0 && nivel === "Presidencial",
+        NivelSenatorialCard: candidaturas.length > 0 && nivel === "Senatorial",
+        NivelDiputacionCard: candidaturas.length > 0 && nivel === "Diputación",
+        NivelMunicipalCard: candidaturas.length > 0 && nivel === "Municipal",
+    }
 
     async function getCandidaturasPorNivel() {
-        let data = await obtenerEleccionesPorFecha("2024-05-16T00:00:00");
+        let data = await obtenerEleccionesPorFecha("2023-11-15T00:00:00");
         console.log(data)
         setEleccion(data);
         return data.candidaturas.filter(x => x.nivelElectoral.nombre == nivel);
@@ -56,46 +86,34 @@ const NivelesElectorales = ({ nivel }) => {
         GetCandidaturaPorNivelElectoral();
     }, []);
 
-
-    let render = {
-        NivelPresidencialCard: candidaturas.length > 0 && nivel === "Presidencial",
-        NivelSenatorialCard: candidaturas.length > 0 && nivel === "Senatorial",
-        NivelDiputacionCard: candidaturas.length > 0 && nivel === "Diputación",
-        NivelMunicipalCard: candidaturas.length > 0 && nivel === "Municipal",
-    }
-
-
-    let nivelObj = {
-        "Presidencial": {
-            title: "NIVEL PRESIDENCIAL",
-            icon: P
-        },
-        "Senatorial": {
-            title: "NIVEL SENATORIAL",
-            icon: S
-        },
-        "Diputación": {
-            title: "NIVEL DE DIPUTACION",
-            icon: D
-        },
-        "Municipal": {
-            title: "NIVEL MUNICIPAL",
-            icon: M
-        },
+    function handleSubmit(e) {
+        e.preventDefault();
+        for (let index = 0; index < e.target.length; index++) {
+            if (e.target[index].checked) {
+                let obj = JSON.parse(window.localStorage.getItem("votos")) ?? {};
+                let pocision = e.target[index].name;
+                obj[pocision] = e.target[index].value;
+                window.localStorage.setItem("votos", JSON.stringify(obj))
+                navigation("/votacion/votaciones");
+            }
+        }
     }
 
     return (
         <>
             <VotacionNavbar title={nivelObj[nivel].title} icon={nivelObj[nivel].icon} periodo={eleccion?.periodo} fecha={eleccion?.fecha} />
 
-            <div style={{ minHeight: "81vh", background: "#c7c8ca", fontSize: "14px" }}>
+            <form style={{ minHeight: "81vh", background: "#c7c8ca", fontSize: "14px" }} onSubmit={handleSubmit}>
+                <div className='p-2 d-flex justify-content-end'>
+                    <button className='btn' style={{ background: "#c18e3f" }}>CONTINUAR</button>
+                </div>
                 <div className="row m-0 p-2 m-auto pt-5" style={row}>
                     {render.NivelPresidencialCard && candidaturas.map(item => <NivelPresidencialCard key={item.id} item={item} />)}
                     {render.NivelSenatorialCard && candidaturas.map(item => <NivelSenatorialCard key={item.id} item={item} />)}
                     {render.NivelDiputacionCard && candidaturas.map((item) => <NivelDiputacionCard key={item.idpartido} item={item} />)}
                     {render.NivelMunicipalCard && candidaturas.map(item => <NivelMunicipalCard key={item.id} item={item} />)}
                 </div>
-            </div>
+            </form>
         </>
     );
 };

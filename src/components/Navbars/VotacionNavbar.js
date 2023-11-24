@@ -25,7 +25,7 @@ function convertirFormato(fechaString) {
 }
 
 
-const VotacionNavbar = ({ title, icon, periodo, fecha }) => {
+const VotacionNavbar = ({ title, icon, periodo, fecha, provincia, circunscripcion }) => {
 
     let carStyles = {
         width: "130px",
@@ -72,10 +72,10 @@ const VotacionNavbar = ({ title, icon, periodo, fecha }) => {
                         <img width={120} height={120} src={JceSinNombre} />
                     </div>
                 </div>
-                <div className="col-lg-4 row">
-                    <div className="py-3" style={{marginLeft: "-80px"}}>
-                        <h4>PROVINCIA: <b>{"Santo domingo"}</b></h4><br/>
-                        <h4>CIRCUNSCRIPCION: <b>{"001"}</b></h4>
+                <div className="col-lg-4 row" style={{ justifyContent: "space-between" }}>
+                    <div className="py-3" style={{ marginLeft: "-80px" }}>
+                        {provincia && (<><h4>PROVINCIA: <b>{"Santo domingo"}</b></h4><br /></>)}
+                        {circunscripcion && (<> <h4>CIRCUNSCRIPCION: <b>{"001"}</b></h4></>)}
                     </div>
                     {
                         icon != null && (
