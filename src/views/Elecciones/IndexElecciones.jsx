@@ -18,13 +18,14 @@ import {
 import Header from '../../components/Headers/Header.js';
 import { DataContext } from '../../context/GlobalContext.js';
 import { useContext, useEffect, useState } from 'react';
-import CreateEleccion from './CreateElecciones.jsx';
+import AsignarCandidatura from './AsignarCandidtura.jsx';
 import Loader from '../../components/Loaders/Loader.jsx';
 import '../../assets/img/brand/error-icon.png';
-
+import CreateEleccion from './CreateElecciones';
 const IndexElecciones = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
+  const [editModal, setEditModal] = useState({ state: false, id: 0 });
 
   const handlePageChange = (pageNumber) => {
     if (pageNumber >= 1) {
@@ -73,6 +74,11 @@ const IndexElecciones = () => {
                   />
                   <CreateEleccion />
                 </div>
+                <AsignarCandidatura
+                  stateprop={editModal.state}
+                  id={editModal.id}
+                  setEditModal={setEditModal}
+                />
               </CardHeader>
               <Table className="align-items-center table-flush" responsive>
                 <thead className="thead-light">
@@ -97,15 +103,15 @@ const IndexElecciones = () => {
                             {new Date(item.fecha).getFullYear() +
                               '-' +
                               (new Date(item.fecha).getMonth() + 1)
-                              .toString()
-                              .padStart(2, '0') +
+                                .toString()
+                                .padStart(2, '0') +
                               '-' +
                               new Date(item.fecha)
-                              .getDate()
-                              .toString()
-                              .padStart(2, '0')}
+                                .getDate()
+                                .toString()
+                                .padStart(2, '0')}
                           </th>
-                              <th>{item.periodo}</th>
+                          <th>{item.periodo}</th>
                           <td className="text-right">
                             <UncontrolledDropdown>
                               <DropdownToggle
@@ -125,9 +131,14 @@ const IndexElecciones = () => {
                                 <DropdownItem
                                   className="text-info"
                                   href="#pablo"
-                                  onClick={(e) => e.preventDefault()}
+                                  onClick={() => {
+                                    setEditModal({
+                                      id: item.id,
+                                      state: !editModal.state,
+                                    });
+                                  }}
                                 >
-                                  Detalle
+                                  Asignar candidatura
                                 </DropdownItem>
                               </DropdownMenu>
                             </UncontrolledDropdown>
