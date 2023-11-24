@@ -101,7 +101,6 @@ const CreateCandidatura = () => {
   };
 
   const filterCandidatos = (cargoElectoral) => {
-    console.log(candidaturas);
     if (cargoElectoral.length === 1) {
       const candi = candidatos.filter(
         (candidato) =>
