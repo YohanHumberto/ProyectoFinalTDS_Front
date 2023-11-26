@@ -28,7 +28,7 @@ const AdminNavbar = (props) => {
           >
             {props.brandText}
           </Link>
-          <Form className="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto">
+          {/* <Form className="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto">
             <FormGroup className="mb-0">
               <InputGroup className="input-group-alternative">
                 <InputGroupAddon addonType="prepend">
@@ -39,26 +39,30 @@ const AdminNavbar = (props) => {
                 <Input placeholder="Search" type="text" />
               </InputGroup>
             </FormGroup>
-          </Form>
+          </Form> */}
           <Nav className="align-items-center d-none d-md-flex" navbar>
             <UncontrolledDropdown nav>
               <DropdownToggle className="pr-0" nav>
                 <Media className="align-items-center">
-                  <span className="avatar avatar-sm rounded-circle">
+                  {/* <span className="avatar avatar-sm rounded-circle">
                     <img
                       alt="..."
                       src={require("../../assets/img/theme/team-4-800x800.jpg")}
                     />
-                  </span>
-                  <Media className="ml-2 d-none d-lg-block">
+                  </span> */}
+                  {/* <Media className="ml-2 d-none d-lg-block">
                     <span className="mb-0 text-sm font-weight-bold">
                       Jessica Jones
                     </span>
-                  </Media>
+                  </Media> */}
+                  <a className="btn btn-white">
+                    <i className="ni ni-user-run" />
+                    <span>Logout</span>
+                  </a>
                 </Media>
               </DropdownToggle>
               <DropdownMenu className="dropdown-menu-arrow" right>
-                <DropdownItem className="noti-title" header tag="div">
+                {/* <DropdownItem className="noti-title" header tag="div">
                   <h6 className="text-overflow m-0">Welcome!</h6>
                 </DropdownItem>
                 <DropdownItem to="/admin/user-profile" tag={Link}>
@@ -77,7 +81,7 @@ const AdminNavbar = (props) => {
                   <i className="ni ni-support-16" />
                   <span>Support</span>
                 </DropdownItem>
-                <DropdownItem divider />
+                <DropdownItem divider /> */}
                 <DropdownItem href="#pablo" onClick={(e) => e.preventDefault()}>
                   <i className="ni ni-user-run" />
                   <span>Logout</span>

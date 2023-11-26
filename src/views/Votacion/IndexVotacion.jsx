@@ -38,13 +38,13 @@ const IndexVotacion = () => {
         marginBottom: "20px",
     }
 
-    const { obtenerEleccionesPorFecha } = useContext(DataContext);
+    const { obtenerEleccionesPorFecha, enviarVoto } = useContext(DataContext);
     const [eleccion, setEleccion] = useState([]);
     const [votos, setVotos] = useState({
-        nivelDiputacion: -1,
-        nivelSenatorial: -1,
-        nivelPresidencial: -1,
-        nivelMunicipal: -1
+        votoDiputacion: -1,
+        votoSenatorial: -1,
+        votoPresidencial: -1,
+        votoMunicipal: -1
     });
     const [stados, setEstados] = useState({
         municipal: false,
@@ -52,7 +52,7 @@ const IndexVotacion = () => {
         senatorial: false,
         presidencial: false
     });
-
+    const [btnSaveActive, setBtnSaveActive] = useState(false);
 
     let getELeccion = async () => {
         let data = await obtenerEleccionesPorFecha("2023-11-15T00:00:00");
@@ -60,7 +60,7 @@ const IndexVotacion = () => {
         setEleccion(data);
         setEstados({
             municipal: data.candidaturas.filter(x => x.nivelElectoral.nombre == "Municipal").length > 0,
-            diputacion: data.candidaturas.filter(x => x.nivelElectoral.nombre == "Diputacion").length > 0,
+            diputacion: data.candidaturas.filter(x => x.nivelElectoral.nombre == "Diputación").length > 0,
             senatorial: data.candidaturas.filter(x => x.nivelElectoral.nombre == "Senatorial").length > 0,
             presidencial: data.candidaturas.filter(x => x.nivelElectoral.nombre == "Presidencial").length > 0
         });
@@ -68,31 +68,43 @@ const IndexVotacion = () => {
 
     useEffect(() => {
         console.log("execute stados")
-        if(eleccion.length > 0){
-            // let votosItem = JSON.parse(window.localStorage.getItem("votos"));
+        setVotos(JSON.parse(window.localStorage.getItem("votos")) ?? votos);
+        if (eleccion.length > 0) {
             window.localStorage.setItem("votos", JSON.stringify({
                 votoDiputacion: stados.diputacion ? -1 : 0,
                 votoSenatorial: stados.senatorial ? -1 : 0,
                 votoPresidencial: stados.presidencial ? -1 : 0,
                 votoMunicipal: stados.municipal ? -1 : 0
             }));
-            setVotos(JSON.parse(window.localStorage.getItem("votos")) ?? votos);
         }
-        // if (votosItem == null) {
-        // }
     }, [stados]);
+
+    useEffect(() => {
+        let state = (votos.votoDiputacion >= 0 || !stados.diputacion) && (votos.votoSenatorial >= 0 || !stados.senatorial)
+            && (votos.votoPresidencial >= 0 || !stados.presidencial) && (votos.votoMunicipal >= 0 || !stados.municipal);
+        console.log("STATE: ");
+        console.log(state);
+        if (state != btnSaveActive) setBtnSaveActive(state);
+    }, [btnSaveActive])
 
     useEffect(() => {
         getELeccion();
         console.log(stados)
         console.log(JSON.parse(window.localStorage.getItem("votos")))
-        console.log("execute")
     }, []);
 
-    function saveIsDesabled() {
-        return (votos.votoDiputacion >= 0) && (votos.votoSenatorial >= 0)
-            && (votos.votoPresidencial >= 0) && (votos.votoMunicipal >= 0)
-            ? false : "disabled";
+    const HandleClickBtnSave = async () => {
+
+        console.log(votos)
+        let obj = {
+            "candidaturaPresidencial": votos.votoMunicipal,
+            "candidaturaSenatorial": votos.votoSenatorial,
+            "candidaturaDiputacion": votos.votoDiputacion > 0 ? votos.votoDiputacion : 0,
+            "candidaturaAlcalde": votos.votoMunicipal,
+            "candidaturaRegidores": 0
+        };
+        console.log(obj)
+        console.log(await enviarVoto(obj));
     }
 
     return (
@@ -102,13 +114,14 @@ const IndexVotacion = () => {
                 <div className="row m-0 p-2 m-auto pt-5" style={{ justifyContent: "center", gap: "1rem" }}>
                     <div className='col-12 d-flex justify-content-end'>
                         <button className={`btn btn-warning`}
-                            disabled={saveIsDesabled()}
-                            style={{ background: "rgb(193, 142, 63)", borderColor: "rgb(193, 142, 63)" }}>GUARDAR</button>
+                            disabled={btnSaveActive ? false : "disabled"}
+                            style={{ background: "rgb(193, 142, 63)", borderColor: "rgb(193, 142, 63)" }}
+                            onClick={HandleClickBtnSave}>GUARDAR</button>
                     </div>
                     <div style={col} className="text-center">
                         <div style={carStylesp}>
                             <Link to="/votacion/nivelMunicipal" style={carStyles}
-                                className={`btn btn-outline-dark border border-dark ${!stados.municipal || votos?.votoMunicipal > -1 ? "disabled" : ""}`}>
+                                className={`btn btn-outline-dark border border-dark ${!stados.municipal || votos.votoMunicipal > -1 ? "disabled" : ""}`}>
                                 <img src={M} />
                             </Link>
                             <h3 style={{ "fontSize": "25px" }}>Municipal</h3>
@@ -142,7 +155,7 @@ const IndexVotacion = () => {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div >
         </>
     );
 };

@@ -209,7 +209,7 @@ const Sidebar = (props) => {
           </Form>
           {/* Navigation */}
           <Nav navbar>
-            <NavItem>
+            {/* <NavItem>
               <NavLink to="/login" tag={NavLinkRRD}>
                 <i className="ni ni-tv-2 text-primary" />
                 Login votante
@@ -220,7 +220,7 @@ const Sidebar = (props) => {
                 <i className="ni ni-tv-2 text-primary" />
                 Login admin
               </NavLink>
-            </NavItem>
+            </NavItem> */}
             {createLinks(routes)}
           </Nav>
           {/* Divider */}

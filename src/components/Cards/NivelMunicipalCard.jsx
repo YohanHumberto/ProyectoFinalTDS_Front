@@ -38,6 +38,8 @@ const NivelMunicipalCard = ({ item }) => {
         display: "flex",
         justifyContent: "center"
     }
+    
+    console.log(item);
 
     return (
         <>
@@ -46,11 +48,11 @@ const NivelMunicipalCard = ({ item }) => {
                     <div className="card-header row m-0 p-2">
                         <div className='col-3 w-100 h-100' style={{ ...logoimg, backgroundImage: `url('${item?.candidato.partido?.logoUrl}')`, }}></div>
                         <div className='col-8 pr-2'>
-                            <h5><b>{item?.candidato.partido?.nombre?.toUpperCase()}</b></h5>
-                            <h5 ><b>{item?.candidato.partido?.siglas?.toUpperCase()}</b></h5>
+                            <h5><b>{item?.candidato?.partido?.nombre?.toUpperCase()}</b></h5>
+                            <h5 ><b>{item?.candidato?.partido?.siglas?.toUpperCase()}</b></h5>
                         </div>
                         <div className="col-1 p-0">
-                            <input id={`check${item.id}`} type="radio"  value={item.id} name="votoMunicipal" style={{ width: "30px", height: "30px" }} />
+                            <input id={`check${item.id}`} type="radio" value={item.id} name="votoMunicipal" style={{ width: "30px", height: "30px" }} />
                         </div>
                     </div>
                     <div className="card-body row m-0 p-2">
@@ -58,10 +60,10 @@ const NivelMunicipalCard = ({ item }) => {
                             <div className="mb-2">
                                 <p style={pStyle}>PARA ALCALDE/SA:</p>
                             </div>
-                            <img style={{ ...candidatoImg, width: "120px", height: "120px !important", }} src={item?.candidato.fotoUrl} />
+                            <img style={{ ...candidatoImg, width: "120px", height: "120px !important", }} src={item?.candidato?.fotoUrl} />
 
                             <div className="mt-2">
-                                <h6><b>{item?.candidato.nombre?.toUpperCase()} {item?.candidato.apellido?.toUpperCase()}</b></h6>
+                                <h6><b>{item?.candidato?.nombre?.toUpperCase()} {item?.candidato?.apellido?.toUpperCase()}</b></h6>
                             </div>
 
                             <div className="mt-4">
@@ -69,7 +71,7 @@ const NivelMunicipalCard = ({ item }) => {
                             </div>
 
                             <div className="mt-2">
-                                <h6><b>{item?.viceCandidato.nombre?.toUpperCase()} {item?.viceCandidato.apellido?.toUpperCase()}</b></h6>
+                                <h6><b>{item?.viceCandidato?.nombre?.toUpperCase()} {item?.viceCandidato?.apellido?.toUpperCase()}</b></h6>
                             </div>
                         </div>
                         <div className="col-8 row m-0 p-2">

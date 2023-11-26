@@ -6,6 +6,7 @@ const NivelDiputacionCard = ({ item }) => {
 
     useEffect(() => {
         console.log(item);
+        console.log(candidaturas);
     }, []);
 
     let carStyle = {
@@ -49,34 +50,34 @@ const NivelDiputacionCard = ({ item }) => {
 
     return (
         <>
-            <label htmlFor={`check${item.id}`}>
-                <div style={carStyle} className="card my-3" key={item?.id}>
-                    <div className="card-header row m-0 p-2">
-                        <div className='col-3 w-100 h-100' style={{ ...logoimg, backgroundImage: `url('${candidaturas[0].candidato.partido?.logoUrl}')`, }}></div>
-                        <div className='col-8 pr-2'>
-                            <h6><b>{candidaturas[0].candidato.partido?.nombre?.toUpperCase()}</b></h6>
-                            <h6><b>{candidaturas[0].candidato.partido?.siglas?.toUpperCase()}</b></h6>
-                        </div>
-                        <div className="col-1 p-0">
-                            <input id={`check${item.id}`} type="radio"  value={item.id} name="votoDiputacion" style={{ width: "30px", height: "30px" }} />
-                        </div>
-                    </div>
-                    <div className="card-body row m-0 p-2">
-                        <div className="col-12" style={center}>
-                            <p style={pStyle}>PARA DIPUTADO/A:</p>
-                        </div>
-
-                        {candidaturas.map(item => {
-                            return (
-                                <div className="col-4 p-2">
-                                    <div style={{ ...candidatoImg, backgroundImage: `url('${item?.candidato.fotoUrl}')` }}></div>
-                                    <h6><b>{item?.candidato.nombre?.toUpperCase()} {item?.candidato.apellido?.toUpperCase()}</b></h6>
-                                </div>
-                            );
-                        })}
+            <div style={carStyle} className="card my-3" key={item?.id}>
+                <div className="card-header row m-0 p-2">
+                    <div className='col-3 w-100 h-100' style={{ ...logoimg, backgroundImage: `url('${candidaturas[0].candidato.partido?.logoUrl}')`, }}></div>
+                    <div className='col-8 pr-2'>
+                        <h6><b>{candidaturas[0].candidato.partido?.nombre?.toUpperCase()}</b></h6>
+                        <h6><b>{candidaturas[0].candidato.partido?.siglas?.toUpperCase()}</b></h6>
                     </div>
                 </div>
-            </label>
+                <div className="card-body row m-0 p-2">
+                    <div className="col-12" style={center}>
+                        <p style={pStyle}>PARA DIPUTADO/A:</p>
+                    </div>
+
+                    {candidaturas.map(item => {
+                        return (
+                            <div className="col-4 p-2">
+                                <label htmlFor={`check${item.id}`}>
+                                    <div style={{ ...candidatoImg, backgroundImage: `url('${item?.candidato.fotoUrl}')` }}></div>
+                                    <h6 className="mt-2">
+                                        <input id={`check${item.id}`} type="radio" value={item.id} name="votoDiputacion" style={{ width: "20px", height: "20px", width: "13px", height: "13px", marginRight: "5px" }} />
+                                        <b>{item?.candidato.nombre?.toUpperCase()} {item?.candidato.apellido?.toUpperCase()}</b>
+                                    </h6>
+                                </label>
+                            </div>
+                        );
+                    })}
+                </div>
+            </div>
         </>
     );
 };

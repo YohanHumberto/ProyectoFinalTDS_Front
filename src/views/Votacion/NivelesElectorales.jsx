@@ -90,9 +90,14 @@ const NivelesElectorales = ({ nivel }) => {
         e.preventDefault();
         for (let index = 0; index < e.target.length; index++) {
             if (e.target[index].checked) {
-                let obj = JSON.parse(window.localStorage.getItem("votos")) ?? {};
+                let obj = JSON.parse(window.localStorage.getItem("votos")) ?? {
+                    "votoMunicipal": -1,
+                    "votoSenatorial": -1,
+                    "votoPresidencial": -1,
+                    "votoDiputacion": -1,
+                };
                 let pocision = e.target[index].name;
-                obj[pocision] = e.target[index].value;
+                obj[pocision] = parseInt(e.target[index].value);
                 window.localStorage.setItem("votos", JSON.stringify(obj))
                 navigation("/votacion/votaciones");
             }
@@ -110,7 +115,7 @@ const NivelesElectorales = ({ nivel }) => {
                 <div className="row m-0 p-2 m-auto pt-5" style={row}>
                     {render.NivelPresidencialCard && candidaturas.map(item => <NivelPresidencialCard key={item.id} item={item} />)}
                     {render.NivelSenatorialCard && candidaturas.map(item => <NivelSenatorialCard key={item.id} item={item} />)}
-                    {render.NivelDiputacionCard && candidaturas.map((item) => <NivelDiputacionCard key={item.idpartido} item={item} />)}
+                    {render.NivelDiputacionCard && candidaturas.map((item) => <NivelDiputacionCard key={item.id} item={item} />)}
                     {render.NivelMunicipalCard && candidaturas.map(item => <NivelMunicipalCard key={item.id} item={item} />)}
                 </div>
             </form>

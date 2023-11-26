@@ -8,7 +8,7 @@ import useNivelElectoral from '../hooks/useNivelElectoral';
 import useProvincia from '../hooks/useProvincia';
 import useMunicipio from '../hooks/useMunicipio';
 import useAuth from '../hooks/useAuth';
-// import useAlert from '../hooks/useAlert';
+import useVoto from '../hooks/useVoto';
 
 const DataContext = createContext();
 
@@ -16,6 +16,7 @@ function GlobalContext({ children }) {
 
   const [loading, setLoading] = useState(false);
   const { loginElector, loginAdmin } = useAuth(setLoading);
+  const { enviarVoto } = useVoto(setLoading);
 
   const {
     partidos,
@@ -61,6 +62,7 @@ function GlobalContext({ children }) {
     useMunicipio(setLoading);
 
   const data = {
+    enviarVoto,
     loading,
     loginElector,
     loginAdmin,
