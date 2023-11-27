@@ -5,7 +5,7 @@ class BaseService {
     }
 
     async obtener(searchString) {
-        const token = window.localStorage.getItem("token");
+        const token = window.localStorage.getItem("tokenAdmin");
         console.log("Token GET:", token);
         const res = await fetch(this.baseUrl + `?search=${searchString}`, {
             headers: {
@@ -17,7 +17,7 @@ class BaseService {
     }
 
     async agregar(entity) {
-        const token = window.localStorage.getItem("token");
+        const token = window.localStorage.getItem("tokenAdmin");
         console.log("Token POST:", token);
         const res = await fetch(this.baseUrl, {
             method: "POST",
@@ -31,7 +31,7 @@ class BaseService {
     }
 
     async editar(entity) {
-        const token = window.localStorage.getItem("token");
+        const token = window.localStorage.getItem("tokenAdmin");
         console.log("Token PUT:", token);
         const res = await fetch(`${this.baseUrl}/${entity.id}`, {
             method: "PUT",
@@ -45,7 +45,7 @@ class BaseService {
     }
 
     async eliminar(id) {
-        const token = window.localStorage.getItem("token");
+        const token = window.localStorage.getItem("tokenAdmin");
         console.log("Token PUT:", token);
         const res = await fetch(`${this.baseUrl}/${id}`, {
             method: "DELETE",
