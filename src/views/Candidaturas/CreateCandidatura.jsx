@@ -354,7 +354,9 @@ const CreateCandidatura = () => {
                       idCandidato: value,
                     });
                     setFCandidato(value);
-                    setRViceCandidato(true);
+                    if (candidatura.idNivelElectoral === 4)
+                      setRViceCandidato(true);
+
                     if (valueInText.split('|')[0].trim().includes('Regidor')) {
                       setRViceCandidato(false);
                       setFViceCandidato(0);
@@ -399,7 +401,13 @@ const CreateCandidatura = () => {
                   <option value="0">Seleccione un vice candidato</option>
                   {viceCandidato.map((candidato) => (
                     <option key={candidato.id} value={candidato.id}>
-                      {candidato.nombre + ' ' + candidato.apellido}
+                      {candidato.cargoElectoral.nombre +
+                        ' | ' +
+                        candidato.nombre +
+                        ' ' +
+                        candidato.apellido +
+                        ' | ' +
+                        candidato.partido.nombre}
                     </option>
                   ))}
                 </select>

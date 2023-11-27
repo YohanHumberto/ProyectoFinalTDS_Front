@@ -319,7 +319,7 @@ const EditCandidatura = ({ stateprop, id, setEditModal }) => {
         <form onSubmit={HandleSumbit}>
           <div className="modal-header">
             <h4 className="modal-title" id="exampleModalLabel">
-              Agregar Candidatura
+              Editar Candidatura
             </h4>
             <button
               aria-label="Close"

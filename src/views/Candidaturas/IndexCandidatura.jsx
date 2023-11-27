@@ -86,7 +86,9 @@ const IndexCandidatura = () => {
                   <tr>
                     <th scope="col">Id</th>
                     <th scope="col">NivelElectoral</th>
+                    <th scope="col">Cargo</th>
                     <th scope="col">Candidato</th>
+                    <th scope="col">Cargo Vice</th>
                     <th scope="col">Vice candidato</th>
                     <th scope="col">Provincia</th>
                     <th scope="col">Municipio</th>
@@ -105,10 +107,16 @@ const IndexCandidatura = () => {
                         <tr key={item.id}>
                           <th>{item.id}</th>
                           <th scope="row">{item.nivelElectoral.nombre}</th>
+                          <td>{item.candidato?.cargoElectoral.nombre}</td>
                           <td>
                             {item.candidato?.nombre +
                               ' ' +
                               item.candidato?.apellido}
+                          </td>
+                          <td>
+                            {item.viceCandidato?.nombre !== undefined
+                              ? item.viceCandidato?.cargoElectoral.nombre
+                              : nullFieldContent}
                           </td>
                           <td>
                             {item.viceCandidato?.nombre !== undefined
