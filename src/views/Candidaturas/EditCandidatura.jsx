@@ -1,4 +1,4 @@
-import { Button, FormGroup, Modal } from 'reactstrap';
+import { Button, FormGroup, Modal, FormText } from 'reactstrap';
 // core components
 import { DataContext } from '../../context/GlobalContext.js';
 import { useContext, useEffect, useState } from 'react';
@@ -72,10 +72,10 @@ const EditCandidatura = ({ stateprop, id, setEditModal }) => {
         break;
       case 'Senatorial':
         setRMunicipio(false);
-        setRProvincia(false);
+        setRProvincia(true);
         setRViceCandidato(false);
         setRegidor(false);
-        setRCircunscripcion(true);
+        setRCircunscripcion(false);
         break;
 
       default:
@@ -235,9 +235,9 @@ const EditCandidatura = ({ stateprop, id, setEditModal }) => {
         candidatura.idNivelElectoral !== 0 &&
         candidatura.idNivelElectoral !== null &&
         candidatura.idProvincia !== null &&
-        candidatura.idProvincia !== 0 &&
-        candidatura.circunscripcion !== 0 &&
-        candidatura.circunscripcion !== null
+        candidatura.idProvincia !== 0
+        //candidatura.circunscripcion !== 0 &&
+        //candidatura.circunscripcion !== null
       ) {
         editarCandidatura(candidatura);
         setCandidatura((prevCandidatura) => initialValue);
@@ -245,6 +245,27 @@ const EditCandidatura = ({ stateprop, id, setEditModal }) => {
         setState(false);
       } else {
         console.error('Faltan campos en diputacion');
+      }
+    } else if (candidatura.idNivelElectoral === 4 && rViceCandidato === false) {
+      if (
+        candidatura.idCandidato !== 0 &&
+        candidatura.idCandidato !== null &&
+        candidatura.idNivelElectoral !== 0 &&
+        candidatura.idNivelElectoral !== null &&
+        candidatura.idProvincia !== null &&
+        candidatura.idProvincia !== 0 &&
+        (candidatura.idViceCandidato === null ||
+          candidatura.idViceCandidato === 0) &&
+        //candidatura.idViceCandidato !== null &&
+        candidatura.idMunicipio !== 0 &&
+        candidatura.idMunicipio !== null
+      ) {
+        editarCandidatura(candidatura);
+        setCandidatura((prevCandidatura) => initialValue);
+        setAllField();
+        setState(false);
+      } else {
+        console.error('Faltan campos en municipio');
       }
     } else if (candidatura.idNivelElectoral === 4) {
       if (
@@ -288,8 +309,8 @@ const EditCandidatura = ({ stateprop, id, setEditModal }) => {
         candidatura.idCandidato !== null &&
         candidatura.idNivelElectoral !== 0 &&
         candidatura.idNivelElectoral !== null &&
-        candidatura.circunscripcion !== 0 &&
-        candidatura.circunscripcion !== null
+        candidatura.idProvincia !== 0 &&
+        candidatura.idProvincia !== null
       ) {
         editarCandidatura(candidatura);
         setCandidatura((prevCandidatura) => initialValue);
@@ -477,7 +498,11 @@ const EditCandidatura = ({ stateprop, id, setEditModal }) => {
                   type="number"
                   className={
                     'form-control ' +
-                    (fCircunscripcion === 0 ? 'is-invalid' : 'is-valid')
+                    (candidatura.idNivelElectoral === 3
+                      ? ''
+                      : fCircunscripcion === 0
+                      ? 'is-invalid'
+                      : 'is-valid')
                   }
                   onChange={(e) => {
                     const value = parseInt(e.target.value, 10);
@@ -491,6 +516,9 @@ const EditCandidatura = ({ stateprop, id, setEditModal }) => {
                   defaultValue={0}
                   min={0}
                 ></input>
+                {candidatura.idNivelElectoral === 3 && (
+                  <FormText>Esta opción es opcional *</FormText>
+                )}
               </FormGroup>
             )}
           </div>

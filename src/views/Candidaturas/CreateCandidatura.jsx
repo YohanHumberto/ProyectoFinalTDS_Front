@@ -1,4 +1,4 @@
-import { Button, FormGroup, Modal } from 'reactstrap';
+import { Button, FormGroup, Modal, FormText } from 'reactstrap';
 // core components
 import { DataContext } from '../../context/GlobalContext.js';
 import { useContext, useEffect, useState } from 'react';
@@ -70,10 +70,10 @@ const CreateCandidatura = () => {
         break;
       case 'Senatorial':
         setRMunicipio(false);
-        setRProvincia(false);
+        setRProvincia(true);
         setRViceCandidato(false);
         setRegidor(false);
-        setRCircunscripcion(true);
+        setRCircunscripcion(false);
         break;
 
       default:
@@ -197,9 +197,9 @@ const CreateCandidatura = () => {
         candidatura.idNivelElectoral !== 0 &&
         candidatura.idNivelElectoral !== null &&
         candidatura.idProvincia !== null &&
-        candidatura.idProvincia !== 0 &&
-        candidatura.circunscripcion !== 0 &&
-        candidatura.circunscripcion !== null
+        candidatura.idProvincia !== 0
+        //candidatura.circunscripcion !== 0 &&
+        //candidatura.circunscripcion !== null
       ) {
         agregarCandidatura(candidatura);
         setCandidatura((prevCandidatura) => initialValue);
@@ -271,8 +271,8 @@ const CreateCandidatura = () => {
         candidatura.idCandidato !== null &&
         candidatura.idNivelElectoral !== 0 &&
         candidatura.idNivelElectoral !== null &&
-        candidatura.circunscripcion !== 0 &&
-        candidatura.circunscripcion !== null
+        candidatura.idProvincia !== 0 &&
+        candidatura.idProvincia !== null
       ) {
         agregarCandidatura(candidatura);
         setCandidatura((prevCandidatura) => initialValue);
@@ -481,7 +481,14 @@ const CreateCandidatura = () => {
                   type="number"
                   className={
                     'form-control ' +
-                    (fCircunscripcion === 0 ? 'is-invalid' : 'is-valid')
+                    (candidatura.idNivelElectoral === 3
+                      ? ''
+                      : fCircunscripcion === 0
+                      ? 'is-invalid'
+                      : 'is-valid')
+                    /* candidatura(
+                      fCircunscripcion === 0 ? 'is-invalid' : 'is-valid'
+                    ) */
                   }
                   onChange={(e) => {
                     const value = parseInt(e.target.value, 10);
@@ -495,6 +502,9 @@ const CreateCandidatura = () => {
                   defaultValue={0}
                   min={0}
                 ></input>
+                {candidatura.idNivelElectoral === 3 && (
+                  <FormText>Esta opción es opcional *</FormText>
+                )}
               </FormGroup>
             )}
           </div>
