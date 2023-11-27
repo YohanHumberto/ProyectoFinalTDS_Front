@@ -94,7 +94,7 @@ const CreateCandidatura = () => {
     } else if (nvel === 'Presidencial') {
       return ['Presidente', 'Vice Presidente'];
     } else if (nvel === 'Municipal') {
-      return ['Alcalde', 'Vice Alcalde'];
+      return ['Alcalde', 'Vice Alcalde', 'Regidor'];
     }
 
     return '';
@@ -108,7 +108,7 @@ const CreateCandidatura = () => {
           !candidaturas.some((c) => c.candidato?.id === candidato.id)
       );
       setCandidato(candi);
-    } else if (cargoElectoral.length > 1) {
+    } else if (cargoElectoral.length === 2) {
       const candi = candidatos.filter(
         (candidato) =>
           candidato.cargoElectoral.nombre === cargoElectoral[0] &&
@@ -119,6 +119,22 @@ const CreateCandidatura = () => {
           candidato.cargoElectoral.nombre === cargoElectoral[1] &&
           !candidaturas.some((c) => c.viceCandidato?.id === candidato.id)
       );
+      setCandidato(candi);
+      setViceCandidato(vice);
+    } else if (cargoElectoral.length === 3) {
+      const candi = candidatos.filter(
+        (candidato) =>
+          (candidato.cargoElectoral.nombre === cargoElectoral[0] &&
+            !candidaturas.some((c) => c.candidato?.id === candidato.id)) ||
+          (candidato.cargoElectoral.nombre === cargoElectoral[2] &&
+            !candidaturas.some((c) => c.candidato?.id === candidato.id))
+      );
+      const vice = candidatos.filter(
+        (candidato) =>
+          candidato.cargoElectoral.nombre === cargoElectoral[1] &&
+          !candidaturas.some((c) => c.viceCandidato?.id === candidato.id)
+      );
+      console.log({ candi });
       setCandidato(candi);
       setViceCandidato(vice);
     }
@@ -191,6 +207,27 @@ const CreateCandidatura = () => {
         setState(false);
       } else {
         console.error('Faltan campos en diputacion');
+      }
+    } else if (candidatura.idNivelElectoral === 4 && rViceCandidato === false) {
+      if (
+        candidatura.idCandidato !== 0 &&
+        candidatura.idCandidato !== null &&
+        candidatura.idNivelElectoral !== 0 &&
+        candidatura.idNivelElectoral !== null &&
+        candidatura.idProvincia !== null &&
+        candidatura.idProvincia !== 0 &&
+        (candidatura.idViceCandidato === null ||
+          candidatura.idViceCandidato === 0) &&
+        //candidatura.idViceCandidato !== null &&
+        candidatura.idMunicipio !== 0 &&
+        candidatura.idMunicipio !== null
+      ) {
+        agregarCandidatura(candidatura);
+        setCandidatura((prevCandidatura) => initialValue);
+        setAllField();
+        setState(false);
+      } else {
+        console.error('Faltan campos en municipio');
       }
     } else if (candidatura.idNivelElectoral === 4) {
       if (
@@ -310,18 +347,31 @@ const CreateCandidatura = () => {
                   id="candidato"
                   onChange={(e) => {
                     const value = parseInt(e.target.value, 10);
+                    const valueInText =
+                      e.target.options[e.target.selectedIndex].text;
                     setCandidatura({
                       ...candidatura,
                       idCandidato: value,
                     });
                     setFCandidato(value);
+                    setRViceCandidato(true);
+                    if (valueInText.split('|')[0].trim().includes('Regidor')) {
+                      setRViceCandidato(false);
+                      setFViceCandidato(0);
+                    }
                   }}
                   value={fCandidato}
                 >
                   <option value="0">Seleccione un candidato</option>
                   {candidato.map((candidato) => (
                     <option key={candidato.id} value={candidato.id}>
-                      {candidato.nombre + ' ' + candidato.apellido}
+                      {candidato.cargoElectoral.nombre +
+                        ' | ' +
+                        candidato.nombre +
+                        ' ' +
+                        candidato.apellido +
+                        ' | ' +
+                        candidato.partido.nombre}
                     </option>
                   ))}
                 </select>
