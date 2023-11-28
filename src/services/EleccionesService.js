@@ -9,15 +9,25 @@ class EleccionesService extends BaseService {
   }
 
   async obtenerPorFecha(fecha) {
-    const res = await fetch(this.baseUrl + '/' + fecha);
+    const token = window.localStorage.getItem('tokenAdmin');
+    //console.log('Token GET (EleccionesService):', token);
+    const res = await fetch(`${this.baseUrl}/${fecha}`, {
+      headers: {
+        'Authorization': 'Bearer ' + token,
+        'Content-Type': 'application/json',
+      },
+    });
     return res.json();
   }
 
   async asignarCandidatura(candidatura) {
-    const res = await fetch(this.baseUrl + '/agregar-candidatura', {
+    const token = window.localStorage.getItem('tokenAdmin');
+    //console.log('Token POST (EleccionesService):', token);
+    const res = await fetch(`${this.baseUrl}/agregar-candidatura`, {
       method: 'POST',
       body: JSON.stringify(candidatura),
       headers: {
+        'Authorization': 'Bearer ' + token,
         'Content-Type': 'application/json',
       },
     });
@@ -25,7 +35,15 @@ class EleccionesService extends BaseService {
   }
 
   async obtenerPorId(id) {
-    const res = await fetch(this.baseUrl + '/' + id);
+    const token = window.localStorage.getItem('tokenAdmin');
+    //console.log('Token GET (EleccionesService):', token);
+    const res = await fetch(`${this.baseUrl}/${id}`, {
+      headers: {
+        'Authorization': 'Bearer ' + token,
+        'Content-Type': 'application/json',
+      },
+    });
+
     return res.json();
   }
 }

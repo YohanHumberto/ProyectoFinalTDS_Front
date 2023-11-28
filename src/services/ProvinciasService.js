@@ -9,7 +9,14 @@ class ProvinciasService extends BaseService {
   }
 
   async obtenerPorId(id) {
-    const res = await fetch(this.baseUrl + '/' + id);
+    const token = window.localStorage.getItem('tokenAdmin');
+    //console.log('Token GET (ProvinciasService):', token);
+    const res = await fetch(`${this.baseUrl}/${id}`, {
+      headers: {
+        'Authorization': 'Bearer ' + token,
+        'Content-Type': 'application/json',
+      },
+    });
     return res.json();
   }
 }

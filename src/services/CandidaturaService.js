@@ -9,7 +9,14 @@ class CandidaturaService extends BaseService {
     }
 
     async obtenerPorNivelElectoral(nivelElectoral) {
-        const res = await fetch(this.baseUrl + `/nivel-electoral/${nivelElectoral}`);
+        const token = window.localStorage.getItem("tokenAdmin");
+        //console.log("Token GET (CandidaturaService):", token);
+        const res = await fetch(`${this.baseUrl}/nivel-electoral/${nivelElectoral}`, {
+            headers: {
+                'Authorization': "Bearer " + token,
+                'Content-Type': 'application/json'
+            }
+        });
         return res.json();
     }
 }
