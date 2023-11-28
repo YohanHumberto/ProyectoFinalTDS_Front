@@ -9,7 +9,7 @@ class MunicipioService extends BaseService {
   }
 
   async obtenerPorId(id) {
-    const token = window.localStorage.getItem('tokenAdmin');
+    const token = window.localStorage.getItem('token');
     //console.log('Token GET (MunicipioService):', token);
     const res = await fetch(`${this.baseUrl}/${id}`, {
       headers: {

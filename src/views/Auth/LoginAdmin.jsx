@@ -17,14 +17,13 @@ const LoginAdmin = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log("execute")
     if (cedula !== "" || Password !== "") {
       let res = await loginAdmin({
         cedula: cedula,
         contrasena: Password
       });
 
-      window.localStorage.setItem("tokenAdmin", res.data.token);
+      window.localStorage.setItem("token", res.data.token);
       navigation("/admin/index")
 
       console.log(res);

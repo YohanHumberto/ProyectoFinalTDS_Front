@@ -9,7 +9,7 @@ class EleccionesService extends BaseService {
   }
 
   async obtenerPorFecha(fecha) {
-    const token = window.localStorage.getItem('tokenAdmin');
+    const token = window.localStorage.getItem('token');
     //console.log('Token GET (EleccionesService):', token);
     const res = await fetch(`${this.baseUrl}/${fecha}`, {
       headers: {
@@ -21,7 +21,7 @@ class EleccionesService extends BaseService {
   }
 
   async asignarCandidatura(candidatura) {
-    const token = window.localStorage.getItem('tokenAdmin');
+    const token = window.localStorage.getItem('token');
     //console.log('Token POST (EleccionesService):', token);
     const res = await fetch(`${this.baseUrl}/agregar-candidatura`, {
       method: 'POST',
@@ -35,7 +35,7 @@ class EleccionesService extends BaseService {
   }
 
   async obtenerPorId(id) {
-    const token = window.localStorage.getItem('tokenAdmin');
+    const token = window.localStorage.getItem('token');
     //console.log('Token GET (EleccionesService):', token);
     const res = await fetch(`${this.baseUrl}/${id}`, {
       headers: {

@@ -9,7 +9,7 @@ class NivelElectoralService extends BaseService {
   }
 
   async obtenerPorId(id) {
-    const token = window.localStorage.getItem('tokenAdmin');
+    const token = window.localStorage.getItem('token');
     //console.log('Token GET (NivelElectoralService):', token);
     const res = await fetch(`${this.baseUrl}/${id}`, {
       headers: {
