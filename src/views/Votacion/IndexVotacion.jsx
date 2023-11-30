@@ -2,7 +2,7 @@ import M from '../../assets/img/M.svg'
 import D from '../../assets/img/D.svg'
 import S from '../../assets/img/S.svg'
 import P from '../../assets/img/P.svg'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import VotacionNavbar from '../../components/Navbars/VotacionNavbar';
 import { useContext, useEffect, useState } from 'react';
 import { DataContext } from '../../context/GlobalContext';
@@ -44,7 +44,8 @@ const IndexVotacion = () => {
         votoDiputacion: -1,
         votoSenatorial: -1,
         votoPresidencial: -1,
-        votoMunicipal: -1
+        votoMunicipal: -1,
+        votoMunicipalRegidor: -1
     });
     const [stados, setEstados] = useState({
         municipal: false,
@@ -53,10 +54,10 @@ const IndexVotacion = () => {
         presidencial: false
     });
     const [btnSaveActive, setBtnSaveActive] = useState(false);
+    const navigation = useNavigate();
 
     let getELeccion = async () => {
         let data = await obtenerEleccionesPorFecha("2023-11-15T00:00:00");
-        console.log(data);
         setEleccion(data);
         setEstados({
             municipal: data.candidaturas.filter(x => x.nivelElectoral.nombre == "Municipal").length > 0,
@@ -67,14 +68,14 @@ const IndexVotacion = () => {
     }
 
     useEffect(() => {
-        console.log("execute stados")
         setVotos(JSON.parse(window.localStorage.getItem("votos")) ?? votos);
         if (eleccion.length > 0) {
             window.localStorage.setItem("votos", JSON.stringify({
                 votoDiputacion: stados.diputacion ? -1 : 0,
                 votoSenatorial: stados.senatorial ? -1 : 0,
                 votoPresidencial: stados.presidencial ? -1 : 0,
-                votoMunicipal: stados.municipal ? -1 : 0
+                votoMunicipal: stados.municipal ? -1 : 0,
+                votoMunicipalRegidor: stados.municipal ? -1 : 0
             }));
         }
     }, [stados]);
@@ -82,8 +83,6 @@ const IndexVotacion = () => {
     useEffect(() => {
         let state = (votos.votoDiputacion >= 0 || !stados.diputacion) && (votos.votoSenatorial >= 0 || !stados.senatorial)
             && (votos.votoPresidencial >= 0 || !stados.presidencial) && (votos.votoMunicipal >= 0 || !stados.municipal);
-        console.log("STATE: ");
-        console.log(state);
         if (state != btnSaveActive) setBtnSaveActive(state);
     }, [btnSaveActive])
 
@@ -94,17 +93,18 @@ const IndexVotacion = () => {
     }, []);
 
     const HandleClickBtnSave = async () => {
-
-        console.log(votos)
         let obj = {
             "candidaturaPresidencial": votos.votoMunicipal,
             "candidaturaSenatorial": votos.votoSenatorial,
             "candidaturaDiputacion": votos.votoDiputacion > 0 ? votos.votoDiputacion : 0,
             "candidaturaAlcalde": votos.votoMunicipal,
-            "candidaturaRegidores": 0
+            "candidaturaRegidores": votos.votoMunicipalRegidor
         };
-        console.log(obj)
-        console.log(await enviarVoto(obj));
+        let res = await enviarVoto(obj);
+        if (res?.ok) {
+            alert("Votacion realizada exitosamente");
+            navigation("/");
+        }
     }
 
     return (

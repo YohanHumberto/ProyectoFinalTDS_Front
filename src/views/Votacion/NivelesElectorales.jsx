@@ -76,6 +76,23 @@ const NivelesElectorales = ({ nivel }) => {
             });
             setCandidaturas(ordenado);
             console.log(ordenado)
+        } else if (nivel === "Municipal") {
+            let ordenado = [];
+            data.forEach((item, index) => {
+                console.log(item)
+                let Index = ordenado.findIndex(x => x.idpartido == item.candidato.partido.id);
+                if (Index == -1) {
+                    ordenado.push({
+                        idpartido: item.candidato.partido.id,
+                        candidaturas: [item]
+                    });
+                } else {
+                    ordenado[Index].candidaturas.push(item);
+                }
+            });
+
+            setCandidaturas(ordenado);
+            console.log(ordenado)
         } else {
             console.log(data);
             setCandidaturas(data);
@@ -92,6 +109,7 @@ const NivelesElectorales = ({ nivel }) => {
             if (e.target[index].checked) {
                 let obj = JSON.parse(window.localStorage.getItem("votos")) ?? {
                     "votoMunicipal": -1,
+                    "votoMunicipalRegidor": -1,
                     "votoSenatorial": -1,
                     "votoPresidencial": -1,
                     "votoDiputacion": -1,
@@ -115,8 +133,8 @@ const NivelesElectorales = ({ nivel }) => {
                 <div className="row m-0 p-2 m-auto pt-5" style={row}>
                     {render.NivelPresidencialCard && candidaturas.map(item => <NivelPresidencialCard key={item.id} item={item} />)}
                     {render.NivelSenatorialCard && candidaturas.map(item => <NivelSenatorialCard key={item.id} item={item} />)}
-                    {render.NivelDiputacionCard && candidaturas.map((item) => <NivelDiputacionCard key={item.id} item={item} />)}
-                    {render.NivelMunicipalCard && candidaturas.map(item => <NivelMunicipalCard key={item.id} item={item} />)}
+                    {render.NivelDiputacionCard && candidaturas.map(item => <NivelDiputacionCard key={item.id} item={item} />)}
+                    {render.NivelMunicipalCard && candidaturas.map(item => <NivelMunicipalCard key={item.idpartido} item={item} />)}
                 </div>
             </form>
         </>
