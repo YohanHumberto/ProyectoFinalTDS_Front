@@ -5,7 +5,7 @@ class EstadisticasService {
   }
 
   async votosPorProvincia() {
-    const token = window.localStorage.getItem('tokenAdmin');
+    const token = window.localStorage.getItem('token');
     const res = await fetch(this.baseUrl + '/votos-por-provincia', {
       method: 'GET',
       headers: {
@@ -19,7 +19,7 @@ class EstadisticasService {
 
   async votosPorMunicipio(search = '') {
     console.log(search);
-    const token = window.localStorage.getItem('tokenAdmin');
+    const token = window.localStorage.getItem('token');
     const res = await fetch(
       this.baseUrl + '/votos-por-municipio?provincia=' + search,
       {
@@ -35,7 +35,7 @@ class EstadisticasService {
   }
 
   async votosPorRangoEdad() {
-    const token = window.localStorage.getItem('tokenAdmin');
+    const token = window.localStorage.getItem('token');
     const res = await fetch(this.baseUrl + '/votos-por-rango-de-edad', {
       method: 'GET',
       headers: {
@@ -48,7 +48,7 @@ class EstadisticasService {
   }
 
   async votosPorSexo() {
-    const token = window.localStorage.getItem('tokenAdmin');
+    const token = window.localStorage.getItem('token');
     const res = await fetch(this.baseUrl + '/votos-por-sexo', {
       method: 'GET',
       headers: {
@@ -61,7 +61,7 @@ class EstadisticasService {
   }
 
   async votosPorPartido() {
-    const token = window.localStorage.getItem('tokenAdmin');
+    const token = window.localStorage.getItem('token');
     const res = await fetch(this.baseUrl + '/votos-por-partido', {
       method: 'GET',
       headers: {
@@ -74,7 +74,7 @@ class EstadisticasService {
   }
 
   async votosPorCandidato(search = '') {
-    const token = window.localStorage.getItem('tokenAdmin');
+    const token = window.localStorage.getItem('token');
     const res = await fetch(
       this.baseUrl + '/votos-por-candidato?search=' + search,
       {

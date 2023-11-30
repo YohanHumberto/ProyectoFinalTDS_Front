@@ -266,9 +266,9 @@ const Index = (props) => {
                     <FormGroup>
                       <Label for="exampleSearch">Search</Label>
                       <Input
-                        id="exampleSearch"
+                        id="exampleSearch2"
                         name="search"
-                        placeholder="Provincia"
+                        placeholder="Candidato | Partido | Nivel Electoral..."
                         type="search"
                         onChange={(e) => {
                           e.preventDefault();
