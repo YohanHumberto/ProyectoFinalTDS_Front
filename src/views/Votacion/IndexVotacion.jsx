@@ -6,6 +6,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import VotacionNavbar from '../../components/Navbars/VotacionNavbar';
 import { useContext, useEffect, useState } from 'react';
 import { DataContext } from '../../context/GlobalContext';
+import { AuthDataContext } from '../../context/AuthContext';
 
 const IndexVotacion = () => {
 
@@ -38,6 +39,8 @@ const IndexVotacion = () => {
         marginBottom: "20px",
     }
 
+
+    const { LogoutElector } = useContext(AuthDataContext);
     const { obtenerEleccionesPorFecha, enviarVoto } = useContext(DataContext);
     const [eleccion, setEleccion] = useState([]);
     const [votos, setVotos] = useState({
@@ -101,8 +104,9 @@ const IndexVotacion = () => {
             "candidaturaRegidores": votos.votoMunicipalRegidor
         };
         let res = await enviarVoto(obj);
+
         if (res?.ok) {
-            alert("Votacion realizada exitosamente");
+            LogoutElector();
             navigation("/");
         }
     }

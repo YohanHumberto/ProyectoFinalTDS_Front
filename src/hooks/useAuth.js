@@ -2,15 +2,15 @@ import { useContext, useState } from 'react';
 import { DataContextAlerts } from '../context/AlertContext';
 import useHandleStatusCode from '../helpers/HandleStatusCode';
 import AuthService from '../services/AuthService';
+import { useNavigate } from 'react-router-dom';
+import swal from 'sweetalert';
 
+function useAuth() {
 
-function useAuth(setLoading) {
-
-    const { Warning, Danger, Info, Success } = useContext(DataContextAlerts);
+    const { Danger } = useContext(DataContextAlerts);
     const { OnHandleStatusCode } = useHandleStatusCode();
-
+ 
     let service = new AuthService();
-    // const [candidatos, setCandidatos] = useState([]);
 
     const loginElector = async (credentencials) => {
         try {
@@ -34,10 +34,23 @@ function useAuth(setLoading) {
         }
     }
 
+    const Logout = () => {
+        localStorage.removeItem("token");
+        swal("Cierre de sesión", "¡Has cerrado sesión correctamente!", "success");
+    }
+
+    const LogoutElector = () => {
+        localStorage.removeItem("token");
+        localStorage.removeItem("votos");
+        swal("Votación completada", "¡Has completado la votación exitosamente! Gracias por tu participación.", "success");
+    }
+
     return (
         {
             loginElector,
-            loginAdmin
+            loginAdmin,
+            Logout,
+            LogoutElector
         }
     )
 }

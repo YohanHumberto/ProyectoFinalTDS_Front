@@ -13,12 +13,14 @@ import Login from "./views/Auth/Login";
 import GlobalContext from "./context/GlobalContext";
 import AlertContext from "./context/AlertContext";
 import Votacion from "./layouts/Votacion.js";
+import AuthContext from "./context/AuthContext.js";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
   <AlertContext>
     <GlobalContext>
+      <AuthContext>
       <BrowserRouter>
         <Routes>
           <Route path="/admin/*" element={<AdminLayout />} />
@@ -29,6 +31,7 @@ root.render(
           <Route path="*" element={<Navigate to="/login" replace />} />
         </Routes>
       </BrowserRouter>
+      </AuthContext>
     </GlobalContext>
   </AlertContext>
 );

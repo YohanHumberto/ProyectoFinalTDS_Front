@@ -1,23 +1,31 @@
 
-import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import {
   DropdownMenu,
   DropdownItem,
   UncontrolledDropdown,
   DropdownToggle,
-  Form,
-  FormGroup,
-  InputGroupAddon,
-  InputGroupText,
-  Input,
-  InputGroup,
   Navbar,
   Nav,
   Container,
   Media,
 } from "reactstrap";
+import { AuthDataContext } from "../../context/AuthContext";
+
+
 
 const AdminNavbar = (props) => {
+
+  const { Logout } = useContext(AuthDataContext);
+  const navigation = useNavigate();
+
+
+  const HandleClickBtnLogout = () => {
+    Logout();
+    navigation("/");
+  }
+
   return (
     <>
       <Navbar className="navbar-top navbar-dark" expand="md" id="navbar-main">
@@ -55,7 +63,7 @@ const AdminNavbar = (props) => {
                       Jessica Jones
                     </span>
                   </Media> */}
-                  <a className="btn btn-white">
+                  <a className="btn btn-white" onClick={HandleClickBtnLogout}>
                     <i className="ni ni-user-run" />
                     <span>Logout</span>
                   </a>
