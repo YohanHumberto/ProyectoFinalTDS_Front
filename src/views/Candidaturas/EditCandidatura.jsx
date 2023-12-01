@@ -49,28 +49,28 @@ const EditCandidatura = ({ stateprop, id, setEditModal }) => {
 
   const setRequisitpNivelElectoral = (nivelElectoral) => {
     switch (nivelElectoral) {
-      case 'Diputación':
-        setRMunicipio(false);
+      case 'Diputación' || 3:
+        setRMunicipio(true);
         setRProvincia(true);
         setRViceCandidato(false);
         setRegidor(false);
         setRCircunscripcion(true);
         break;
-      case 'Municipal':
+      case 'Municipal' || 4:
         setRMunicipio(true);
         setRProvincia(true);
         setRViceCandidato(true);
         setRegidor(true);
         setRCircunscripcion(false);
         break;
-      case 'Presidencial':
+      case 'Presidencial' || 1:
         setRMunicipio(false);
         setRProvincia(false);
         setRViceCandidato(true);
         setRegidor(false);
         setRCircunscripcion(false);
         break;
-      case 'Senatorial':
+      case 'Senatorial' || 2:
         setRMunicipio(false);
         setRProvincia(true);
         setRViceCandidato(false);
@@ -91,12 +91,12 @@ const EditCandidatura = ({ stateprop, id, setEditModal }) => {
   const cambiarCandidatosNum = (nvel) => {
     if (nvel === 3) {
       return ['Diputado'];
-    } else if (nvel === 4) {
+    } else if (nvel === 2) {
       return ['Senador'];
     } else if (nvel === 1) {
       return ['Presidente', 'Vice Presidente'];
-    } else if (nvel === 2) {
-      return ['Alcalde', 'Vice Alcalde'];
+    } else if (nvel === 4) {
+      return ['Alcalde', 'Vice Alcalde', 'Regidor'];
     }
 
     return '';
@@ -110,7 +110,7 @@ const EditCandidatura = ({ stateprop, id, setEditModal }) => {
     } else if (nvel === 'Presidencial') {
       return ['Presidente', 'Vice Presidente'];
     } else if (nvel === 'Municipal') {
-      return ['Alcalde', 'Vice Alcalde'];
+      return ['Alcalde', 'Vice Alcalde', 'Regidor'];
     }
 
     return '';
@@ -120,21 +120,37 @@ const EditCandidatura = ({ stateprop, id, setEditModal }) => {
     if (cargoElectoral.length === 1) {
       const candi = candidatos.filter(
         (candidato) =>
-          candidato.cargoElectoral.nombre === cargoElectoral[0] &&
-          !candidaturas.some((c) => c.candidato?.id === candidato.id)
+          candidato.cargoElectoral.nombre === cargoElectoral[0] /* &&
+          !candidaturas.some((c) => c.candidato?.id === candidato.id) */
       );
       setCandidato(candi);
-    } else if (cargoElectoral.length > 1) {
+    } else if (cargoElectoral.length === 2) {
       const candi = candidatos.filter(
         (candidato) =>
-          candidato.cargoElectoral.nombre === cargoElectoral[0] &&
-          !candidaturas.some((c) => c.candidato?.id === candidato.id)
+          candidato.cargoElectoral.nombre === cargoElectoral[0] /* &&
+          !candidaturas.some((c) => c.candidato?.id === candidato.id) */
       );
       const vice = candidatos.filter(
         (candidato) =>
-          candidato.cargoElectoral.nombre === cargoElectoral[1] &&
-          !candidaturas.some((c) => c.viceCandidato?.id === candidato.id)
+          candidato.cargoElectoral.nombre === cargoElectoral[1] /* &&
+          !candidaturas.some((c) => c.viceCandidato?.id === candidato.id) */
       );
+      setCandidato(candi);
+      setViceCandidato(vice);
+    } else if (cargoElectoral.length === 3) {
+      const candi = candidatos.filter(
+        (candidato) =>
+          candidato.cargoElectoral.nombre === cargoElectoral[0] /* &&
+            !candidaturas.some((c) => c.candidato?.id === candidato.id) */ ||
+          candidato.cargoElectoral.nombre === cargoElectoral[2] /* &&
+            !candidaturas.some((c) => c.candidato?.id === candidato.id) */
+      );
+      const vice = candidatos.filter(
+        (candidato) =>
+          candidato.cargoElectoral.nombre === cargoElectoral[1] /* &&
+          !candidaturas.some((c) => c.viceCandidato?.id === candidato.id) */
+      );
+      console.log({ candi });
       setCandidato(candi);
       setViceCandidato(vice);
     }
@@ -159,7 +175,7 @@ const EditCandidatura = ({ stateprop, id, setEditModal }) => {
 
     const nivelElectoral = e.target.options[e.target.selectedIndex].text;
     setRequisitpNivelElectoral(nivelElectoral);
-    filterCandidatos(cambiarCandidatos(nivelElectoral));
+    //filterCandidatos(cambiarCandidatos(nivelElectoral));
     setCandidatura((prevCandidatura) => initialValue);
     let candidaturasFinded = candidaturas.find((item) => item.id === id);
     setCandidatura({
@@ -179,32 +195,57 @@ const EditCandidatura = ({ stateprop, id, setEditModal }) => {
     cargarCandidatos();
     cargarCandidaturas();
     let candidaturasFinded = candidaturas.find((item) => item.id === id);
-    console.log(candidaturasFinded);
     if (candidaturasFinded) {
-      setCandidatura((sync) => ({
+      setCandidatura((s) => ({
         id: candidaturasFinded.id,
         idCandidato: candidaturasFinded.candidato.id
           ? candidaturasFinded.candidato.id
           : 0,
         idNivelElectoral: candidaturasFinded.nivelElectoral?.id || 0,
         idViceCandidato: candidaturasFinded.viceCandidato?.id || 0,
-        idProvincia: candidaturasFinded.provincia?.id || 0,
-        idMunicipio: candidaturasFinded.municipio?.id || 0,
+        idProvincia: candidaturasFinded?.provincia
+          ? provincias.find((p) => p.nombre === candidaturasFinded?.provincia)
+              .id
+          : 0,
+        idMunicipio: candidaturasFinded?.municipio
+          ? municipios.find((m) => m.nombre === candidaturasFinded?.municipio)
+              .id
+          : 0,
         circunscripcion: candidaturasFinded.circunscripcion || 0,
       }));
       setFCandidato((s) => candidaturasFinded.candidato?.id || 0);
       setFViceCandidato((s) => candidaturasFinded.viceCandidato?.id || 0);
-      setFProvincia((s) => candidaturasFinded.provincia?.id || 0);
-      setFMunicipio((s) => candidaturasFinded.municipio?.id || 0);
+
       setFCircunscripcion((s) => candidaturasFinded.circunscripcion || 0);
-      setRViceCandidato((s) =>
+
+      setFProvincia((s) => {
+        if (candidaturasFinded?.provincia) {
+          cargarMunicipios(candidaturasFinded?.provincia);
+          return provincias.find(
+            (p) => p.nombre === candidaturasFinded?.provincia
+          ).id;
+        } else {
+          return 0;
+        }
+      });
+      setFMunicipio((s) =>
+        candidaturasFinded?.municipio
+          ? municipios.find((m) => m.nombre === candidaturasFinded?.municipio)
+              .id
+          : 0
+      );
+
+      setRequisitpNivelElectoral(candidaturasFinded.nivelElectoral.nombre);
+      // campos requeridos
+      /* setRViceCandidato((s) =>
         candidaturasFinded.viceCandidato?.id ? true : false
       );
-      setRProvincia((s) => (candidaturasFinded.provincia?.id ? true : false));
-      setRMunicipio((s) => (candidaturasFinded.municipio?.id ? true : false));
+      setRProvincia((s) => (candidaturasFinded?.provincia ? true : false));
+      setRMunicipio((s) => (candidaturasFinded?.municipio ? true : false));
       setRCircunscripcion((s) =>
         candidaturasFinded.circunscripcion ? true : false
-      );
+      ); */
+      console.log(candidaturasFinded.nivelElectoral?.id);
       filterCandidatos(
         cambiarCandidatosNum(candidaturasFinded.nivelElectoral?.id)
       );
@@ -221,6 +262,7 @@ const EditCandidatura = ({ stateprop, id, setEditModal }) => {
   /* TODO: cambiar la condicion para cada nivel electoral */
   const HandleSumbit = (e) => {
     console.log(candidatura);
+    console.log(rViceCandidato);
     e.preventDefault();
     for (let key in candidatura) {
       if (candidatura[key] === 0) {
@@ -235,7 +277,9 @@ const EditCandidatura = ({ stateprop, id, setEditModal }) => {
         candidatura.idNivelElectoral !== 0 &&
         candidatura.idNivelElectoral !== null &&
         candidatura.idProvincia !== null &&
-        candidatura.idProvincia !== 0
+        candidatura.idProvincia !== 0 &&
+        candidatura.idMunicipio !== null &&
+        candidatura.idMunicipio !== 0
         //candidatura.circunscripcion !== 0 &&
         //candidatura.circunscripcion !== null
       ) {
@@ -247,6 +291,7 @@ const EditCandidatura = ({ stateprop, id, setEditModal }) => {
         console.error('Faltan campos en diputacion');
       }
     } else if (candidatura.idNivelElectoral === 4 && rViceCandidato === false) {
+      candidatura.idViceCandidato = null;
       if (
         candidatura.idCandidato !== 0 &&
         candidatura.idCandidato !== null &&
@@ -354,6 +399,15 @@ const EditCandidatura = ({ stateprop, id, setEditModal }) => {
           </div>
           <div className="modal-body">
             <FormGroup className="">
+              <label className="control-label">ID</label>
+              <input
+                className={'form-control'}
+                type="text"
+                value={id}
+                disabled
+              />
+            </FormGroup>
+            <FormGroup className="">
               <label className="control-label">Nivel Electoral</label>
               <select
                 className={
@@ -385,18 +439,38 @@ const EditCandidatura = ({ stateprop, id, setEditModal }) => {
                   id="candidato"
                   onChange={(e) => {
                     const value = parseInt(e.target.value, 10);
-                    setCandidatura({
+                    setCandidatura((s) => ({
                       ...candidatura,
                       idCandidato: value,
-                    });
+                    }));
                     setFCandidato(value);
+
+                    const valueInText =
+                      e.target.options[e.target.selectedIndex].text;
+                    if (candidatura.idNivelElectoral === 4)
+                      setRViceCandidato(true);
+
+                    if (valueInText.split('|')[0].trim().includes('Regidor')) {
+                      setRViceCandidato(false);
+                      setFViceCandidato(0);
+                      candidatura.idViceCandidato = 0;
+                      console.log('entre');
+                      console.log(candidatura);
+                    }
                   }}
-                  value={candidatura.idCandidato}
+                  onClick={(e) => console.log(fCandidato)}
+                  value={fCandidato}
                 >
                   <option value="0">Seleccione un candidato</option>
                   {candidato.map((candidato) => (
                     <option key={candidato.id} value={candidato.id}>
-                      {candidato.nombre + ' ' + candidato.apellido}
+                      {candidato.cargoElectoral.nombre +
+                        ' | ' +
+                        candidato.nombre +
+                        ' ' +
+                        candidato.apellido +
+                        ' | ' +
+                        candidato.partido.nombre}
                     </option>
                   ))}
                 </select>
@@ -424,7 +498,13 @@ const EditCandidatura = ({ stateprop, id, setEditModal }) => {
                   <option value="0">Seleccione un vice candidato</option>
                   {viceCandidato.map((candidato) => (
                     <option key={candidato.id} value={candidato.id}>
-                      {candidato.nombre + ' ' + candidato.apellido}
+                      {candidato.cargoElectoral.nombre +
+                        ' | ' +
+                        candidato.nombre +
+                        ' ' +
+                        candidato.apellido +
+                        ' | ' +
+                        candidato.partido.nombre}
                     </option>
                   ))}
                 </select>
@@ -513,7 +593,6 @@ const EditCandidatura = ({ stateprop, id, setEditModal }) => {
                     setFCircunscripcion(value);
                   }}
                   value={fCircunscripcion}
-                  defaultValue={0}
                   min={0}
                 ></input>
                 {candidatura.idNivelElectoral === 3 && (

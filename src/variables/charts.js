@@ -550,7 +550,9 @@ let chartCandidato = {
       return 'rgb(' + r + ',' + g + ',' + b + ')';
     });
     return {
-      labels: labels.map((d) => d.candidato),
+      labels: labels.map(
+        (d) => d.cargoElectoral + ' | ' + d.candidato + ' | ' + d.partido
+      ),
       datasets: [
         {
           label: 'Votaciones por candidato',
