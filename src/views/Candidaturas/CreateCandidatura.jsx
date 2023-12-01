@@ -48,7 +48,7 @@ const CreateCandidatura = () => {
   const setRequisitpNivelElectoral = (nivelElectoral) => {
     switch (nivelElectoral) {
       case 'Diputación':
-        setRMunicipio(false);
+        setRMunicipio(true);
         setRProvincia(true);
         setRViceCandidato(false);
         setRegidor(false);
@@ -197,7 +197,9 @@ const CreateCandidatura = () => {
         candidatura.idNivelElectoral !== 0 &&
         candidatura.idNivelElectoral !== null &&
         candidatura.idProvincia !== null &&
-        candidatura.idProvincia !== 0
+        candidatura.idProvincia !== 0 &&
+        candidatura.idMunicipio !== null &&
+        candidatura.idMunicipio !== 0
         //candidatura.circunscripcion !== 0 &&
         //candidatura.circunscripcion !== null
       ) {
