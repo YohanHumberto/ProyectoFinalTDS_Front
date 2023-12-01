@@ -418,6 +418,7 @@ const EditCandidatura = ({ stateprop, id, setEditModal }) => {
                 }
                 onChange={nivelElectoralOnChange}
                 value={candidatura.idNivelElectoral}
+                disabled
               >
                 <option value="0">Seleccione un nivel electoral</option>
                 {nivelElectoral.map((nivel) => (

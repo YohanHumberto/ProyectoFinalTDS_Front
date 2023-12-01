@@ -268,7 +268,7 @@ const Index = (props) => {
                       <Input
                         id="exampleSearch2"
                         name="search"
-                        placeholder="Candidato | Partido | Nivel Electoral..."
+                        placeholder="Provincia y Municipio"
                         type="search"
                         onChange={(e) => {
                           e.preventDefault();
