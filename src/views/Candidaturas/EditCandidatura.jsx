@@ -50,7 +50,7 @@ const EditCandidatura = ({ stateprop, id, setEditModal }) => {
   const setRequisitpNivelElectoral = (nivelElectoral) => {
     switch (nivelElectoral) {
       case 'Diputación' || 3:
-        setRMunicipio(true);
+        setRMunicipio(false);
         setRProvincia(true);
         setRViceCandidato(false);
         setRegidor(false);
@@ -277,9 +277,9 @@ const EditCandidatura = ({ stateprop, id, setEditModal }) => {
         candidatura.idNivelElectoral !== 0 &&
         candidatura.idNivelElectoral !== null &&
         candidatura.idProvincia !== null &&
-        candidatura.idProvincia !== 0 &&
+        candidatura.idProvincia !== 0 /* &&
         candidatura.idMunicipio !== null &&
-        candidatura.idMunicipio !== 0
+        candidatura.idMunicipio !== 0 */
         //candidatura.circunscripcion !== 0 &&
         //candidatura.circunscripcion !== null
       ) {
@@ -310,7 +310,7 @@ const EditCandidatura = ({ stateprop, id, setEditModal }) => {
         setAllField();
         setState(false);
       } else {
-        console.error('Faltan campos en municipio');
+        console.error('Faltan campos en municipal');
       }
     } else if (candidatura.idNivelElectoral === 4) {
       if (
@@ -330,7 +330,7 @@ const EditCandidatura = ({ stateprop, id, setEditModal }) => {
         setAllField();
         setState(false);
       } else {
-        console.error('Faltan campos en municipio');
+        console.error('Faltan campos en municipal');
       }
     } else if (candidatura.idNivelElectoral === 1) {
       if (
