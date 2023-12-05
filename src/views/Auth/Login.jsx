@@ -21,7 +21,7 @@ const Login = () => {
     let res = await loginElector(cedula);
 
     if (res?.status?.toString().substring(0, 1) == 2) {
-      window.localStorage.setItem("token", res.data);
+      window.localStorage.setItem("token", res.data.token);
       window.localStorage.setItem("cedula", cedula);
       navigation("/votacion/votaciones")
     } else {

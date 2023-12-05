@@ -23,10 +23,12 @@ const LoginAdmin = () => {
         contrasena: Password
       });
 
-      window.localStorage.setItem("token", res.data.token);
-      navigation("/admin/index")
-
-      console.log(res);
+      if (res?.status?.toString().substring(0, 1) == 2) {
+        window.localStorage.setItem("token", res.data.token);
+        navigation("/admin/index")
+      } else {
+        alert("Cedula Invalida");
+      }
     }
   }
 
