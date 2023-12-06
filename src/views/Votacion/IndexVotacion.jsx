@@ -97,7 +97,7 @@ const IndexVotacion = () => {
 
     const HandleClickBtnSave = async () => {
         let obj = {
-            "candidaturaPresidencial": votos.votoMunicipal,
+            "candidaturaPresidencial": votos.votoPresidencial,
             "candidaturaSenatorial": votos.votoSenatorial,
             "candidaturaDiputacion": votos.votoDiputacion > 0 ? votos.votoDiputacion : 0,
             "candidaturaAlcalde": votos.votoMunicipal,
