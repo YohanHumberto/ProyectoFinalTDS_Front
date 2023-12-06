@@ -89,7 +89,7 @@ const NivelMunicipalCard = ({ item }) => {
                                             <div className="col-4 p-2" key={item.candidato.id}>
                                                 <label htmlFor={`checkregidor${item.candidato.id}`}>
                                                     <div className="col-1 p-0">
-                                                        <input id={`checkregidor${item.candidato.id}`} type="radio" value={item.candidato.id} name="votoMunicipalRegidor" style={{ width: "30px", height: "30px" }} />
+                                                        <input id={`checkregidor${item.candidato.id}`} type="radio" value={item.id} name="votoMunicipalRegidor" style={{ width: "30px", height: "30px" }} />
                                                     </div>
                                                     <img style={{ ...candidatoImg }} src={item.candidato?.fotoUrl} />
                                                     <h6><b>{item.candidato?.nombre?.toUpperCase()} </b></h6>
