@@ -1,119 +1,118 @@
 .login{
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .login-votante {
-    background-color: #c7c8ca;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    width: 100%;
-  }
-  
-  .login-votante .div {
-    background-color: #c7c8ca;
-    height: 100vh;
-    position: relative;
-    width: 99vw;
-  }
-  
-  .login-votante .overlap {
-    /* background-image: url(../../assets//img/imgLogin/logo-jce.png); */
-    /* background-position: 50% 50%; */
-    /* background-size: cover; */
-    height: 350px;
-    margin: auto;
-    /* left: 508px; */
-    /* position: absolute; */
-    /* top: 22px;1   */
-    width: 350px;
-  }
-  
-  .login-votante .logo-jce {
-    height: 350px;
-    /* left: 0; */
-    object-fit: cover;
-    /* position: absolute; */
-    /* top: 0; */
-    width: 350px;
-  }
-  
-  .login-votante .overlap-group {
-    height: 73px;
-    /* left: 533px; */
-    /* position: absolute; */
-    /* top: 372px; */
-    width: 300px;
-    margin: auto;
-  }
-  
-  .login-votante .login {
-    height: 73px;
-    /* left: 0; */
-    /* position: absolute; */
-    /* top: 0; */
-    width: 300px;
-  }
-  
-  .login-votante .field {
-    height: 40px;
-  }
-  
-  .login-votante .cedula {
-    align-items: center;
-    background-color: #e0e0e0;
-    border: 1px solid;
-    border-color: #6f6e70;
-    border-radius: 15px;
-    display: flex;
-    flex-direction: column;
-    height: 40px;
-    justify-content: center;
-    overflow: hidden;
-    padding: 10px 15px 4px;
-    position: relative;
-    width: 300px;
-  }
-  
-  .login-votante .name {
-    color: #c7c8ca;
-    font-family: "Inter-Regular", Helvetica;
-    font-size: 18px;
-    font-weight: 400;
-    letter-spacing: 0;
-    line-height: 28px;
-    margin-top: -2px;
-    position: relative;
-    white-space: nowrap;
-    width: fit-content;
-  }
-  
-  .login-votante .btn {
-    /* all: unset; */
-    background-color: #c18e3f;
-    border-radius: 50px;
-    box-sizing: border-box;
-    height: 40px;
-    /* left: 70px; */
-    /* position: absolute; */
-    /* top: 43px; */
-    width: 160px;
-    margin: auto;
-    margin-top: 10px;
-  }
-  
-  .login-votante .text-wrapper {
-    color: #493833;
-    font-family: "Inter-Medium", Helvetica;
-    font-size: 14px;
-    font-weight: 500;
-    height: 17px;
-    /* left: 51px; */
-    letter-spacing: 0;
-    line-height: normal;
-    /* position: absolute; */
-    text-align: center;
-    /* top: 5px; */
-  }
-  
+  background-color: #c7c8ca;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+}
+
+.login-votante .div {
+  background-color: #c7c8ca;
+  height: 100vh;
+  position: relative;
+  width: 99vw;
+}
+
+.login-votante .overlap {
+  /* background-image: url(../../assets//img/imgLogin/logo-jce.png); */
+  /* background-position: 50% 50%; */
+  /* background-size: cover; */
+  height: 350px;
+  margin: auto;
+  /* left: 508px; */
+  /* position: absolute; */
+  /* top: 22px;1   */
+  width: 350px;
+}
+
+.login-votante .logo-jce {
+  height: 350px;
+  /* left: 0; */
+  object-fit: cover;
+  /* position: absolute; */
+  /* top: 0; */
+  width: 350px;
+}
+
+.login-votante .overlap-group {
+  height: 73px;
+  /* left: 533px; */
+  /* position: absolute; */
+  /* top: 372px; */
+  width: 300px;
+  margin: auto;
+}
+
+.login-votante .login {
+  height: 73px;
+  /* left: 0; */
+  /* position: absolute; */
+  /* top: 0; */
+  width: 300px;
+}
+
+.login-votante .field {
+  height: 40px;
+}
+
+.login-votante .cedula {
+  align-items: center;
+  background-color: #e0e0e0;
+  border: 1px solid;
+  border-color: #6f6e70;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  height: 40px;
+  justify-content: center;
+  overflow: hidden;
+  padding: 10px 15px 4px;
+  position: relative;
+  width: 300px;
+}
+
+.login-votante .name {
+  color: #c7c8ca;
+  font-family: "Inter-Regular", Helvetica;
+  font-size: 18px;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 28px;
+  margin-top: -2px;
+  position: relative;
+  white-space: nowrap;
+  width: fit-content;
+}
+
+.login-votante .btn {
+  /* all: unset; */
+  background-color: #c18e3f;
+  border-radius: 50px;
+  box-sizing: border-box;
+  height: 40px;
+  /* left: 70px; */
+  /* position: absolute; */
+  /* top: 43px; */
+  width: 160px;
+  margin: auto;
+  margin-top: 10px;
+}
+
+.login-votante .text-wrapper {
+  color: #493833;
+  font-family: "Inter-Medium", Helvetica;
+  font-size: 14px;
+  font-weight: 500;
+  height: 17px;
+  /* left: 51px; */
+  letter-spacing: 0;
+  line-height: normal;
+  /* position: absolute; */
+  text-align: center;
+  /* top: 5px; */
+}

@@ -4,6 +4,7 @@ import jceLogo from "../../assets/img/imgLogin/common/jce login.png";
 import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { DataContext } from "../../context/GlobalContext";
+import swal from 'sweetalert';
 
 const LoginAdmin = () => {
 
@@ -27,7 +28,7 @@ const LoginAdmin = () => {
         window.localStorage.setItem("token", res.data.token);
         navigation("/admin/index")
       } else {
-        alert("Cedula Invalida");
+        swal("Cedula Invalida!","", "warning");
       }
     }
   }
@@ -38,27 +39,30 @@ const LoginAdmin = () => {
         <div className="div">
           <img className="logo-jce" alt="Logo jce " src={jceLogo} />
           <div className="login">
-
-            <div className="field">
+            <div className="field was-validated">
               <input type="text"
-                className="frame"
+                className="frame form-control validated"
                 id="cedula"
-                placeholder="000-0000000-0"
+                placeholder="000 0000000 0"
                 maxlength="11"
-                style={{ marginBottom: "10px" }}
+                minLength={11}
+                style={{ marginBottom: "10px", textAlign: "center" }}
                 value={cedula}
-                onChange={e => setcedula(e.target.value)}
+                onChange={(e) => setcedula(e.target.value.replace(/[^0-9]/g, ''))}
               />
+              <div className="invalid-feedback text-center mb-2">Cedula Incompleta</div>
             </div>
-
-            <div className="field">
-              <input type="Password"
-                className="frame"
-                id="Password"
-                placeholder="*********"
-                value={Password}
-                onChange={e => setPassword(e.target.value)}
-              />
+            <div className="field was-validated">
+              <div className="field">
+                <input type="Password"
+                  className="frame form-control validated"
+                  id="Password"
+                  placeholder="*********"
+                  value={Password}
+                  onChange={e => setPassword(e.target.value)}
+                  style={{ textAlign: "center" }}
+                />
+              </div>
             </div>
 
             <button className="btn" type="submit" value="Enviar" onclick="">

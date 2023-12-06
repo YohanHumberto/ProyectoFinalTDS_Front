@@ -5,6 +5,7 @@ import { useContext, useState } from "react";
 import { DataContext } from "../../context/GlobalContext";
 import { Link, useNavigate } from "react-router-dom";
 import { DataContextAlerts } from "../../context/AlertContext";
+import swal from 'sweetalert';
 
 const Login = () => {
 
@@ -17,7 +18,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (cedula == "") return Warning("Debe completar el campo cedula");;
+    if (cedula == "") return alert("Debe completar el campo cedula");;
     let res = await loginElector(cedula);
 
     if (res?.status?.toString().substring(0, 1) == 2) {
@@ -26,7 +27,7 @@ const Login = () => {
       window.localStorage.setItem("cedula", cedula);
       navigation("/votacion/votaciones")
     } else {
-      Warning("Cedula Invalida");
+      swal("Cedula Invalida!","", "warning");
     }
   }
 
@@ -39,9 +40,12 @@ const Login = () => {
           </div>
           <div className="overlap-group">
             <div className="login">
-              <div className="field">
-                <input type="text" className="cedula" id="cedula" value={cedula} style={{ textAlign: "center" }}
-                  onChange={(e) => setcedula(e.target.value)} placeholder="000-0000000-0" minLength={10} />
+              <div className="field was-validated">
+                <input type="text" className="cedula form-control validated" id="cedula" value={cedula} style={{ textAlign: "center" }}
+                  onChange={(e) => setcedula(e.target.value.replace(/[^0-9]/g, ''))}
+                  placeholder="000 0000000 0" minLength={11} maxlength="11"
+                   />
+                <div className="invalid-feedback text-center">Cedula Incompleta</div>
               </div>
               <button className="btn" type="submit" value="Enviar">
                 Acceder
