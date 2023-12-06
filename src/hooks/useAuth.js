@@ -4,12 +4,13 @@ import useHandleStatusCode from '../helpers/HandleStatusCode';
 import AuthService from '../services/AuthService';
 import { useNavigate } from 'react-router-dom';
 import swal from 'sweetalert';
+import { jwtDecode } from 'jwt-decode';
 
 function useAuth() {
 
     const { Danger } = useContext(DataContextAlerts);
     const { OnHandleStatusCode } = useHandleStatusCode();
- 
+
     let service = new AuthService();
 
     const loginElector = async (credentencials) => {
@@ -47,12 +48,35 @@ function useAuth() {
         swal("Votación completada", "¡Has completado la votación exitosamente! Gracias por tu participación.", "success");
     }
 
+    //#region JWT
+
+    const seccionIsValid = () => {
+        const token = localStorage.getItem("token");
+        if(!token) return false;
+
+        const decoded = jwtDecode(token);
+        const exp = decoded.exp * 1000;
+        const ahora = new Date().getTime();
+
+        return ahora < exp;
+    }
+
+    const userIsAdmin = () => {
+        const token = localStorage.getItem("token");
+        const decoded = jwtDecode(token);
+        return decoded?.rol == "Encargado";
+    }
+
+    //#endregion
+
     return (
         {
             loginElector,
             loginAdmin,
             Logout,
-            LogoutElector
+            LogoutElector,
+            seccionIsValid,
+            userIsAdmin
         }
     )
 }

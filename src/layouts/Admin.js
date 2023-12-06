@@ -1,11 +1,10 @@
 import React from "react";
-import { useLocation, Route, Routes, Navigate } from "react-router-dom";
+import { useLocation, Outlet } from "react-router-dom";
 // reactstrap components
 import { Container } from "reactstrap";
 // core components
 import AdminNavbar from "../components/Navbars/AdminNavbar.js";
 import AdminFooter from "../components/Footers/AdminFooter.js";
-// import Sidebar from "../components/Sidebar/Sidebar.js";
 import Sidebar from "../components/Sidebar/SidebarCustom.js";
 
 import routes from "./routes.js";
@@ -20,19 +19,7 @@ const Admin = (props) => {
     mainContent.current.scrollTop = 0;
   }, [location]);
 
-  const getRoutes = (routes) => {
-    return routes.map((prop, key) => {
-      if (prop.layout === "/admin") {
-        return (
-          <Route path={prop.path} element={prop.component} key={key} exact />
-        );
-      } else {
-        return null;
-      }
-    });
-  };
-
-  const getBrandText = (path) => {
+  const getBrandText = () => {
     for (let i = 0; i < routes.length; i++) {
       if (
         props?.location?.pathname.indexOf(routes[i].layout + routes[i].path) !==
@@ -60,12 +47,7 @@ const Admin = (props) => {
           {...props}
           brandText={getBrandText(props?.location?.pathname)}
         />
-        
-        <Routes>
-          {getRoutes(routes)}
-          <Route path="*" element={<Navigate to="/login" replace />} />
-        </Routes>
-
+        <Outlet />
         <Container fluid>
           <AdminFooter />
         </Container>

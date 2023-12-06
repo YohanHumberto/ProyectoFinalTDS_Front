@@ -20,7 +20,7 @@ const Login = () => {
 
     if (cedula == "") return alert("Debe completar el campo cedula");;
     let res = await loginElector(cedula);
-
+console.log(res)
     if (res?.status?.toString().substring(0, 1) == 2) {
       window.localStorage.setItem("token", res.data.token);
       window.localStorage.setItem("ciudadano", JSON.stringify(res.data));
