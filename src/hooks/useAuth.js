@@ -42,6 +42,8 @@ function useAuth() {
     const LogoutElector = () => {
         localStorage.removeItem("token");
         localStorage.removeItem("votos");
+        localStorage.removeItem("cedula");
+        localStorage.removeItem("ciudadano");
         swal("Votación completada", "¡Has completado la votación exitosamente! Gracias por tu participación.", "success");
     }
 

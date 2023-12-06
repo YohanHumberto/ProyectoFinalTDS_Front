@@ -54,12 +54,13 @@ const NivelesElectorales = ({ nivel }) => {
         let data = await obtenerEleccionesPorFecha("2023-11-15T00:00:00");
         console.log(data)
         setEleccion(data);
-        return data.candidaturas.filter(x => x.nivelElectoral.nombre == nivel);
+        let provincia = JSON.parse(localStorage.getItem("ciudadano"))?.provincia;
+        return data.candidaturas.filter(x => x.nivelElectoral.nombre == nivel).filter(x => x.provincia == provincia || nivel == "Presidencial");
     }
 
     let GetCandidaturaPorNivelElectoral = async () => {
         let data = await getCandidaturasPorNivel();
-        console.log(data);
+        // console.log(data);
 
         if (nivel === "Diputación") {
             let ordenado = [];
@@ -79,7 +80,6 @@ const NivelesElectorales = ({ nivel }) => {
         } else if (nivel === "Municipal") {
             let ordenado = [];
             data.forEach((item, index) => {
-                console.log(item)
                 let Index = ordenado.findIndex(x => x.idpartido == item.candidato.partido.id);
                 if (Index == -1) {
                     ordenado.push({
