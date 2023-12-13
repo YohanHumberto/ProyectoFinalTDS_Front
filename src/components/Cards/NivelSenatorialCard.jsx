@@ -1,8 +1,7 @@
 const NivelSenatorialCard = ({ item }) => {
 
     let carStyle = {
-        width: "220px",
-        height: "250PX  ",
+        width: "260px",
     }
 
     let logoimg = {

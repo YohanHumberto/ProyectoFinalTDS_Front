@@ -62,22 +62,23 @@ const NivelesElectorales = ({ nivel }) => {
         let data = await getCandidaturasPorNivel();
         // console.log(data);
 
-        if (nivel === "Diputación") {
-            let ordenado = [];
-            data.forEach((item, index) => {
-                let Index = ordenado.findIndex(x => x.idpartido == item.candidato.partido.id);
-                if (Index == -1) {
-                    ordenado.push({
-                        idpartido: item.candidato.partido.id,
-                        candidaturas: [item]
-                    });
-                } else {
-                    ordenado[Index].candidaturas.push(item);
-                }
-            });
-            setCandidaturas(ordenado);
-            console.log(ordenado)
-        } else if (nivel === "Municipal") {
+        // if (nivel === "Diputación") {
+        //     let ordenado = [];
+        //     data.forEach((item, index) => {
+        //         let Index = ordenado.findIndex(x => x.idpartido == item.candidato.partido.id);
+        //         if (Index == -1) {
+        //             ordenado.push({
+        //                 idpartido: item.candidato.partido.id,
+        //                 candidaturas: [item]
+        //             });
+        //         } else {
+        //             ordenado[Index].candidaturas.push(item);
+        //         }
+        //     });
+        //     setCandidaturas(ordenado);
+        //     console.log(ordenado)
+        // } else
+         if (nivel === "Municipal") {
             let ordenado = [];
             data.forEach((item, index) => {
                 let Index = ordenado.findIndex(x => x.idpartido == item.candidato.partido.id);
