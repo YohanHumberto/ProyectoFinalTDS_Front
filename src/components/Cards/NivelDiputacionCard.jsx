@@ -5,7 +5,10 @@ const NivelDiputacionCard = ({ item }) => {
     let { candidaturas } = item;
 
     useEffect(() => {
-        console.log(item);
+        const ciudadano = JSON.parse(localStorage.getItem("ciudadano"));
+        ciudadano.circunscripcion = candidaturas[0]?.circunscripcion;
+        localStorage.setItem("ciudadano", JSON.stringify(ciudadano));
+
         console.log(candidaturas);
     }, []);
 

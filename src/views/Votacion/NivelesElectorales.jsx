@@ -38,7 +38,7 @@ let row = {
 
 const NivelesElectorales = ({ nivel }) => {
 
-    const { obtenerCandidaturaPorNivelElectoral, obtenerEleccionesPorFecha } = useContext(DataContext);
+    const { obtenerEleccionesPorFecha } = useContext(DataContext);
     const [candidaturas, setCandidaturas] = useState([]);
     const [eleccion, setEleccion] = useState([]);
     const navigation = useNavigate();
