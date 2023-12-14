@@ -10,7 +10,6 @@ class ProvinciasService extends BaseService {
 
   async obtenerPorId(id) {
     const token = window.localStorage.getItem('token');
-    //console.log('Token GET (ProvinciasService):', token);
     const res = await fetch(`${this.baseUrl}/${id}`, {
       headers: {
         'Authorization': 'Bearer ' + token,

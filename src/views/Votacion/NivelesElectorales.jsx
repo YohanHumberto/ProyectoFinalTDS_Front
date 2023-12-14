@@ -51,8 +51,8 @@ const NivelesElectorales = ({ nivel }) => {
     }
 
     async function getCandidaturasPorNivel() {
-        let data = await obtenerEleccionesPorFecha("2023-11-15T00:00:00");
-        console.log(data)
+        const { FECHA_ACTUAL } = await fetch("../../config.json").then(res => res.json());
+        let data = await obtenerEleccionesPorFecha(FECHA_ACTUAL);
         setEleccion(data);
         let provincia = JSON.parse(localStorage.getItem("ciudadano"))?.provincia;
         return data.candidaturas.filter(x => x.nivelElectoral.nombre == nivel).filter(x => x.provincia == provincia || nivel == "Presidencial");
@@ -60,24 +60,6 @@ const NivelesElectorales = ({ nivel }) => {
 
     let GetCandidaturaPorNivelElectoral = async () => {
         let data = await getCandidaturasPorNivel();
-        // console.log(data);
-
-        // if (nivel === "Diputación") {
-        //     let ordenado = [];
-        //     data.forEach((item, index) => {
-        //         let Index = ordenado.findIndex(x => x.idpartido == item.candidato.partido.id);
-        //         if (Index == -1) {
-        //             ordenado.push({
-        //                 idpartido: item.candidato.partido.id,
-        //                 candidaturas: [item]
-        //             });
-        //         } else {
-        //             ordenado[Index].candidaturas.push(item);
-        //         }
-        //     });
-        //     setCandidaturas(ordenado);
-        //     console.log(ordenado)
-        // } else
          if (nivel === "Municipal") {
             let ordenado = [];
             data.forEach((item, index) => {
@@ -93,9 +75,7 @@ const NivelesElectorales = ({ nivel }) => {
             });
 
             setCandidaturas(ordenado);
-            console.log(ordenado)
         } else {
-            console.log(data);
             setCandidaturas(data);
         }
     }

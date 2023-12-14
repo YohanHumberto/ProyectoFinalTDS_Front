@@ -6,7 +6,6 @@ class BaseService {
 
     async obtener(searchString) {
         const token = window.localStorage.getItem("token");
-        console.log("Token GET:", token);
         const res = await fetch(this.baseUrl + `?search=${searchString}`, {
             headers: {
                 'Authorization': "Bearer " + token,
@@ -18,7 +17,6 @@ class BaseService {
 
     async agregar(entity) {
         const token = window.localStorage.getItem("token");
-        console.log("Token POST:", token);
         const res = await fetch(this.baseUrl, {
             method: "POST",
             body: JSON.stringify(entity),
@@ -32,7 +30,6 @@ class BaseService {
 
     async editar(entity) {
         const token = window.localStorage.getItem("token");
-        console.log("Token PUT:", token);
         const res = await fetch(`${this.baseUrl}/${entity.id}`, {
             method: "PUT",
             body: JSON.stringify(entity),
@@ -46,7 +43,6 @@ class BaseService {
 
     async eliminar(id) {
         const token = window.localStorage.getItem("token");
-        console.log("Token PUT:", token);
         const res = await fetch(`${this.baseUrl}/${id}`, {
             method: "DELETE",
             headers: {

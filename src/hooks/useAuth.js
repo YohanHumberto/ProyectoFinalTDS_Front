@@ -1,10 +1,12 @@
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import { DataContextAlerts } from '../context/AlertContext';
 import useHandleStatusCode from '../helpers/HandleStatusCode';
 import AuthService from '../services/AuthService';
-import { useNavigate } from 'react-router-dom';
 import swal from 'sweetalert';
 import { jwtDecode } from 'jwt-decode';
+// import  "../../config.json";
+import EleccionesService from '../services/EleccionesService';
+import VotoService from '../services/VotoService';
 
 function useAuth() {
 
@@ -12,11 +14,25 @@ function useAuth() {
     const { OnHandleStatusCode } = useHandleStatusCode();
 
     let service = new AuthService();
+    let eleccionesService = new EleccionesService();
+    let votoService = new VotoService();
 
     const loginElector = async (credentencials) => {
         try {
             var res = await service.loginElector(credentencials);
             OnHandleStatusCode(res);
+
+            if (res.ok) {
+                const token = res.data.token;
+
+                const { FECHA_ACTUAL } = await fetch("../../config.json").then(res => res.json());
+                let eleccion = await eleccionesService.obtenerPorFecha(FECHA_ACTUAL, token);
+                var existeVoto = await votoService.validarVotoExistente({
+                    "cedula": credentencials,
+                    "idEleccion": eleccion?.data?.id
+                }, token);
+                res.existeVoto = existeVoto;
+            }
             return res;
         } catch (error) {
             console.log(error);
@@ -52,7 +68,7 @@ function useAuth() {
 
     const seccionIsValid = () => {
         const token = localStorage.getItem("token");
-        if(!token) return false;
+        if (!token) return false;
 
         const decoded = jwtDecode(token);
         const exp = decoded.exp * 1000;

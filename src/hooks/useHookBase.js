@@ -54,7 +54,6 @@ function useHookBase({ Warning, Danger, Info, Success }, service, setData, setLo
         try {
             var res = await service.eliminar(id);
             OnHandleStatusCode(res);
-            console.log(res);
             Success("El recurso ha sido eliminado correctamente.");
             cargarDatos();
         } catch (error) {

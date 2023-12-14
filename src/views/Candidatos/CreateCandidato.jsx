@@ -31,9 +31,7 @@ const CreateCandidato = () => {
 
     const HandleSumbit = (e) => {
         e.preventDefault();
-        console.log(candidato);
         if (candidato.nombre != "" && candidato.apellido !== ""  && candidato.cedula !== "" && candidato.idCargoElectoral !== "" && candidato.idPartido !== "" && candidato.fotoUrl !== "") {
-            console.log("submit")
             agregarCandidato(candidato);
             setCandidato(initialValuePartido)
             setState(false);

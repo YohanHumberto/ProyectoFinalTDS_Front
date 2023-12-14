@@ -9,7 +9,6 @@ class CargosElectoralesService extends BaseService {
 
     async obtenerPorId(id) {
         const token = window.localStorage.getItem("token");
-        //console.log("Token GET (CargosElectoralesService):", token);
         const res = await fetch(`${this.baseUrl}/${id}`, {
             headers: {
                 'Authorization': "Bearer " + token,

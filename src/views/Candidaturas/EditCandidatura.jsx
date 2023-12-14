@@ -150,7 +150,6 @@ const EditCandidatura = ({ stateprop, id, setEditModal }) => {
           candidato.cargoElectoral.nombre === cargoElectoral[1] /* &&
           !candidaturas.some((c) => c.viceCandidato?.id === candidato.id) */
       );
-      console.log({ candi });
       setCandidato(candi);
       setViceCandidato(vice);
     }
@@ -245,7 +244,6 @@ const EditCandidatura = ({ stateprop, id, setEditModal }) => {
       setRCircunscripcion((s) =>
         candidaturasFinded.circunscripcion ? true : false
       ); */
-      console.log(candidaturasFinded.nivelElectoral?.id);
       filterCandidatos(
         cambiarCandidatosNum(candidaturasFinded.nivelElectoral?.id)
       );
@@ -261,8 +259,6 @@ const EditCandidatura = ({ stateprop, id, setEditModal }) => {
 
   /* TODO: cambiar la condicion para cada nivel electoral */
   const HandleSumbit = (e) => {
-    console.log(candidatura);
-    console.log(rViceCandidato);
     e.preventDefault();
     for (let key in candidatura) {
       if (candidatura[key] === 0) {
@@ -455,8 +451,6 @@ const EditCandidatura = ({ stateprop, id, setEditModal }) => {
                       setRViceCandidato(false);
                       setFViceCandidato(0);
                       candidatura.idViceCandidato = 0;
-                      console.log('entre');
-                      console.log(candidatura);
                     }
                   }}
                   onClick={(e) => console.log(fCandidato)}

@@ -9,7 +9,6 @@ class PartidoService extends BaseService {
 
     async obtenerPorSiglas(siglas) {
         const token = window.localStorage.getItem("token");
-        //console.log("Token GET (PartidoService):", token);
         const res = await fetch(`${this.baseUrl}/${siglas}`, {
             headers: {
                 'Authorization': 'Bearer ' + token,

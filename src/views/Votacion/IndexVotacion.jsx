@@ -60,7 +60,8 @@ const IndexVotacion = () => {
     const navigation = useNavigate();
 
     let getELeccion = async () => {
-        let data = await obtenerEleccionesPorFecha("2023-11-15T00:00:00");
+        const { FECHA_ACTUAL } = await fetch("../../config.json").then(res => res.json());
+        let data = await obtenerEleccionesPorFecha(FECHA_ACTUAL);
         setEleccion(data);
         setEstados({
             municipal: data.candidaturas.filter(x => x.nivelElectoral.nombre == "Municipal").length > 0,
@@ -91,8 +92,6 @@ const IndexVotacion = () => {
 
     useEffect(() => {
         getELeccion();
-        console.log(stados)
-        console.log(JSON.parse(window.localStorage.getItem("votos")))
     }, []);
 
     const HandleClickBtnSave = async () => {

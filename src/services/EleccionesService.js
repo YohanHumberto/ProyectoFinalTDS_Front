@@ -8,9 +8,8 @@ class EleccionesService extends BaseService {
     this.baseUrl = _baseUrl;
   }
 
-  async obtenerPorFecha(fecha) {
-    const token = window.localStorage.getItem('token');
-    //console.log('Token GET (EleccionesService):', token);
+  async obtenerPorFecha(fecha, token = "") {
+    if (token === "") token = window.localStorage.getItem('token');
     const res = await fetch(`${this.baseUrl}/${fecha}`, {
       headers: {
         'Authorization': 'Bearer ' + token,
@@ -22,7 +21,6 @@ class EleccionesService extends BaseService {
 
   async asignarCandidatura(candidatura) {
     const token = window.localStorage.getItem('token');
-    //console.log('Token POST (EleccionesService):', token);
     const res = await fetch(`${this.baseUrl}/agregar-candidatura`, {
       method: 'POST',
       body: JSON.stringify(candidatura),
@@ -36,7 +34,6 @@ class EleccionesService extends BaseService {
 
   async obtenerPorId(id) {
     const token = window.localStorage.getItem('token');
-    //console.log('Token GET (EleccionesService):', token);
     const res = await fetch(`${this.baseUrl}/${id}`, {
       headers: {
         'Authorization': 'Bearer ' + token,

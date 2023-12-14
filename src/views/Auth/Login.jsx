@@ -20,14 +20,15 @@ const Login = () => {
 
     if (cedula == "") return alert("Debe completar el campo cedula");;
     let res = await loginElector(cedula);
-console.log(res)
-    if (res?.status?.toString().substring(0, 1) == 2) {
+    if (res?.existeVoto) {
+      swal("Usted ya ejercicio su derecho al voto para esta eleccion.", "", "warning");
+    } else if (res?.status?.toString().substring(0, 1) == 2) {
       window.localStorage.setItem("token", res.data.token);
       window.localStorage.setItem("ciudadano", JSON.stringify(res.data));
       window.localStorage.setItem("cedula", cedula);
       navigation("/votacion/votaciones")
     } else {
-      swal("Cedula Invalida!","", "warning");
+      swal("Cedula Invalida!", "", "warning");
     }
   }
 
@@ -43,8 +44,8 @@ console.log(res)
               <div className="field was-validated">
                 <input type="text" className="cedula form-control validated" id="cedula" value={cedula} style={{ textAlign: "center" }}
                   onChange={(e) => setcedula(e.target.value.replace(/[^0-9]/g, ''))}
-                  placeholder="000 0000000 0" minLength={11} maxlength="11"
-                   />
+                  placeholder="000 0000000 0" minLength={11} maxLength={11}
+                />
                 <div className="invalid-feedback text-center">Cedula Incompleta</div>
               </div>
               <button className="btn" type="submit" value="Enviar">

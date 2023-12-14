@@ -25,7 +25,6 @@ const Edit = ({ stateprop, id, setEditModal }) => {
     const HandleSumbit = (e) => {
         e.preventDefault();
         if (partido.nombre != "" && partido.siglas != "" && partido.logoUrl != "") {
-            console.log("submmit")
             editarPartido(partido);
             setPartido(initialValuePartido)
             setState(false);

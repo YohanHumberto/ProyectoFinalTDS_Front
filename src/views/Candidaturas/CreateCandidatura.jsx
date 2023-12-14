@@ -134,7 +134,6 @@ const CreateCandidatura = () => {
           candidato.cargoElectoral.nombre === cargoElectoral[1] &&
           !candidaturas.some((c) => c.viceCandidato?.id === candidato.id)
       );
-      console.log({ candi });
       setCandidato(candi);
       setViceCandidato(vice);
     }

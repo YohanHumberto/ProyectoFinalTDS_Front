@@ -16,6 +16,18 @@ class VotoService {
         return res.json();
     }
 
+    async validarVotoExistente(datos, token) {
+        const res = await fetch(this.baseUrl + "/validar-votos-existente", {
+            method: "POST",
+            body: JSON.stringify(datos),
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': "Bearer " + token,
+            }
+        });
+        return await res.json();
+    }
+
 }
 
 export default VotoService;

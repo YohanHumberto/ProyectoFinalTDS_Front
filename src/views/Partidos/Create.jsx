@@ -23,7 +23,6 @@ const Create = () => {
     const HandleSumbit = (e) => {
         e.preventDefault();
         if (partido.nombre != "" && partido.siglas != "" && partido.logoUrl != "") {
-            console.log("submmit")
             agregarPartido(partido);
             setPartido(initialValuePartido)
             setState(false);

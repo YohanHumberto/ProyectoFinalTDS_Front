@@ -10,7 +10,6 @@ class CandidatoService extends BaseService {
 
     async obtenerPorSiglas(siglas) {
         const token = window.localStorage.getItem("token");
-        //console.log("Token GET (CandidatoService):", token);
         const res = await fetch(`${this.baseUrl}/${siglas}`, {
             headers: {
                 'Authorization': "Bearer " + token,

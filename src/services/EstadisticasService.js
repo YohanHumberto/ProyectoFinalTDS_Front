@@ -18,7 +18,6 @@ class EstadisticasService {
   }
 
   async votosPorMunicipio(search = '') {
-    console.log(search);
     const token = window.localStorage.getItem('token');
     const res = await fetch(
       this.baseUrl + '/votos-por-municipio?provincia=' + search,

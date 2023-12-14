@@ -10,7 +10,6 @@ class CandidaturaService extends BaseService {
 
     async obtenerPorNivelElectoral(nivelElectoral) {
         const token = window.localStorage.getItem("token");
-        //console.log("Token GET (CandidaturaService):", token);
         const res = await fetch(`${this.baseUrl}/nivel-electoral/${nivelElectoral}`, {
             headers: {
                 'Authorization': "Bearer " + token,
