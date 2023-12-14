@@ -149,39 +149,61 @@ const ListaCandidatura = ({ stateprop, data, setListModal }) => {
                   </select>
                 </Col>
                 <Col>
-                  <Pagination
-                    className="pagination justify-content-end mt-3"
-                    listClassName="justify-content-end"
-                  >
-                    {currentPage !== 1 && (
-                      <PaginationItem>
+                    <Pagination
+                      className="pagination justify-content-end mt-3"
+                      listClassName="justify-content-end"
+                    >
+                       {currentPage !== 1 && (
+                        <PaginationItem>
+                          <PaginationLink
+                            onClick={() => handlePageChange(1)}
+                            first
+                          />
+                        </PaginationItem>
+                      )}
+                      {currentPage !== 1 && (
+                        <PaginationItem>
+                          <PaginationLink
+                            onClick={() => handlePageChange(currentPage - 1)}
+                            previous
+                          />
+                        </PaginationItem>
+                      )}
+                      <PaginationItem className="">
                         <PaginationLink
-                          onClick={() => handlePageChange(currentPage - 1)}
-                          previous
-                        />
+                          href="#pablo"
+                          onClick={(e) => e.preventDefault()}
+                          className="bg-info text-white"
+                        >
+                          {currentPage}
+                        </PaginationLink>
                       </PaginationItem>
-                    )}
-                    <PaginationItem className="active">
-                      <PaginationLink
-                        href="#pablo"
-                        onClick={(e) => e.preventDefault()}
-                      >
-                        {currentPage}
-                      </PaginationLink>
-                    </PaginationItem>
-                    {currentPage <
-                      Math.ceil(
-                        Array.from(candidatura).length / itemsPerPage
-                      ) && (
-                      <PaginationItem>
-                        <PaginationLink
-                          onClick={() => handlePageChange(currentPage + 1)}
-                          next
-                        />
-                      </PaginationItem>
-                    )}
-                  </Pagination>
-                </Col>
+                      {currentPage !==
+                        Math.ceil(
+                          Array.from(candidatura).length / itemsPerPage
+                        ) && (
+                        <PaginationItem>
+                          <PaginationLink
+                            onClick={() => handlePageChange(currentPage + 1)}
+                            next
+                          />
+                        </PaginationItem>
+                      )}
+                      {currentPage !==
+                        Math.ceil(
+                          Array.from(candidatura).length / itemsPerPage
+                        ) && (
+                        <PaginationItem>
+                          <PaginationLink
+                            onClick={() => handlePageChange(Math.ceil(
+                              Array.from(candidatura).length / itemsPerPage
+                            ))}
+                            last
+                          />
+                        </PaginationItem>
+                      )}
+                    </Pagination>
+                  </Col>
               </Row>
             </CardFooter>
           </Card>

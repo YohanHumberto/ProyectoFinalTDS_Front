@@ -1,7 +1,6 @@
-
-import { useState } from "react";
-import { NavLink as NavLinkRRD, Link } from "react-router-dom";
-import { PropTypes } from "prop-types";
+import { useState } from 'react';
+import { NavLink as NavLinkRRD, Link } from 'react-router-dom';
+import { PropTypes } from 'prop-types';
 import {
   Button,
   Card,
@@ -30,7 +29,7 @@ import {
   Container,
   Row,
   Col,
-} from "reactstrap";
+} from 'reactstrap';
 
 var ps;
 
@@ -38,7 +37,7 @@ const Sidebar = (props) => {
   const [collapseOpen, setCollapseOpen] = useState();
   // verifies if routeName is the one active (in browser input)
   const activeRoute = (routeName) => {
-    return props.location.pathname.indexOf(routeName) > -1 ? "active" : "";
+    return props.location.pathname.indexOf(routeName) > -1 ? 'active' : '';
   };
   // toggles collapse between opened and closed (true/false)
   const toggleCollapse = () => {
@@ -76,7 +75,7 @@ const Sidebar = (props) => {
   } else if (logo && logo.outterLink) {
     navbarBrandProps = {
       href: logo.outterLink,
-      target: "_blank",
+      target: '_blank',
     };
   }
 
@@ -97,13 +96,12 @@ const Sidebar = (props) => {
         </button>
         {/* Brand */}
         {logo ? (
-          <NavbarBrand className="pt-0" {...navbarBrandProps}>
-            <img
-              alt={logo.imgAlt}
-              className="navbar-brand-img"
-              src={logo.imgSrc}
-            />
-          </NavbarBrand>
+          <img
+            alt={logo.imgAlt}
+            className="ml-5"
+            src={logo.imgSrc}
+            width={'100px'}
+          />
         ) : null}
         {/* User */}
         <Nav className="align-items-center d-md-none">
@@ -128,7 +126,7 @@ const Sidebar = (props) => {
                 <span className="avatar avatar-sm rounded-circle">
                   <img
                     alt="..."
-                    src={require("../../assets/img/theme/team-1-800x800.jpg")}
+                    src={require('../../assets/img/theme/team-1-800x800.jpg')}
                   />
                 </span>
               </Media>
@@ -230,7 +228,7 @@ const Sidebar = (props) => {
             <NavItem className="active-pro active">
               <NavLink href="#">
                 <i className="ni ni-spaceship" />
-                Hi!
+                Bienvenidos!!
               </NavLink>
             </NavItem>
           </Nav>

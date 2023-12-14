@@ -52,6 +52,7 @@ const IndexElecciones = () => {
 
   const Search = (searchString) => {
     cargarElecciones(searchString);
+    setCurrentPage(1);
   };
 
   return (
@@ -169,6 +170,14 @@ const IndexElecciones = () => {
                       className="pagination justify-content-end mt-3"
                       listClassName="justify-content-end"
                     >
+                       {currentPage !== 1 && (
+                        <PaginationItem>
+                          <PaginationLink
+                            onClick={() => handlePageChange(1)}
+                            first
+                          />
+                        </PaginationItem>
+                      )}
                       {currentPage !== 1 && (
                         <PaginationItem>
                           <PaginationLink
@@ -177,10 +186,11 @@ const IndexElecciones = () => {
                           />
                         </PaginationItem>
                       )}
-                      <PaginationItem className="active">
+                      <PaginationItem className="">
                         <PaginationLink
                           href="#pablo"
                           onClick={(e) => e.preventDefault()}
+                          className="bg-info text-white"
                         >
                           {currentPage}
                         </PaginationLink>
@@ -193,6 +203,19 @@ const IndexElecciones = () => {
                           <PaginationLink
                             onClick={() => handlePageChange(currentPage + 1)}
                             next
+                          />
+                        </PaginationItem>
+                      )}
+                      {currentPage !==
+                        Math.ceil(
+                          Array.from(elecciones).length / itemsPerPage
+                        ) && (
+                        <PaginationItem>
+                          <PaginationLink
+                            onClick={() => handlePageChange(Math.ceil(
+                              Array.from(elecciones).length / itemsPerPage
+                            ))}
+                            last
                           />
                         </PaginationItem>
                       )}

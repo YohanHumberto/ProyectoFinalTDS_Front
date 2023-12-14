@@ -58,6 +58,7 @@ const IndexCandidatos = () => {
 
   const Search = (searchString) => {
     cargarCandidatos(searchString);
+    setCurrentPage(1);
   };
 
   return (
@@ -89,11 +90,11 @@ const IndexCandidatos = () => {
               <Table className="align-items-center table-flush" responsive>
                 <thead className="thead-light">
                   <tr>
-                    <th scope="col">Id</th>
+                    <th scope="col">Perfil</th>
                     <th scope="col">Nombre</th>
                     <th scope="col">Cargo Electoral</th>
                     <th scope="col">Partido</th>
-                    <th scope="col">Cedula</th>
+                    {/* <th scope="col">Cedula</th> */}
                     <th scope="col">Acciones</th>
                   </tr>
                 </thead>
@@ -115,17 +116,12 @@ const IndexCandidatos = () => {
                               >
                                 <img alt="..." src={item.fotoUrl} />
                               </a>
-                              <Media>
-                                <span className="mb-0 text-sm">{item.id}</span>
-                              </Media>
                             </Media>
                           </th>
-                          <td>
-                            {item.nombre+' '+item.apellido}
-                          </td>
+                          <td>{item.nombre + ' ' + item.apellido}</td>
                           <td>{item.cargoElectoral.nombre}</td>
-                          <td>{item.partido.nombre}</td>
-                          <td>{item.cedula}</td>
+                          <td>{item.partido.siglas}</td>
+                          {/* <td>{item.cedula}</td> */}
                           <td className="text-right">
                             <UncontrolledDropdown>
                               <DropdownToggle
@@ -197,6 +193,14 @@ const IndexCandidatos = () => {
                       className="pagination justify-content-end mt-3"
                       listClassName="justify-content-end"
                     >
+                       {currentPage !== 1 && (
+                        <PaginationItem>
+                          <PaginationLink
+                            onClick={() => handlePageChange(1)}
+                            first
+                          />
+                        </PaginationItem>
+                      )}
                       {currentPage !== 1 && (
                         <PaginationItem>
                           <PaginationLink
@@ -205,10 +209,11 @@ const IndexCandidatos = () => {
                           />
                         </PaginationItem>
                       )}
-                      <PaginationItem className="active">
+                      <PaginationItem className="">
                         <PaginationLink
                           href="#pablo"
                           onClick={(e) => e.preventDefault()}
+                          className="bg-info text-white"
                         >
                           {currentPage}
                         </PaginationLink>
@@ -221,6 +226,19 @@ const IndexCandidatos = () => {
                           <PaginationLink
                             onClick={() => handlePageChange(currentPage + 1)}
                             next
+                          />
+                        </PaginationItem>
+                      )}
+                      {currentPage !==
+                        Math.ceil(
+                          Array.from(candidatos).length / itemsPerPage
+                        ) && (
+                        <PaginationItem>
+                          <PaginationLink
+                            onClick={() => handlePageChange(Math.ceil(
+                              Array.from(candidatos).length / itemsPerPage
+                            ))}
+                            last
                           />
                         </PaginationItem>
                       )}

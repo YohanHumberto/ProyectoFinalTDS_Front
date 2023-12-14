@@ -23,7 +23,7 @@ import CustomAlert from "../Alerts/CustomAlert";
 const Header = () => {
   return (
     <>
-      <div className="header bg-gradient-info pb-8 pt-5 pt-md-8">
+      <div className="header bg-info pb-8 pt-5 pt-md-8">
         <Container fluid>
           <div className="header-body">
             {/* Card stats */}

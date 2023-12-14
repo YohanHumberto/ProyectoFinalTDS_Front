@@ -53,6 +53,7 @@ const IndexCandidatura = () => {
 
   const Search = (searchString) => {
     cargarCandidaturas(searchString);
+    setCurrentPage(1);
   };
 
   return (
@@ -84,12 +85,12 @@ const IndexCandidatura = () => {
               <Table className="align-items-center table-flush" responsive>
                 <thead className="thead-light">
                   <tr>
-                    <th scope="col">Id</th>
+                    {/* <th scope="col">Id</th> */}
                     <th scope="col">NivelElectoral</th>
-                    <th scope="col">Cargo</th>
                     <th scope="col">Candidato</th>
-                    <th scope="col">Cargo Vice</th>
+                    <th scope="col">Cargo</th>
                     <th scope="col">Vice candidato</th>
+                    <th scope="col">Cargo Vice</th>
                     <th scope="col">Provincia</th>
                     <th scope="col">Municipio</th>
                     <th scope="col">circunscripcion</th>
@@ -105,24 +106,24 @@ const IndexCandidatura = () => {
                     .map((item) => {
                       return (
                         <tr key={item.id}>
-                          <th>{item.id}</th>
+                          {/* <th>{item.id}</th> */}
                           <th scope="row">{item.nivelElectoral.nombre}</th>
-                          <td>{item.candidato?.cargoElectoral.nombre}</td>
                           <td>
                             {item.candidato?.nombre +
                               ' ' +
                               item.candidato?.apellido}
                           </td>
-                          <td>
-                            {item.viceCandidato?.nombre !== undefined
-                              ? item.viceCandidato?.cargoElectoral.nombre
-                              : nullFieldContent}
-                          </td>
+                          <td>{item.candidato?.cargoElectoral.nombre}</td>
                           <td>
                             {item.viceCandidato?.nombre !== undefined
                               ? item.viceCandidato?.nombre +
                                 ' ' +
                                 item.viceCandidato?.apellido
+                              : nullFieldContent}
+                          </td>
+                          <td>
+                            {item.viceCandidato?.nombre !== undefined
+                              ? item.viceCandidato?.cargoElectoral.nombre
                               : nullFieldContent}
                           </td>
 
@@ -214,6 +215,14 @@ const IndexCandidatura = () => {
                       className="pagination justify-content-end mt-3"
                       listClassName="justify-content-end"
                     >
+                       {currentPage !== 1 && (
+                        <PaginationItem>
+                          <PaginationLink
+                            onClick={() => handlePageChange(1)}
+                            first
+                          />
+                        </PaginationItem>
+                      )}
                       {currentPage !== 1 && (
                         <PaginationItem>
                           <PaginationLink
@@ -222,10 +231,11 @@ const IndexCandidatura = () => {
                           />
                         </PaginationItem>
                       )}
-                      <PaginationItem className="active">
+                      <PaginationItem className="">
                         <PaginationLink
                           href="#pablo"
                           onClick={(e) => e.preventDefault()}
+                          className="bg-info text-white"
                         >
                           {currentPage}
                         </PaginationLink>
@@ -238,6 +248,19 @@ const IndexCandidatura = () => {
                           <PaginationLink
                             onClick={() => handlePageChange(currentPage + 1)}
                             next
+                          />
+                        </PaginationItem>
+                      )}
+                      {currentPage !==
+                        Math.ceil(
+                          Array.from(candidaturas).length / itemsPerPage
+                        ) && (
+                        <PaginationItem>
+                          <PaginationLink
+                            onClick={() => handlePageChange(Math.ceil(
+                              Array.from(candidaturas).length / itemsPerPage
+                            ))}
+                            last
                           />
                         </PaginationItem>
                       )}

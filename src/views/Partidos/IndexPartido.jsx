@@ -49,6 +49,7 @@ const IndexPartido = () => {
 
   const Search = (searchString) => {
     cargarPartidos(searchString);
+    setCurrentPage(1);
   };
 
   useEffect(() => {
@@ -86,7 +87,7 @@ const IndexPartido = () => {
                   <tr>
                     <th scope="col">Nombre</th>
                     <th scope="col">Siglas</th>
-                    <th scope="col">Status</th>
+                    {/* <th scope="col">Status</th> */}
                     {/* <th scope="col">Users</th> */}
                     {/* <th scope="col">Completion</th>  */}
                     <th scope="col">Acciones</th>
@@ -118,12 +119,12 @@ const IndexPartido = () => {
                             </Media>
                           </th>
                           <td>{item.siglas}</td>
-                          <td>
+                          {/* <td>
                             <Badge color="" className="badge-dot mr-4">
                               <i className="bg-warning" />
                               {item.id}
                             </Badge>
-                          </td>
+                          </td> */}
                           <td className="text-right">
                             <UncontrolledDropdown>
                               <DropdownToggle
@@ -195,6 +196,14 @@ const IndexPartido = () => {
                       className="pagination justify-content-end mt-3"
                       listClassName="justify-content-end"
                     >
+                       {currentPage !== 1 && (
+                        <PaginationItem>
+                          <PaginationLink
+                            onClick={() => handlePageChange(1)}
+                            first
+                          />
+                        </PaginationItem>
+                      )}
                       {currentPage !== 1 && (
                         <PaginationItem>
                           <PaginationLink
@@ -203,10 +212,11 @@ const IndexPartido = () => {
                           />
                         </PaginationItem>
                       )}
-                      <PaginationItem className="active">
+                      <PaginationItem className="">
                         <PaginationLink
                           href="#pablo"
                           onClick={(e) => e.preventDefault()}
+                          className="bg-info text-white"
                         >
                           {currentPage}
                         </PaginationLink>
@@ -219,6 +229,19 @@ const IndexPartido = () => {
                           <PaginationLink
                             onClick={() => handlePageChange(currentPage + 1)}
                             next
+                          />
+                        </PaginationItem>
+                      )}
+                      {currentPage !==
+                        Math.ceil(
+                          Array.from(partidos).length / itemsPerPage
+                        ) && (
+                        <PaginationItem>
+                          <PaginationLink
+                            onClick={() => handlePageChange(Math.ceil(
+                              Array.from(partidos).length / itemsPerPage
+                            ))}
+                            last
                           />
                         </PaginationItem>
                       )}
